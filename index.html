@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#020810">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Vitalis Coordis — Human Optimization OS</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    background: #020810;
+    color: #fff;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body {
+    min-height: 100vh;
+    padding-bottom: 88px; /* room for bottom nav */
+  }
+  .app {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 16px;
+    padding-top: env(safe-area-inset-top, 0);
+  }
+
+  /* ======= Header ======= */
+  .app-header {
+    padding: 20px 4px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .app-header h1 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: #fff;
+  }
+  .app-header .sub {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+  }
+  .live-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid rgba(34,212,126,0.4);
+    background: rgba(34,212,126,0.1);
+    color: #22d47e;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    border-radius: 999px;
+  }
+  .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #22d47e;
+    box-shadow: 0 0 8px #22d47e;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.45} }
+
+  /* ======= Cards ======= */
+  .card {
+    background: #0d1f35;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    color: #00e5cc;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin: 20px 4px 10px;
+  }
+  .section-sub {
+    color: rgba(255,255,255,0.5);
+    font-size: 11px;
+    margin: -6px 4px 10px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ======= Stat cards row ======= */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .stat {
+    background: #0d1f35;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 10px 6px;
+    text-align: center;
+    min-height: 64px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+  }
+  .stat .label {
+    font-size: 8.5px;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .stat .val {
+    font-size: 16px;
+    font-weight: 800;
+    color: #00e5cc;
+  }
+
+  /* ======= Score block ======= */
+  .score-card {
+    text-align: center;
+    padding: 24px 16px;
+    background: radial-gradient(ellipse at top, rgba(0,229,204,0.12), transparent 60%), #0d1f35;
+  }
+  .score-value {
+    font-size: 72px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #00e5cc;
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(0,229,204,0.5);
+  }
+  .loop-badge {
+    display: inline-flex;
+    margin-top: 10px;
+    padding: 5px 14px;
+    border: 1px solid rgba(34,212,126,0.4);
+    background: rgba(34,212,126,0.1);
+    color: #22d47e;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    border-radius: 999px;
+  }
+  .score-meta {
+    margin-top: 10px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.06em;
+  }
+
+  /* ======= Controller bars ======= */
+  .ctrl-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .ctrl-row:last-child { border-bottom: none; }
+  .ctrl-abbr {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    width: 38px;
+    color: #fff;
+  }
+  .ctrl-name {
+    flex: 1;
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+  }
+  .ctrl-bar-wrap {
+    flex: 1.6;
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+  }
+  .ctrl-bar {
+    height: 100%;
+    width: 100%;
+    border-radius: 999px;
+    transition: width .8s ease;
+  }
+  .ctrl-score {
+    font-size: 12px;
+    font-weight: 800;
+    color: #00e5cc;
+    min-width: 36px;
+    text-align: right;
+  }
+
+  /* ======= Biometric input ======= */
+  .bio-card {
+    padding: 14px 16px;
+  }
+  .bio-title {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: #00e5cc;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .bio-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .bio-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    flex: 1 1 auto;
+  }
+  .bio-btn {
+    background: #00e5cc;
+    color: #001814;
+    border: none;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    padding: 10px 18px;
+    border-radius: 8px;
+    min-height: 44px;
+    cursor: pointer;
+  }
+  .bio-slots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .bio-slot {
+    background: rgba(0,0,0,0.25);
+    border: 1px dashed rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 10px 6px;
+    text-align: center;
+  }
+  .bio-slot .lbl {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .bio-slot .val {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* ======= 5-Flow card ======= */
+  .flow-card {
+    padding: 18px 14px;
+  }
+  .flow-chain {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0 12px;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    flex: 1;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #00e5cc;
+    text-transform: uppercase;
+    min-width: 60px;
+    padding: 8px 4px;
+    border: 1px solid rgba(0,229,204,0.2);
+    border-radius: 6px;
+    background: rgba(0,229,204,0.05);
+  }
+  .flow-arrow {
+    color: rgba(0,229,204,0.5);
+    font-size: 14px;
+  }
+  .flow-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+  }
+
+  /* ======= HOS tab ======= */
+  .page-title {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    margin: 18px 4px 4px;
+  }
+  .page-subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    margin: 0 4px 16px;
+    letter-spacing: 0.06em;
+  }
+  .proto-card {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+  }
+  .proto-num {
+    min-width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: rgba(0,229,204,0.12);
+    color: #00e5cc;
+    font-weight: 800;
+    font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+    letter-spacing: 0.02em;
+  }
+  .proto-body { flex: 1; }
+  .proto-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .proto-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 6px;
+  }
+  .proto-tag {
+    display: inline-block;
+    padding: 3px 8px;
+    background: rgba(0,229,204,0.1);
+    color: #00e5cc;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .collapsed-card {
+    padding: 16px;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+    font-size: 12px;
+    background: rgba(13,31,53,0.5);
+    border: 1px dashed rgba(255,255,255,0.1);
+  }
+
+  /* ======= Stack tab ======= */
+  .phase-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 22px 4px 10px;
+  }
+  .phase-title {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    color: #00e5cc;
+    text-transform: uppercase;
+  }
+  .phase-count {
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em;
+  }
+  .compound {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: #0d1f35;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+  .compound-body { flex: 1; min-width: 0; }
+  .compound-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3px;
+    line-height: 1.3;
+  }
+  .compound-desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.3;
+  }
+  .time-badge {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 4px 7px;
+    border-radius: 5px;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .time-AM  { background: rgba(245,166,35,0.15); color: #f5a623; }
+  .time-MID { background: rgba(181,123,238,0.15); color: #b57bee; }
+  .time-PM  { background: rgba(77,166,255,0.15);  color: #4da6ff; }
+  .check-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,229,204,0.4);
+    background: transparent;
+    color: #00e5cc;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .check-btn.taken {
+    background: #00e5cc;
+    color: #001814;
+    border-color: #00e5cc;
+  }
+
+  /* ======= Intake tab ======= */
+  .intake-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: #0d1f35;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    margin-bottom: 6px;
+    min-height: 48px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .intake-check {
+    width: 22px; height: 22px;
+    border-radius: 5px;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    color: transparent;
+  }
+  .intake-item.checked .intake-check {
+    background: #00e5cc;
+    border-color: #00e5cc;
+    color: #001814;
+  }
+  .intake-item.checked .intake-name {
+    color: rgba(255,255,255,0.55);
+    text-decoration: line-through;
+  }
+  .intake-name {
+    flex: 1;
+    font-size: 13px;
+    color: #fff;
+  }
+  .intake-time {
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em;
+  }
+  .log-btn {
+    width: 100%;
+    min-height: 52px;
+    background: #00e5cc;
+    color: #001814;
+    border: none;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    margin-top: 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .log-btn:active { transform: scale(0.98); }
+
+  /* ======= Footer ======= */
+  .app-footer {
+    margin-top: 40px;
+    padding: 20px 12px 16px;
+    text-align: center;
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.08em;
+    line-height: 1.6;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  /* ======= Pages / Transitions ======= */
+  .page { display: none; animation: fadeIn .25s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ======= Bottom nav ======= */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(2,8,16,0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    z-index: 100;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .bottom-nav-inner {
+    max-width: 480px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .nav-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.45);
+    padding: 10px 4px 12px;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    min-height: 60px;
+    cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: color .2s ease;
+  }
+  .nav-btn .icon {
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    opacity: 0.9;
+  }
+  .nav-btn.active {
+    color: #00e5cc;
+  }
+  .nav-btn.active .icon {
+    filter: drop-shadow(0 0 6px rgba(0,229,204,0.5));
+  }
+
+  /* ======= RX Log placeholder ======= */
+  .placeholder-card {
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .placeholder-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    opacity: 0.4;
+  }
+  .placeholder-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 380px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .score-value { font-size: 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ======= PAGE: SYSTEM ======= -->
+  <section class="page active" id="page-system" data-page="system">
+    <header class="app-header">
+      <h1>VITALIS COORDIS</h1>
+      <div class="sub">Human Optimization Operating System</div>
+      <div class="live-row">
+        <span class="live-badge"><span class="live-dot"></span> LIVE</span>
+      </div>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat"><div class="label">Daily Stack</div><div class="val">34</div></div>
+      <div class="stat"><div class="label">Ctrl Cells</div><div class="val">34/34</div></div>
+      <div class="stat"><div class="label">Avg Depth</div><div class="val">2.1×</div></div>
+      <div class="stat"><div class="label">Peak Depth</div><div class="val">5×</div></div>
+    </div>
+
+    <div class="card score-card">
+      <div class="score-value">10++</div>
+      <div class="loop-badge">● LOOP CLOSED</div>
+      <div class="score-meta">34/34 cells covered · 6 controllers online</div>
+    </div>
+
+    <div class="section-title">6 Controllers</div>
+    <div class="card" id="controllers-card">
+      <!-- controllers injected here -->
+    </div>
+
+    <div class="section-title">Biometric Input · Sensor Layer</div>
+    <div class="card bio-card">
+      <div class="bio-row">
+        <div class="bio-text">Tap to enter readiness data</div>
+        <button class="bio-btn" id="bio-enter">ENTER</button>
+      </div>
+      <div class="bio-slots">
+        <div class="bio-slot"><div class="lbl">HRV MS</div><div class="val">—</div></div>
+        <div class="bio-slot"><div class="lbl">Recovery</div><div class="val">—</div></div>
+        <div class="bio-slot"><div class="lbl">Sleep %</div><div class="val">—</div></div>
+      </div>
+    </div>
+
+    <div class="section-title">Pathology Resolution</div>
+    <div class="card">
+      <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6">
+        All 34 control cells resolved. No active pathology flags. System operating at closed-loop equilibrium with full controller coverage.
+      </div>
+    </div>
+
+    <div class="section-title">5-Flow Closed Loop</div>
+    <div class="card flow-card">
+      <div class="flow-chain">
+        <div class="flow-step">Supply</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Delivery</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Demand</div>
+      </div>
+      <div class="flow-chain">
+        <div class="flow-step">Protection</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Clearance</div>
+      </div>
+      <div class="flow-sub">Closed-loop biological control — 6 controllers · 17 systems · 85-Grid</div>
+    </div>
+
+    <footer class="app-footer">
+      All IP held by Avotombo Legacy Trust. All rights reserved.<br>
+      Aquila BioSystems Inc.
+    </footer>
+  </section>
+
+  <!-- ======= PAGE: HOS ======= -->
+  <section class="page" id="page-hos" data-page="hos">
+    <h2 class="page-title">HUMAN OPTIMIZATION OPERATING SYSTEM</h2>
+    <div class="page-subtitle">Protocol Intelligence Layer</div>
+
+    <div class="section-title">Recent Protocols</div>
+    <div id="proto-list"></div>
+
+    <div class="section-title">Earlier Protocols</div>
+    <div class="card collapsed-card">
+      Protocol items #1–#93 — Full HOS protocol active
+    </div>
+
+    <footer class="app-footer">
+      All IP held by Avotombo Legacy Trust. All rights reserved.<br>
+      Aquila BioSystems Inc.
+    </footer>
+  </section>
+
+  <!-- ======= PAGE: STACK ======= -->
+  <section class="page" id="page-stack" data-page="stack">
+    <h2 class="page-title">ACTIVE STACK</h2>
+    <div class="page-subtitle">34 Compounds · Optimized</div>
+
+    <div class="phase-header">
+      <div class="phase-title">AM · 07:00–08:00</div>
+      <div class="phase-count">13 compounds</div>
+    </div>
+    <div id="stack-am"></div>
+
+    <div class="phase-header">
+      <div class="phase-title">MID · 12:00–14:00</div>
+      <div class="phase-count">8 compounds</div>
+    </div>
+    <div id="stack-mid"></div>
+
+    <div class="phase-header">
+      <div class="phase-title">PM · 20:00–21:45</div>
+      <div class="phase-count">13 compounds</div>
+    </div>
+    <div id="stack-pm"></div>
+
+    <footer class="app-footer">
+      All IP held by Avotombo Legacy Trust. All rights reserved.<br>
+      Aquila BioSystems Inc.
+    </footer>
+  </section>
+
+  <!-- ======= PAGE: INTAKE ======= -->
+  <section class="page" id="page-intake" data-page="intake">
+    <h2 class="page-title">DAILY INTAKE LOG</h2>
+    <div class="page-subtitle">Check off today's compounds</div>
+
+    <div id="intake-list"></div>
+    <button class="log-btn" id="log-intake-btn">LOG INTAKE</button>
+
+    <footer class="app-footer">
+      All IP held by Avotombo Legacy Trust. All rights reserved.<br>
+      Aquila BioSystems Inc.
+    </footer>
+  </section>
+
+  <!-- ======= PAGE: RX LOG ======= -->
+  <section class="page" id="page-rxlog" data-page="rxlog">
+    <h2 class="page-title">RX LOG</h2>
+    <div class="page-subtitle">Intervention Log</div>
+
+    <div class="card placeholder-card">
+      <div class="placeholder-icon">◎</div>
+      <div class="placeholder-text">Intervention log coming soon</div>
+    </div>
+
+    <footer class="app-footer">
+      All IP held by Avotombo Legacy Trust. All rights reserved.<br>
+      Aquila BioSystems Inc.
+    </footer>
+  </section>
+
+</div>
+
+<!-- ======= Bottom Nav ======= -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <button class="nav-btn active" data-target="system"><span class="icon">◆</span>SYSTEM</button>
+    <button class="nav-btn" data-target="hos"><span class="icon">◈</span>HOS</button>
+    <button class="nav-btn" data-target="stack"><span class="icon">≡</span>STACK</button>
+    <button class="nav-btn" data-target="intake"><span class="icon">◉</span>INTAKE</button>
+    <button class="nav-btn" data-target="rxlog"><span class="icon">⊞</span>RX LOG</button>
+  </div>
+</nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  /* ===== Data ===== */
+  var controllers = [
+    { abbr:'MTO', name:'Mitochondria',   color:'#f5a623' },
+    { abbr:'BRN', name:'Brain/Cognitive', color:'#b57bee' },
+    { abbr:'CRD', name:'Cardiovascular', color:'#ff4d6d' },
+    { abbr:'IMM', name:'Immune',         color:'#22d47e' },
+    { abbr:'GUT', name:'Gut/Microbiome', color:'#7ed957' },
+    { abbr:'VAS', name:'Vascular',       color:'#4da6ff' }
+  ];
+
+  var protocols = [
+    { n:94, name:'Sleep + Airway Optimization', desc:'SL full-depth anchor, stack 34' },
+    { n:95, name:'Glycine (Standalone)',        desc:'NMDA co-agonist + thermal onset, stack 34' },
+    { n:96, name:'Berberine',                   desc:'AMPK + microbiome optimizer, stack 34' },
+    { n:97, name:'Tongkat Ali',                 desc:'Free-T + cortisol modulator, stack 34' },
+    { n:98, name:'Arctic Collagen (Marine)',    desc:'SK·SUP/DMD DARK→10+, stack 34' },
+    { n:99, name:'Dandelion Root',              desc:'UR·DMD/PRO closer + DT support, stack 34' }
+  ];
+
+  var stackAM = [
+    ['Shilajit + Ormus', '500mg · Fulvic ionic mineral matrix', '07:00'],
+    ['Sea Moss Complex', '2g · 92 trace minerals + iodine', '07:00'],
+    ['Mito Stack (NR/NMN + PQQ + CoQ10)', '500mg · Mitochondrial recharge', '07:00'],
+    ['Sulforaphane (BROQ)', '10mg · Nrf2 + phase II detox', '07:00'],
+    ['Vitamin B Complex', 'B1-B12 · Methylation + energy', '07:00'],
+    ['Fulvic Acid', '500mg · Mineral bioavailability', '07:00'],
+    ['Moringa (Moringa oleifera)', '2g · Anti-inflammatory adaptogen', '07:00'],
+    ['Rhodiola Rosea (SHR-5)', '500mg · HPA + cortisol resilience', '07:00'],
+    ['Berberine', '500mg · AMPK + microbiome optimizer', '07:30'],
+    ['Tongkat Ali', '400mg · Free-T + cortisol modulator', '07:30'],
+    ['Arctic Collagen', '8000mg · Marine collagen + HA + Vit C', '07:30'],
+    ['Mullein Leaf', '500mg · Respiratory + airway support', '08:00'],
+    ['Omega-3 (EPA/DHA)', '2g · Anti-inflammatory membrane', '08:00']
+  ];
+  var stackMID = [
+    ['Beet Extract', '500mg · NO precursor + endurance', '12:00'],
+    ['GlyNAC', '1g each · GSH synthesis + longevity', '12:00'],
+    ['Tocotrienols (DeltaGold)', '100mg · Neuro + CV protection', '13:00'],
+    ['Urolithin A', '500mg · Mitophagy activation', '13:00'],
+    ['Ginkgo Biloba (EGb 761)', '240mg · Cerebral blood flow', '13:00'],
+    ['Burdock Root', '500mg · Lymphatic + detox', '13:00'],
+    ['Ginger Root', '1g · GI motility + anti-nausea', '13:00'],
+    ['Dandelion Root', '500mg · UR closer + DT support', '13:00']
+  ];
+  var stackPM = [
+    ['Magnesium Glycinate', '400mg · GABA + sleep quality', '21:00'],
+    ['Nattokinase', '2000 FU · Cardiovascular clearance', '20:30'],
+    ['Ashwagandha KSM-66', '600mg · HPA axis + cortisol control', '21:00'],
+    ["Lion's Mane", '1g · NGF + BDNF neurogenesis', '20:00'],
+    ['Electrolytes (K + Mg)', 'Replenishment · K + Mg balance', '21:00'],
+    ['Black Cumin Seed', '500mg · Immune + anti-inflammatory', '21:00'],
+    ['N1O1 Nitric Oxide', '1 lozenge · eNOS + vascular dilation', '20:30'],
+    ['Reishi (Ganoderma lucidum)', '1g · Immune modulation + sleep', '21:00'],
+    ['NAC (N-Acetyl Cysteine)', '600mg · GSH + mucolytic', '20:00'],
+    ['Astragalus (Astragalus membranaceus)', '500mg · Telomerase + LY anchor', '21:00'],
+    ['VisionBody EMS Suit', '30 min · EMS myostimulation', '20:00'],
+    ['Sleep + Airway Optimization', 'PM protocol · SL full-depth', '21:30'],
+    ['Glycine (Standalone)', '3g · NMDA co-agonist + thermal onset', '21:30']
+  ];
+
+  /* ===== Render helpers ===== */
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function(c){
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+    });
+  }
+
+  /* ===== Controllers ===== */
+  var ctrlHost = document.getElementById('controllers-card');
+  if (ctrlHost) {
+    var html = '';
+    controllers.forEach(function(c){
+      html += '<div class="ctrl-row">' +
+              '<div class="ctrl-abbr" style="color:'+c.color+'">'+esc(c.abbr)+'</div>' +
+              '<div class="ctrl-name">'+esc(c.name)+'</div>' +
+              '<div class="ctrl-bar-wrap"><div class="ctrl-bar" style="background:'+c.color+'"></div></div>' +
+              '<div class="ctrl-score">10++</div>' +
+              '</div>';
+    });
+    ctrlHost.innerHTML = html;
+  }
+
+  /* ===== Protocols ===== */
+  var protoHost = document.getElementById('proto-list');
+  if (protoHost) {
+    var ph = '';
+    protocols.forEach(function(p){
+      ph += '<div class="card proto-card">' +
+            '<div class="proto-num">#'+p.n+'</div>' +
+            '<div class="proto-body">' +
+              '<div class="proto-name">'+esc(p.name)+'</div>' +
+              '<div class="proto-desc">'+esc(p.desc)+'</div>' +
+              '<span class="proto-tag">Stack 34</span>' +
+            '</div>' +
+          '</div>';
+    });
+    protoHost.innerHTML = ph;
+  }
+
+  /* ===== Stack ===== */
+  function renderStack(hostId, items, phase) {
+    var host = document.getElementById(hostId);
+    if (!host) return;
+    var h = '';
+    items.forEach(function(row, i){
+      var id = hostId + '-' + i;
+      h += '<div class="compound">' +
+           '<div class="compound-body">' +
+             '<div class="compound-name">'+esc(row[0])+'</div>' +
+             '<div class="compound-desc">'+esc(row[1])+'</div>' +
+           '</div>' +
+           '<div class="time-badge time-'+phase+'">'+esc(row[2])+'</div>' +
+           '<button class="check-btn" data-taken="0" aria-label="Mark taken" id="'+id+'">✓</button>' +
+           '</div>';
+    });
+    host.innerHTML = h;
+  }
+  renderStack('stack-am',  stackAM,  'AM');
+  renderStack('stack-mid', stackMID, 'MID');
+  renderStack('stack-pm',  stackPM,  'PM');
+
+  /* ===== Intake list ===== */
+  var intakeHost = document.getElementById('intake-list');
+  if (intakeHost) {
+    var all = []
+      .concat(stackAM.map(function(r){return [r[0], r[2], 'AM'];}))
+      .concat(stackMID.map(function(r){return [r[0], r[2], 'MID'];}))
+      .concat(stackPM.map(function(r){return [r[0], r[2], 'PM'];}));
+    var ih = '';
+    all.forEach(function(row, i){
+      ih += '<div class="intake-item" data-idx="'+i+'">' +
+            '<div class="intake-check">✓</div>' +
+            '<div class="intake-name">'+esc(row[0])+'</div>' +
+            '<div class="intake-time">'+esc(row[2])+' · '+esc(row[1])+'</div>' +
+            '</div>';
+    });
+    intakeHost.innerHTML = ih;
+  }
+
+  /* ===== Tab switching ===== */
+  var navBtns = document.querySelectorAll('.nav-btn');
+  var pages = document.querySelectorAll('.page');
+
+  function activateTab(target) {
+    pages.forEach(function(p){
+      if (p.getAttribute('data-page') === target) {
+        p.classList.add('active');
+      } else {
+        p.classList.remove('active');
+      }
+    });
+    navBtns.forEach(function(b){
+      if (b.getAttribute('data-target') === target) {
+        b.classList.add('active');
+      } else {
+        b.classList.remove('active');
+      }
+    });
+    try { window.scrollTo(0, 0); } catch(e) {}
+  }
+
+  navBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var tgt = btn.getAttribute('data-target');
+      if (tgt) activateTab(tgt);
+    });
+  });
+
+  /* ===== Interactions ===== */
+  document.addEventListener('click', function(e){
+    // Check button for stack compounds
+    var cb = e.target.closest && e.target.closest('.check-btn');
+    if (cb) {
+      var taken = cb.getAttribute('data-taken') === '1';
+      cb.setAttribute('data-taken', taken ? '0' : '1');
+      cb.classList.toggle('taken', !taken);
+      return;
+    }
+    // Intake item toggle
+    var ii = e.target.closest && e.target.closest('.intake-item');
+    if (ii) {
+      ii.classList.toggle('checked');
+      return;
+    }
+  });
+
+  // Biometric enter button
+  var bioBtn = document.getElementById('bio-enter');
+  if (bioBtn) {
+    bioBtn.addEventListener('click', function(){
+      var slots = document.querySelectorAll('.bio-slot .val');
+      var demo = ['62', '88%', '94%'];
+      slots.forEach(function(s, i){ s.textContent = demo[i] || '—'; });
+      bioBtn.textContent = 'LOGGED';
+      bioBtn.style.background = '#22d47e';
+      setTimeout(function(){
+        bioBtn.textContent = 'ENTER';
+        bioBtn.style.background = '#00e5cc';
+      }, 1800);
+    });
+  }
+
+  // Log intake button
+  var logBtn = document.getElementById('log-intake-btn');
+  if (logBtn) {
+    logBtn.addEventListener('click', function(){
+      var n = document.querySelectorAll('.intake-item.checked').length;
+      logBtn.textContent = 'LOGGED · ' + n + ' COMPOUNDS';
+      logBtn.style.background = '#22d47e';
+      setTimeout(function(){
+        logBtn.textContent = 'LOG INTAKE';
+        logBtn.style.background = '#00e5cc';
+      }, 2000);
+    });
+  }
+
+});
+</script>
+</body>
+</html>
