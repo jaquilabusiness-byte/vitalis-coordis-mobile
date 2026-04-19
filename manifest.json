@@ -1,0 +1,24 @@
+{
+  "name": "Vitalis Coordis",
+  "short_name": "COORDIS",
+  "description": "Human Optimization Operating System \u2014 34-compound stack, 85-cell HOS grid",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#020810",
+  "theme_color": "#020810",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='32' fill='%23020810'/%3E%3Ccircle cx='96' cy='96' r='48' fill='none' stroke='%2300e5cc' stroke-width='6'/%3E%3Cpath d='M96 48 L96 144 M48 96 L144 96' stroke='%2300e5cc' stroke-width='4' opacity='0.4'/%3E%3Ccircle cx='96' cy='96' r='12' fill='%2300e5cc'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%23020810'/%3E%3Ccircle cx='256' cy='256' r='128' fill='none' stroke='%2300e5cc' stroke-width='16'/%3E%3Cpath d='M256 128 L256 384 M128 256 L384 256' stroke='%2300e5cc' stroke-width='10' opacity='0.4'/%3E%3Ccircle cx='256' cy='256' r='32' fill='%2300e5cc'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

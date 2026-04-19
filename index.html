@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
 <script>
-// Force standalone — break out of any wrapper frame
-if (window.self !== window.top) {
-  window.top.location.href = window.self.location.href;
-}
+// Vitalis Coordis — standalone init
+// Pre-set onboarding flag so app boots directly to main UI every time
+try { localStorage.setItem('vtl_onboarded', 'true'); } catch(e) {}
 </script>
 
 <meta charset="UTF-8"/>
