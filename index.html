@@ -2608,7 +2608,7 @@ body {
     {name:'VisionBody EMS Suit',                 desc:'30 min · MS·DMD + LY·DMD + EN·DMD · active',     phase:'pm',  core:false},
     // +2 expansion (closes SL row 10→10+)
     {name:'Sleep + Airway Optimization',             desc:'PM protocol · SL full-depth + BC·DMD + IM·DMD + NV', phase:'pm', core:false},
-    {name:'Glycine (Standalone)',                    desc:'3g PM · SL thermal + NMDA + DG/DT clearance',   phase:'pm',  core:false},
+    {name:'Glycine (Standalone)',                    desc:'3g PM · SL thermal + NMDA + DG/DT clearance',   phase:'pm',  core:false,},
     {name:'Berberine',                          desc:'500mg AM · AMPK + microbiome optimizer',       phase:'am',  core:true},
     {name:'Tongkat Ali',                        desc:'400mg AM · Free-T + cortisol modulator',      phase:'am',  core:true},
     {name:'Arctic Collagen',                     desc:'8000mg · Marine collagen + HA + Vit C',       phase:'am',  core:true},
@@ -3330,7 +3330,7 @@ const COMPOUND_CTRL = {
   'Astragalus (Astragalus membranaceus)': 'immune',
   'VisionBody EMS Suit':                 'vascular',
   'Sleep + Airway Optimization':          'brain',
-  'Glycine (Standalone)':                 'brain'
+  'Glycine (Standalone)':                 'brain',
   'Berberine':                         'gut',
   'Tongkat Ali':                        'brain',
   'Arctic Collagen':                   'vascular',
@@ -3547,7 +3547,7 @@ const STACK_ITEMS = {
     {n:'Vitamin B Complex',                   d:'Cofactor blend · B1–B7, B12',            t:'08:00', w:90, core:true},
     {n:'Fulvic Acid',                         d:'250mg · Bioavailability amplifier',       t:'07:00', w:90, core:false},
     {n:'Moringa (Moringa oleifera)',            d:'2–5g · 90+ nutrients · NRF2 + multi-system supply', t:'08:00', w:90, core:false},
-    {n:'Rhodiola Rosea (SHR-5)',               d:'200–400mg · SHR-5 · HPA neuroendocrine protection', t:'07:30', w:90, core:false}
+    {n:'Rhodiola Rosea (SHR-5)',               d:'200–400mg · SHR-5 · HPA neuroendocrine protection', t:'07:30', w:90, core:false},
     {n:'Berberine',                          d:'500mg · AMPK + microbiome optimizer',     t:'07:30', w:90, core:true},
     {n:'Tongkat Ali',                        d:'400mg · Free-T + cortisol modulator',    t:'07:30', w:90, core:true},
     {n:'Arctic Collagen',                      d:'8000mg · Marine collagen + HA + Vit C',   t:'07:30', w:90, core:true},
@@ -3578,8 +3578,8 @@ STACK_ITEMS.am.push(
 );
 STACK_ITEMS.mid.push(
   {n:'Burdock Root',  d:'500mg · LY·CLR + MB·DMD · with meal', t:'12:30', w:90, core:false},
-  {n:'Ginger Root',   d:'1g extract · DG·CLR prokinetic · with meal', t:'12:30', w:90, core:false}
-    {n:'Dandelion Root',                       d:'500mg · UR closer + DT support',          t:'13:00', w:90, core:true},
+  {n:'Ginger Root',   d:'1g extract · DG·CLR prokinetic · with meal', t:'12:30', w:90, core:false},
+  {n:'Dandelion Root',                       d:'500mg · UR closer + DT support',          t:'13:00', w:90, core:true},
 );
 STACK_ITEMS.pm.push(
   {n:'Astragalus (Astragalus membranaceus)', d:'500mg · LY·DMD + LG·PRO + IM depth · PM', t:'21:00', w:90, core:false},
@@ -8471,8 +8471,7 @@ renderGapRecs();
     'Magnesium Glycinate':'PM','Nattokinase':'PM','Ashwagandha KSM-66':'PM',
     "Lion's Mane":'PM','Electrolytes (K + Mg)':'PM','Black Cumin Seed':'PM','N1O1 Nitric Oxide':'PM',
     'Reishi (Ganoderma lucidum)':'PM','Mullein Leaf':'AM','Omega-3 (EPA/DHA)':'AM',
-    'NAC (N-Acetyl Cysteine)':'PM','Burdock Root':'MID','Ginger Root':'MID','Astragalus (Astragalus membranaceus)':'PM','VisionBody EMS Suit':'PM','Sleep + Airway Optimization':'PM','Glycine (Standalone)':'PM'
-  
+    'NAC (N-Acetyl Cysteine)':'PM','Burdock Root':'MID','Ginger Root':'MID','Astragalus (Astragalus membranaceus)':'PM','VisionBody EMS Suit':'PM','Sleep + Airway Optimization':'PM','Glycine (Standalone)':'PM',
   'Berberine':'AM','Tongkat Ali':'AM',
   'Arctic Collagen':'AM','Dandelion Root':'MID',
 };
