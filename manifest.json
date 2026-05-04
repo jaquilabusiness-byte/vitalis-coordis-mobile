@@ -1,7 +1,7 @@
 {
   "name": "Vitalis Coordis",
-  "short_name": "COORDIS",
-  "description": "Human Optimization Operating System \u2014 34-compound stack, 85-cell HOS grid",
+  "short_name": "Vitalis",
+  "description": "Biohacking supplement tracker — 30-cell HOS controller grid",
   "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
