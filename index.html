@@ -1915,87 +1915,65 @@ const PATHS = [
 // COMPOUND → CELL PROTECTION MAP
 // sysIdx matches SYSTEMS[] index (0-based), flowIdx: 0=SUP,1=DEL,2=DMD,3=PRO,4=CLR
 // ═══════════════════════════════════════════
+// COMPOUND_CELLS — Vitalis 24 canonical grid mappings
+// SYSTEMS idx: CV=0,BC=1,RS=2,DG=3,MS=4,EN=5,IM=6,NV=7,SK=8,UR=9,RP=10,LY=11,MT=12,DT=13,MB=14,SL=15,LG=16
+// FLOWS:  0=SUP, 1=DEL, 2=DMD, 3=PRO, 4=CLR
 const COMPOUND_CELLS = {
-  // SYSTEMS idx: CV=0,BC=1,RS=2,DG=3,MS=4,EN=5,IM=6,NV=7,SK=8,UR=9,RP=10,LY=11,MT=12,DT=13,MB=14,SL=15,LG=16
-  // AM stack
-  'Shilajit + Ormus':                  [{si:12,fi:0},{si:12,fi:2},{si:16,fi:0},{si:5,fi:2},{si:4,fi:0}], // Mito SUP/DMD, Longev SUP, Endocr DMD, MS·SUP (trace mineral supply)
-  'Sea Moss Complex':                  [{si:3,fi:0},{si:14,fi:0},{si:5,fi:0},{si:11,fi:0},{si:6,fi:0},{si:8,fi:0}], // Digest SUP, Micro SUP, Endocr SUP, Lymph SUP, IM·SUP (immune mineral supply), SK·SUP (trace mineral skin supply)
-  'Mito Stack (NR/NMN + PQQ + CoQ10)':[{si:12,fi:0},{si:12,fi:1},{si:12,fi:2},{si:16,fi:0},{si:0,fi:1}], // Mito SUP/DEL/DMD, Longev SUP, CV DEL
-  'Sulforaphane (BROQ)':               [{si:6,fi:3},{si:13,fi:4},{si:12,fi:3},{si:8,fi:3},{si:16,fi:3}],  // Imm PRO, Detox CLR, Mito PRO, Skin PRO, Longev PRO
-  'Astaxanthin':                       [{si:12,fi:3},{si:6,fi:3},{si:1,fi:3},{si:0,fi:3},{si:8,fi:3}],    // Mito PRO, Imm PRO, BC PRO, CV PRO, Skin PRO
-  'Vitamin B Complex':                 [{si:7,fi:0},{si:1,fi:0},{si:12,fi:0},{si:5,fi:0},{si:3,fi:2}],    // Nerv SUP, BC SUP, Mito SUP, Endocr SUP, Digest DMD
-  'Fulvic Acid':                        [{si:3,fi:1},{si:12,fi:0},{si:14,fi:0},{si:13,fi:4}],             // Digest DEL, Mito SUP, Micro SUP, Detox CLR
-  // MID stack
-  'Beet Extract':                      [{si:0,fi:0},{si:0,fi:1},{si:2,fi:1}],                           // CV SUP/DEL, Resp DEL
-  'GlyNAC':                            [{si:13,fi:4},{si:6,fi:3},{si:16,fi:3},{si:12,fi:3},{si:9,fi:3}], // Detox CLR, Imm PRO, Longev PRO, Mito PRO, UR·PRO (renal GSH nephroprotection)
-  'Tocotrienols (DeltaGold)':          [{si:1,fi:3},{si:7,fi:3},{si:0,fi:3},{si:12,fi:3}],               // BC PRO, Nerv PRO, CV PRO, Mito PRO
-  'Hydrogen Water':                    [{si:12,fi:3},{si:6,fi:3},{si:13,fi:4},{si:0,fi:3}],               // Mito PRO, Imm PRO, Detox CLR, CV PRO
-  'Urolithin A':                        [{si:12,fi:0},{si:12,fi:2},{si:4,fi:2},{si:16,fi:0}],              // Mito SUP/DMD, Musc DMD, Longev SUP
-  // PM stack
-  'Magnesium Glycinate':               [{si:15,fi:2},{si:7,fi:3},{si:4,fi:3}],                           // Sleep DMD, Nerv PRO, Musc PRO
-  'Nattokinase':                       [{si:0,fi:4},{si:0,fi:3},{si:11,fi:4}],                           // CV CLR/PRO, Lymph CLR
-  'Ashwagandha KSM-66':                [{si:15,fi:2},{si:5,fi:2},{si:7,fi:3},{si:1,fi:3}],               // Sleep DMD, Endocr DMD, Nerv PRO, BC PRO
-  "Lion's Mane":                       [{si:1,fi:0},{si:7,fi:0},{si:16,fi:0}],                           // BC SUP, Nerv SUP, Longev SUP
-  'Electrolytes (K + Mg)':             [{si:0,fi:2},{si:4,fi:2},{si:7,fi:2},{si:9,fi:2},{si:9,fi:4}],    // CV DMD, Musc DMD, Nerv DMD, Urin DMD, UR·CLR (electrolyte-driven renal clearance)
-  'Black Cumin Seed':                   [{si:6,fi:2},{si:6,fi:3},{si:14,fi:3}],                            // Imm DMD/PRO, Micro PRO
-  'N1O1 Nitric Oxide':                  [{si:0,fi:0},{si:0,fi:1},{si:9,fi:0},{si:2,fi:1}],                 // CV SUP/DEL, Urin SUP, Resp DEL
-  'Rhodiola Rosea (SHR-5)':             [{si:5,fi:3},{si:7,fi:3},{si:15,fi:3}],                            // EN·PRO (★ gap close 30/30), NV·PRO, SL·PRO
-  'Ginkgo Biloba (EGb 761)':            [{si:1,fi:1},{si:1,fi:2},{si:0,fi:1},{si:7,fi:1},{si:11,fi:1}],    // BC·DEL, BC·DMD, CV·DEL, NV·DEL, LY·DEL
-  // Remaining 24-compound stack mappings
-  'Moringa':                            [{si:6,fi:0},{si:5,fi:0},{si:13,fi:4},{si:3,fi:0},{si:12,fi:0}],   // IM·SUP, EN·SUP, DT·CLR, DG·SUP, MT·SUP
-  'Berberine':                          [{si:3,fi:2},{si:5,fi:2},{si:14,fi:3},{si:0,fi:3},{si:13,fi:4}],   // DG·DMD, EN·DMD, MB·PRO, CV·PRO, DT·CLR
-  'Tongkat Ali':                        [{si:5,fi:2},{si:4,fi:2},{si:7,fi:3},{si:15,fi:2}],                // EN·DMD, MS·DMD, NV·PRO, SL·DMD
-  'Marine Collagen Peptides':           [{si:8,fi:0},{si:4,fi:0},{si:11,fi:0},{si:0,fi:3},{si:9,fi:3}],   // SK·SUP, MS·SUP, LY·SUP, CV·PRO, UR·PRO
-  'Mullein Leaf':                       [{si:2,fi:2},{si:2,fi:3},{si:6,fi:3}],                             // RS·DMD, RS·PRO, IM·PRO
-  'Omega-3 (EPA/DHA)':                  [{si:0,fi:3},{si:1,fi:3},{si:6,fi:3},{si:11,fi:1},{si:15,fi:3}],  // CV·PRO, BC·PRO, IM·PRO, LY·DEL, SL·PRO
-  'Vitamin D3 + K2 (MK-7)':            [{si:6,fi:0},{si:5,fi:0},{si:4,fi:3},{si:12,fi:3},{si:16,fi:0}],  // IM·SUP, EN·SUP, MS·PRO, MT·PRO, LG·SUP
-  'Reishi':                             [{si:6,fi:3},{si:15,fi:3},{si:5,fi:3},{si:14,fi:3}],               // IM·PRO, SL·PRO, EN·PRO, MB·PRO
-  'NAC (N-Acetyl Cysteine)':            [{si:13,fi:4},{si:6,fi:3},{si:2,fi:3},{si:9,fi:3},{si:12,fi:3}],  // DT·CLR, IM·PRO, RS·PRO, UR·PRO, MT·PRO
-  'Astragalus':                         [{si:16,fi:0},{si:6,fi:3},{si:9,fi:3},{si:5,fi:0}],               // LG·SUP, IM·PRO, UR·PRO, EN·SUP
-  'Glycine':                            [{si:15,fi:2},{si:9,fi:3},{si:4,fi:0},{si:13,fi:4}],               // SL·DMD, UR·PRO, MS·SUP, DT·CLR
-  'Burdock Root':                       [{si:11,fi:1},{si:14,fi:0},{si:13,fi:4}],                          // LY·DEL, MB·SUP, DT·CLR
-  'Ginger Root':                        [{si:3,fi:2},{si:6,fi:2},{si:0,fi:3},{si:14,fi:3}],               // DG·DMD, IM·DMD, CV·PRO, MB·PRO
-  'Dandelion Root':                     [{si:9,fi:0},{si:9,fi:2},{si:13,fi:4},{si:11,fi:1},{si:3,fi:4}]  // UR·SUP (potassium-sparing diuretic substrate), UR·DMD, DT·CLR, LY·DEL, DG·CLR
+  // ── AM items ──
+  'Momentum Foundation':         [{si:7,fi:0},{si:1,fi:0},{si:12,fi:0},{si:5,fi:0},{si:3,fi:2},{si:6,fi:0},{si:8,fi:0},{si:16,fi:0}],
+  'Quicksilver Membrane Mend':   [{si:12,fi:3},{si:1,fi:3},{si:0,fi:3},{si:8,fi:0},{si:8,fi:3},{si:6,fi:3},{si:0,fi:1}],
+  'Quicksilver NAD+ Platinum':   [{si:12,fi:0},{si:12,fi:1},{si:12,fi:2},{si:16,fi:0},{si:16,fi:3},{si:1,fi:0},{si:5,fi:0}],
+  'Quicksilver Ergo-Thione+':    [{si:12,fi:3},{si:13,fi:3},{si:6,fi:3},{si:8,fi:3},{si:16,fi:3},{si:2,fi:3},{si:12,fi:0}],
+  'BROQ Sulforaphane':           [{si:6,fi:3},{si:13,fi:4},{si:12,fi:3},{si:8,fi:3},{si:16,fi:3},{si:1,fi:3}],
+  'Orgono Living Silica':        [{si:4,fi:0},{si:8,fi:0},{si:4,fi:3},{si:8,fi:3},{si:0,fi:3},{si:9,fi:3}],
+  'Tongkat Ali LJ100':           [{si:10,fi:0},{si:10,fi:1},{si:10,fi:2},{si:5,fi:0},{si:5,fi:2},{si:7,fi:3},{si:4,fi:2},{si:1,fi:2}],
+  'Citicoline CDP-Choline':      [{si:1,fi:0},{si:1,fi:1},{si:1,fi:2},{si:7,fi:0},{si:7,fi:2},{si:12,fi:0},{si:7,fi:3}],
+  'Catalyzed Mineral Complex':   [{si:12,fi:0},{si:12,fi:2},{si:16,fi:0},{si:5,fi:2},{si:4,fi:0},{si:5,fi:0},{si:6,fi:0},{si:14,fi:0},{si:13,fi:0},{si:9,fi:0}],
+  'NADH + Methylene Blue':       [{si:12,fi:0},{si:12,fi:1},{si:12,fi:2},{si:1,fi:0},{si:1,fi:2},{si:7,fi:2},{si:5,fi:0},{si:16,fi:0}],
+  'Omega-3 + Black Cumin':       [{si:0,fi:0},{si:1,fi:0},{si:12,fi:0},{si:6,fi:0},{si:0,fi:1},{si:4,fi:1},{si:1,fi:1},{si:0,fi:3},{si:6,fi:3},{si:1,fi:3},{si:7,fi:3},{si:12,fi:3},{si:16,fi:3},{si:0,fi:4},{si:6,fi:4},{si:13,fi:4},{si:0,fi:2},{si:6,fi:1},{si:6,fi:2},{si:8,fi:1},{si:14,fi:3}],
+  'Liquid 40,000 Volts':         [{si:0,fi:2},{si:4,fi:2},{si:7,fi:2},{si:9,fi:2},{si:9,fi:4},{si:9,fi:0},{si:4,fi:0},{si:0,fi:0}],
+  "Auri Lion's Mane Elixir":     [{si:1,fi:0},{si:7,fi:0},{si:16,fi:0},{si:1,fi:2},{si:7,fi:2},{si:1,fi:3},{si:7,fi:3}],
+  'Auri Pre+Probiotic':          [{si:3,fi:0},{si:14,fi:0},{si:6,fi:0},{si:11,fi:1},{si:14,fi:2},{si:6,fi:2},{si:3,fi:3},{si:6,fi:3},{si:14,fi:1},{si:3,fi:4}],
+  'Hydrogen Water 8.25ppm':      [{si:13,fi:4},{si:12,fi:3},{si:0,fi:3},{si:6,fi:3},{si:3,fi:1},{si:8,fi:3},{si:16,fi:3},{si:12,fi:1}],
+  // ── MID items ──
+  'Berberine':                   [{si:14,fi:2},{si:14,fi:4},{si:14,fi:1},{si:14,fi:3},{si:3,fi:1},{si:6,fi:1},{si:5,fi:4},{si:16,fi:2}],
+  'TMRW Pouch':                  [{si:12,fi:0},{si:12,fi:1},{si:12,fi:2},{si:16,fi:0},{si:16,fi:3},{si:13,fi:3},{si:13,fi:4},{si:1,fi:0},{si:7,fi:2},{si:5,fi:0},{si:6,fi:3},{si:0,fi:1},{si:4,fi:1},{si:3,fi:4}],
+  'STRONGER+':                   [{si:4,fi:2},{si:4,fi:0},{si:0,fi:2},{si:12,fi:2},{si:5,fi:2},{si:0,fi:1},{si:1,fi:2},{si:7,fi:2},{si:4,fi:3},{si:4,fi:1},{si:9,fi:0},{si:9,fi:2},{si:8,fi:0}],
+  'LONGER+':                     [{si:13,fi:4},{si:2,fi:4},{si:6,fi:3},{si:16,fi:3},{si:12,fi:3},{si:9,fi:3},{si:13,fi:0},{si:13,fi:3},{si:2,fi:0},{si:2,fi:2}],
+  'Reishi Elixir':               [{si:6,fi:0},{si:1,fi:0},{si:14,fi:0},{si:6,fi:1},{si:11,fi:1},{si:6,fi:2},{si:7,fi:2},{si:15,fi:2},{si:6,fi:3},{si:1,fi:3},{si:16,fi:3},{si:3,fi:3},{si:0,fi:3},{si:13,fi:4},{si:6,fi:4},{si:15,fi:4},{si:14,fi:4},{si:14,fi:1}],
+  'VisionBody EMS Suit':         [{si:4,fi:2},{si:4,fi:1},{si:4,fi:0},{si:0,fi:2},{si:0,fi:1},{si:11,fi:2},{si:11,fi:4},{si:12,fi:2},{si:5,fi:2},{si:8,fi:1},{si:7,fi:2}],
+  // ── PM items ──
+  'Kayseari Tocotrienols':       [{si:1,fi:3},{si:7,fi:3},{si:0,fi:3},{si:12,fi:3},{si:0,fi:0},{si:0,fi:4},{si:8,fi:3},{si:16,fi:3}],
+  'Qualia Magnesium':            [{si:15,fi:2},{si:7,fi:3},{si:4,fi:3},{si:4,fi:2},{si:0,fi:2},{si:7,fi:2},{si:9,fi:2},{si:9,fi:0},{si:1,fi:3},{si:15,fi:0}],
+  'Ashwagandha KSM-66':          [{si:15,fi:2},{si:5,fi:2},{si:7,fi:3},{si:1,fi:3},{si:15,fi:3},{si:5,fi:3},{si:16,fi:2},{si:6,fi:3}],
 };
 
-// Compound → primary controller (for degradation scoring)
+// Compound → primary controller (Vitalis 24 — updated May 10, 2026)
 const COMPOUND_CTRL = {
-  'Shilajit + Ormus':                   'mitochondria',
-  'Mito Stack (NR/NMN + PQQ + CoQ10)': 'mitochondria',
-  'Sulforaphane (BROQ)':                'immune',
-  'Astaxanthin':                        'mitochondria',
-  'Vitamin B Complex':                  'brain',
-  'Sea Moss Complex':                   'gut',
-  'Beet Extract':                       'cardio',
-  'GlyNAC':                             'vascular',
-  'Tocotrienols (DeltaGold)':           'brain',
-  'Hydrogen Water':                     'immune',
-  'Magnesium Glycinate':                'brain',
-  'Nattokinase':                        'cardio',
-  'Ashwagandha KSM-66':                 'brain',
-  "Lion's Mane":                        'brain',
-  'Electrolytes (K + Mg)':              'vascular',
-  'Fulvic Acid':                        'gut',
-  'Urolithin A':                        'mitochondria',
-  'Black Cumin Seed':                   'immune',
-  'N1O1 Nitric Oxide':                  'vascular',
-  'Rhodiola Rosea (SHR-5)':             'brain',
-  'Ginkgo Biloba (EGb 761)':            'brain',
-  // Extended 24-compound stack
-  'Moringa':                            'immune',
-  'Berberine':                          'gut',
-  'Tongkat Ali':                        'brain',
-  'Marine Collagen Peptides':           'vascular',
-  'Mullein Leaf':                       'cardio',
-  'Omega-3 (EPA/DHA)':                  'cardio',
-  'Vitamin D3 + K2 (MK-7)':            'immune',
-  'Reishi':                             'immune',
-  'NAC (N-Acetyl Cysteine)':            'vascular',
-  'Astragalus':                         'immune',
-  'Glycine':                            'brain',
-  'Burdock Root':                       'gut',
-  'Ginger Root':                        'gut',
-  'Dandelion Root':                     'vascular'
+  'Momentum Foundation':          'brain',
+  'Quicksilver Membrane Mend':    'mitochondria',
+  'Quicksilver NAD+ Platinum':    'mitochondria',
+  'Quicksilver Ergo-Thione+':     'mitochondria',
+  'BROQ Sulforaphane':            'immune',
+  'Orgono Living Silica':         'vascular',
+  'Tongkat Ali LJ100':            'brain',
+  'Citicoline CDP-Choline':       'brain',
+  'Catalyzed Mineral Complex':    'mitochondria',
+  'NADH + Methylene Blue':        'mitochondria',
+  'Omega-3 + Black Cumin':        'cardio',
+  'Liquid 40,000 Volts':          'vascular',
+  "Auri Lion's Mane Elixir":      'brain',
+  'Auri Pre+Probiotic':           'gut',
+  'Hydrogen Water 8.25ppm':       'mitochondria',
+  'Berberine':                    'gut',
+  'TMRW Pouch':                   'mitochondria',
+  'STRONGER+':                    'cardio',
+  'LONGER+':                      'immune',
+  'Reishi Elixir':                'immune',
+  'VisionBody EMS Suit':          'vascular',
+  'Kayseari Tocotrienols':        'brain',
+  'Qualia Magnesium':             'brain',
+  'Ashwagandha KSM-66':           'brain',
 };
 
 // ═══════════════════════════════════════════
@@ -2059,8 +2037,8 @@ function last7Days() {
 // Antioxidant compounds that trigger pathology risk flags when missed
 // Also include user-named compounds (C60, Curcumin) as aliases for future stack entries
 const ANTIOXIDANT_COMPOUNDS = [
-  'Sulforaphane (BROQ)', 'Astaxanthin', 'GlyNAC', 'Hydrogen Water', // in active stack
-  'C60','Curcumin','Quercetin','Resveratrol',  // user-named / future entries
+  'BROQ Sulforaphane', 'LONGER+', 'Berberine', 'Quicksilver Ergo-Thione+', // Vitalis 24 active
+  'C60','Curcumin','Quercetin','Resveratrol',  // future entries
 ];
 
 // Pathology → which {sysIdx, flowIdx} cells are risk-elevated when triggered
@@ -2073,10 +2051,10 @@ const PATH_RISK_CELLS = {
 
 // Pathology → which antioxidants protect against it (if ALL missed → risk)
 const PATH_TRIGGERS = {
-  'Inflammation':   ['Sulforaphane (BROQ)','Astaxanthin','C60','Curcumin','GlyNAC','Hydrogen Water'],
-  'Mito Failure':   ['Sulforaphane (BROQ)','Astaxanthin','Mito Stack (NR/NMN + PQQ + CoQ10)','GlyNAC'],
-  'Neuro-Inflammation':['Astaxanthin','Tocotrienols (DeltaGold)','Vitamin B Complex'],
-  'HPA Burnout':    ['Ashwagandha KSM-66','Magnesium Glycinate']
+  'Inflammation':   ['BROQ Sulforaphane','Quicksilver Ergo-Thione+','LONGER+','Berberine','Omega-3 + Black Cumin'],
+  'Mito Failure':   ['BROQ Sulforaphane','Quicksilver NAD+ Platinum','NADH + Methylene Blue','TMRW Pouch'],
+  'Neuro-Inflammation':['Kayseari Tocotrienols','Momentum Foundation','Citicoline CDP-Choline'],
+  'HPA Burnout':    ['Ashwagandha KSM-66','Qualia Magnesium']
 };
 
 // ═══════════════════════════════════════════
@@ -2199,47 +2177,62 @@ function getCircadianState() {
 // Phase windows: AM = 06:00–10:59, MID = 11:00–15:59, PM = 16:00–23:59
 // ═══════════════════════════════════════════
 // core:true = Core 15 essential · core:false = extended (collapses in Core 15 mode)
+// VITALIS 24 — Canonical Stack (22 supplements + 2 infrastructure)
+// V2.5 Attribution Protocol — Cycle 1 — Last updated: May 10, 2026
 const STACK_ITEMS = {
   am:[
-    {n:'Shilajit + Ormus',                   d:'1000mg · Fulvic acid complex',            t:'07:00', w:90, core:true},
-    {n:'Sea Moss Complex',                    d:'2 capsules · Iodine + mineral blend',     t:'07:00', w:90, core:true},
-    {n:'Mito Stack (NR/NMN + PQQ + CoQ10)',  d:'Full protocol · Mitochondrial regen',     t:'07:15', w:90, core:true},
-    {n:'Sulforaphane (BROQ)',                 d:'30mg · NRF2 pathway activation',          t:'07:30', w:90, core:true},
-    {n:'Astaxanthin',                         d:'12mg · Membrane antioxidant',             t:'07:00', w:90, core:true},
-    {n:'Vitamin B Complex',                   d:'Cofactor blend · B1–B7, B12',            t:'08:00', w:90, core:true},
-    {n:'Moringa',                              d:'2–4g · NRF2 activator · 90+ compounds',   t:'07:00', w:90, core:true},
-    {n:'Berberine',                            d:'500mg · AMPK activation · metabolic reg',  t:'07:30', w:90, core:true},
-    {n:'Tongkat Ali',                          d:'400mg · HPA axis · testosterone support',  t:'07:30', w:90, core:true},
-    {n:'Marine Collagen Peptides',             d:'10–15g · Type I/III · fibroblast substrate', t:'08:00', w:90, core:true},
-    {n:'Mullein Leaf',                         d:'1g · NRF2 mucolytic · respiratory demand', t:'07:00', w:90, core:true},
-    {n:'Omega-3 (EPA/DHA)',                    d:'2–3g · SPMs · endothelial membrane repair', t:'07:00', w:90, core:true},
-    {n:'Vitamin D3 + K2 (MK-7)',               d:'5000IU D3 + 200mcg K2 · anti-calcification', t:'07:00', w:90, core:true},
-    {n:'Fulvic Acid',                          d:'250mg · Bioavailability amplifier',       t:'07:00', w:90, core:false},
-    {n:'Rhodiola Rosea (SHR-5)',               d:'200–400mg · SHR-5 · HPA neuroendocrine protection', t:'07:30', w:90, core:false}
+    // ── Item 01 ──
+    {n:'Momentum Foundation',                 d:'1 serving · Full-spectrum daily base · D3 4,000IU + multi-nutrient blend',       t:'07:00', w:90, core:true},
+    // ── Item 03 ──
+    {n:'Quicksilver Membrane Mend',           d:'1 serving liposomal · Astaxanthin 7mg + phospholipid membrane complex',        t:'07:15', w:90, core:true},
+    // ── Item 04 ──
+    {n:'Quicksilver NAD+ Platinum',           d:'2.5mL · NMN 50mg liposomal + longevity blend',                                 t:'07:15', w:90, core:true},
+    // ── Item 05 ──
+    {n:'Quicksilver Ergo-Thione+',            d:'5mL · L-Ergo 20mg + GSH 200mg + Vit C 600mg + Se 150mcg + PC 260mg',           t:'07:15', w:90, core:true},
+    // ── Item 10 ──
+    {n:'BROQ Sulforaphane',                   d:'1 capsule · 25mg · NRF2 pathway activation',                                   t:'07:30', w:90, core:true},
+    // ── Item 11 ──
+    {n:'Orgono Living Silica',                d:'1 Tbsp (4.9mL) · Monomethylsilanetriol 22.5mg · connective tissue + joint support', t:'07:30', w:90, core:true},
+    // ── Item 13 ──
+    {n:'Tongkat Ali LJ100',                   d:'200mg · LJ100 extract · free-T optimization + cortisol modulation',             t:'07:45', w:90, core:true},
+    // ── Item 14 ──
+    {n:'Citicoline CDP-Choline',              d:'300mg · ACh precursor · cognitive performance + membrane integrity',            t:'07:45', w:90, core:true},
+    // ── Item 15 ──
+    {n:'Catalyzed Mineral Complex',           d:'4 capsules · Shilajit 625mg (40% fulvic) + Zn 30mg + Se 200mcg + Fe 5mg + Mg 120mg + full mineral panel', t:'08:00', w:90, core:true},
+    // ── Item 17 ──
+    {n:'NADH + Methylene Blue',               d:'10 drops in water with food · mitochondrial electron chain + cognitive clarity', t:'08:00', w:90, core:true},
+    // ── Item 18 ──
+    {n:'Omega-3 + Black Cumin',               d:'2g EPA+DHA + 500mg–1g Black Cumin Seed · vascular + NF-κB + immune modulation', t:'08:00', w:90, core:true},
+    // ── Item 19 ──
+    {n:'Liquid 40,000 Volts',                 d:'1 tsp (4.9mL) · Mg 190mg + Chloride 600mg + Na 105mg + K 150mg + trace minerals', t:'08:00', w:90, core:true},
+    // ── Item 20 ──
+    {n:"Auri Lion's Mane Elixir",            d:"2mL · 1,000mg 10:1 (=10,000mg herb eq.) · NGF + BDNF neurogenesis",             t:'08:30', w:90, core:true},
+    // ── Item 21 ──
+    {n:'Auri Pre+Probiotic',                  d:'1 serving · Prebiotic + probiotic + mushroom blend (rotational: swap Qualia Probiotic+)', t:'08:30', w:90, core:true},
+    // ── Infrastructure ──
+    {n:'Hydrogen Water 8.25ppm',              d:'Infrastructure · All day · 8.25ppm molecular hydrogen · systemic antioxidant + delivery', t:'07:00', w:180, core:true},
   ],
   mid:[
-    {n:'Beet Extract',                        d:'500mg · Nitric oxide precursor',          t:'12:00', w:90, core:true},
-    {n:'GlyNAC',                              d:'1g each · GSH precursor + NAC',           t:'12:00', w:90, core:true},
-    {n:'Tocotrienols (DeltaGold)',             d:'200mg · BBB-crossing neuroprotection',   t:'13:00', w:90, core:true},
-    {n:'Hydrogen Water',                      d:'1–2 tablets · Selective ROS scavenging', t:'14:00', w:90, core:true},
-    {n:'Urolithin A',                          d:'500mg · Mitophagy · cellular renewal',   t:'13:00', w:90, core:false},
-    {n:'Ginkgo Biloba (EGb 761)',               d:'120mg · EGb 761 · Cerebral circulation + memory', t:'13:00', w:90, core:false},
-    {n:'Burdock Root',                         d:'500mg · Inulin prebiotic · lymphatic alt', t:'12:00', w:90, core:false},
-    {n:'Ginger Root',                          d:'1–2g · Prokinetic · COX/LOX inhibition',  t:'13:00', w:90, core:false},
-    {n:'Dandelion Root',                       d:'500mg · Urinary demand · potassium-sparing', t:'13:00', w:90, core:false}
+    // ── Item 06 ──
+    {n:'Berberine',                           d:'400–500mg · AMPK activation + glucose metabolism + microbiome optimization',      t:'12:00', w:90, core:true},
+    // ── Item 07 ──
+    {n:'TMRW Pouch',                          d:'1 serving DAILY · NMN 500mg + CaAKG 950mg + ALCAR 750mg + Taurine 1,200mg + GSH 300mg + ALA 100mg + Choline 220mg + CoQ10 + Resveratrol + Milk Thistle', t:'12:00', w:90, core:true},
+    // ── Item 08 ──
+    {n:'STRONGER+',                           d:'1 serving · Citrulline 8g + Creatine 5g + Beta-Alanine 3.2g + Glycine 3g + Betaine 2.5g + Taurine 2g + MSM 1.5g + PeakATP 400mg + L-Theanine 200mg + Rhodiola 300mg', t:'12:30', w:90, core:true},
+    // ── Item 09 ──
+    {n:'LONGER+',                             d:'1 serving · Longevity complex · NAC 600mg + bioactive blend · cellular protection + clearance', t:'12:30', w:90, core:true},
+    // ── Item 22 ──
+    {n:'Reishi Elixir',                       d:'1,000mg · Auri Super Mushroom Reishi · adaptogenic · immune modulation + CNS support', t:'13:00', w:90, core:true},
+    // ── Infrastructure ──
+    {n:'VisionBody EMS Suit',                 d:'Infrastructure · 30 min session · neuromuscular activation + lymphatic + metabolic demand', t:'12:00', w:120, core:false},
   ],
   pm:[
-    {n:'Magnesium Glycinate',                 d:'400mg · GABA + sleep quality',            t:'21:00', w:90, core:true},
-    {n:'Nattokinase',                         d:'2000 FU · Cardiovascular clearance',      t:'20:30', w:90, core:true},
-    {n:'Ashwagandha KSM-66',                  d:'600mg · HPA axis + cortisol control',     t:'21:00', w:90, core:true},
-    {n:"Lion's Mane",                         d:'1g · NGF + BDNF neurogenesis',            t:'20:00', w:90, core:true},
-    {n:'Electrolytes (K + Mg)',               d:'Full spectrum · Circadian electrolyte reload', t:'21:30', w:90, core:true},
-    {n:'Black Cumin Seed',                    d:'500mg · NF-κB pathway · immune modulation', t:'21:00', w:90, core:false},
-
-    {n:'Reishi',                              d:'1–2g · NK activation · cortisol normalize', t:'21:00', w:90, core:true},
-    {n:'NAC (N-Acetyl Cysteine)',              d:'600–1200mg · GSH precursor · Phase II',   t:'21:00', w:90, core:true},
-    {n:'Astragalus',                          d:'500mg · Telomerase · glomerular protect',  t:'21:00', w:90, core:true},
-    {n:'Glycine',                             d:'3g · Sleep thermoreg · NMDA co-agonist',  t:'21:30', w:90, core:true}
+    // ── Item 02 ──
+    {n:'Kayseari Tocotrienols',               d:'1,000mg · Tocotrienol complex · BBB-crossing neuroprotection + vascular cardioprotection', t:'20:00', w:90, core:true},
+    // ── Item 12 ──
+    {n:'Qualia Magnesium',                    d:'350mg / 10 forms · DAILY · GABA + sleep architecture + multi-system magnesium replenishment', t:'21:00', w:90, core:true},
+    // ── Item 16 ──
+    {n:'Ashwagandha KSM-66',                  d:'600mg · HPA axis modulation + cortisol lowering + recovery support',               t:'21:00', w:90, core:true},
   ]
 };
 
@@ -2315,13 +2308,14 @@ const INTAKE_Qs = [
                        q2:'How is your blood pressure?',       q2l:['Hypertensive','Optimal range']}
 ];
 
+// STACK_MAP — Vitalis 24 controller affinity mapping
 const STACK_MAP = {
-  mitochondria:['Shilajit + Ormus','Mito Stack (NR/NMN + PQQ + CoQ10)','Astaxanthin'],
-  brain:        ["Lion's Mane",'Ashwagandha KSM-66','Tocotrienols (DeltaGold)','Vitamin B Complex'],
-  cardio:       ['Beet Extract','Nattokinase'],
-  immune:       ['Sulforaphane (BROQ)','Astaxanthin','Hydrogen Water'],
-  gut:          ['Sea Moss Complex','Magnesium Glycinate'],
-  vascular:     ['Electrolytes (K + Mg)','GlyNAC']
+  mitochondria: ['Quicksilver NAD+ Platinum','Quicksilver Ergo-Thione+','NADH + Methylene Blue','TMRW Pouch','STRONGER+','Catalyzed Mineral Complex','Hydrogen Water 8.25ppm'],
+  brain:        ["Auri Lion's Mane Elixir",'Citicoline CDP-Choline','Tongkat Ali LJ100','Kayseari Tocotrienols','Ashwagandha KSM-66','Quicksilver NAD+ Platinum','TMRW Pouch'],
+  cardio:       ['Omega-3 + Black Cumin','Liquid 40,000 Volts','STRONGER+','Berberine','VisionBody EMS Suit','Hydrogen Water 8.25ppm'],
+  immune:       ['BROQ Sulforaphane','Reishi Elixir','Quicksilver Ergo-Thione+','Omega-3 + Black Cumin','Auri Pre+Probiotic','Catalyzed Mineral Complex'],
+  gut:          ['Berberine','Auri Pre+Probiotic','LONGER+','Orgono Living Silica','Liquid 40,000 Volts','Qualia Magnesium'],
+  vascular:     ['Omega-3 + Black Cumin','Liquid 40,000 Volts','Kayseari Tocotrienols','Quicksilver Membrane Mend','VisionBody EMS Suit','STRONGER+']
 };
 
 // ═══════════════════════════════════════════
@@ -2475,7 +2469,7 @@ const GAP_RECS = [
     phase: 'MID',
     gapCell: {si:12, fi:1}, // MT·DEL — sole depth-1 mito cell
     closes30: false,
-    why: 'MT·DEL (Mito Delivery) is the only depth-1 cell in the Mitochondria controller, covered solely by Mito Stack. ALA adds redundancy while simultaneously hardening UR·PRO, IM·SUP, EN·PRO, and CV·DMD across four other controllers.',
+    why: 'MT·DEL (Mito Delivery) is covered by NADH + Methylene Blue and TMRW Pouch. ALA adds redundancy while simultaneously hardening UR·PRO, IM·SUP, EN·PRO, and CV·DMD across four other controllers.',
     also: [
       {label:'UR·PRO', note:'Renal antioxidant protection'},
       {label:'IM·SUP', note:'Immune Supply redundancy'},
@@ -2491,9 +2485,9 @@ const GAP_RECS = [
     cellLabel: 'BC·DMD',
     dose: '100 mg',
     phase: 'AM',
-    gapCell: {si:1, fi:2}, // BC·DMD — depth-1 (only Ginkgo covers it)
+    gapCell: {si:1, fi:2}, // BC·DMD — covered by Citicoline CDP-Choline + NADH+MB
     closes30: false,
-    why: 'BC·DMD (Brain + Cog Demand) is depth-1, covered only by Ginkgo. Phosphatidylserine adds direct cognitive demand support — the phospholipid backbone for synaptic membrane demand regulation — while also contributing to NV·DMD and SL·DMD.',
+    why: 'BC·DMD (Brain + Cog Demand) is covered by Citicoline CDP-Choline and NADH + Methylene Blue. Phosphatidylserine adds direct cognitive demand support — the phospholipid backbone for synaptic membrane demand regulation — while also contributing to NV·DMD and SL·DMD.',
     also: [
       {label:'NV·DMD', note:'Nervous System Demand support'},
       {label:'SL·DMD', note:'Sleep/Circadian Demand support'},
