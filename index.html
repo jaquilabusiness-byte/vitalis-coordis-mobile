@@ -4484,7 +4484,7 @@ function applyCore15UI() {
   const lbl   = core15 ? 'Core' : 'Full Stack';
   const sub   = core15
     ? '15 core compounds · Circadian-timed · Habit-first'
-    : '34 compounds · Circadian-timed · Full controller coverage';
+    : '24 items · 22 supps + 2 infra · Full controller coverage';
   const cntEl = document.getElementById('stack-stat-count');
   const lblEl = document.getElementById('stack-stat-lbl');
   const subEl = document.getElementById('stack-hero-sub');
@@ -5755,8 +5755,8 @@ renderGapRecs();
         <div class="ob-card-body">Mitochondria · Brain · Cardio · Immune · Gut · Vascular. These run your system. Vitalis tracks all six simultaneously.</div>
       </div>
       <div class="ob-card">
-        <div class="ob-card-title">🔬 34-Compound Protocol</div>
-        <div class="ob-card-body">Circadian-timed across AM · Midday · PM. Every compound mapped to the cells it covers. Nothing is arbitrary.</div>
+        <div class="ob-card-title">🔬 Vitalis 24 Protocol</div>
+        <div class="ob-card-body">22 supplements + 2 infrastructure devices, circadian-timed across AM · Midday · PM. Every compound maps to the cells it covers. Nothing is arbitrary.</div>
       </div>
     </div>
     <div class="ob-bottom">
@@ -5865,19 +5865,19 @@ renderGapRecs();
     <div class="ob-top">
       <div class="ob-progress" id="ob-progress4"></div>
       <div class="ob-eyebrow">Step 3 of 4 · Your Protocol</div>
-      <div class="ob-title">34 compounds.<br><span>One system.</span></div>
-      <div class="ob-body">Circadian-timed across 3 windows. Every compound maps to the cells it covers in your 85-Grid. Start with the Core 15 if you're new — expand as you build the habit.</div>
+      <div class="ob-title">24 items.<br><span>One system.</span></div>
+      <div class="ob-body">22 supplements + 2 infrastructure devices, circadian-timed across 3 windows. Every compound maps to the cells it covers in your 85-Grid.</div>
       <div style="display:flex;gap:8px;margin-bottom:16px">
         <div style="flex:1;background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.2);border-radius:10px;padding:12px;text-align:center">
           <div style="font-size:16px;font-weight:900;color:#f5a623">15</div>
           <div style="font-size:9px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">AM</div>
         </div>
         <div style="flex:1;background:rgba(0,229,204,0.08);border:1px solid rgba(0,229,204,0.2);border-radius:10px;padding:12px;text-align:center">
-          <div style="font-size:16px;font-weight:900;color:#00e5cc">9</div>
+          <div style="font-size:16px;font-weight:900;color:#00e5cc">6</div>
           <div style="font-size:9px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">Midday</div>
         </div>
         <div style="flex:1;background:rgba(181,123,238,0.08);border:1px solid rgba(181,123,238,0.2);border-radius:10px;padding:12px;text-align:center">
-          <div style="font-size:16px;font-weight:900;color:#b57bee">10</div>
+          <div style="font-size:16px;font-weight:900;color:#b57bee">3</div>
           <div style="font-size:9px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">PM</div>
         </div>
       </div>
@@ -5918,7 +5918,7 @@ renderGapRecs();
         <div class="ob-launch-icon">⚡</div>
         <div class="ob-eyebrow" style="text-align:center">System Initialized</div>
         <div class="ob-title" style="text-align:center">Your HOS is <span>online.</span></div>
-        <div class="ob-body" style="text-align:center">85-Grid mapped. 6 controllers online. Protocol loaded. The loop is ready to close.</div>
+        <div class="ob-body" style="text-align:center">85-Grid mapped. 6 controllers online. Vitalis 24 loaded. Day 0 — the loop is ready to close.</div>
       </div>
       <div class="ob-stat-row">
         <div class="ob-stat">
@@ -5926,8 +5926,8 @@ renderGapRecs();
           <div class="ob-stat-lbl">Grid Cells</div>
         </div>
         <div class="ob-stat">
-          <div class="ob-stat-val">34</div>
-          <div class="ob-stat-lbl">Compounds</div>
+          <div class="ob-stat-val">24</div>
+          <div class="ob-stat-lbl">Items</div>
         </div>
         <div class="ob-stat">
           <div class="ob-stat-val">6</div>
@@ -6113,7 +6113,27 @@ renderGapRecs();
   };
 
   // ── Complete onboarding ───────────────────────────────────────────
+  // Clear all prior dose logs, readiness entries, and biometric data
+  // so every new user starts at Day 0 with a clean protocol slate
+  function clearProtocolHistory() {
+    try {
+      var keysToRemove = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && (
+          k.startsWith('vtl_taken_') ||
+          k.startsWith('vtl_log_') ||
+          k.startsWith('vtl_readiness_') ||
+          k.startsWith('vtl_streak') ||
+          k === 'vtl_core15_mode'
+        )) { keysToRemove.push(k); }
+      }
+      keysToRemove.forEach(function(k) { localStorage.removeItem(k); });
+    } catch(e) {}
+  }
+
   window.obComplete = function() {
+    clearProtocolHistory(); // Day 0 reset — every user starts clean
     try {
       // Mark onboarding done
       localStorage.setItem(OB_KEY, 'true');
@@ -7403,11 +7423,11 @@ const TIER_DEFS = {
   standard: {
     id:    'standard',
     label: 'Standard',
-    compounds: 34,
+    compounds: 24,
     color: '#00e5cc',
     icon:  '⚡',
     tagline: 'Full system coverage.',
-    description: 'All 34 compounds across all 5 flows. Maximum 85-Grid coverage. For users with established protocol habits.',
+    description: 'All 24 items (22 supplements + 2 infrastructure) across all 5 flows. Maximum 85-Grid coverage.',
     criteria: 'Recommended when streak ≥ 7 days and adherence ≥ 70%',
     cells_covered: 75,
     unlock_next: 'Maintain 30-day streak with 85%+ adherence'
