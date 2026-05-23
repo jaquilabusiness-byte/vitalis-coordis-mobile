@@ -1619,6 +1619,90 @@ body {
 }
 .precycle-banner-title { font-size:11px;font-weight:800;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em }
 .precycle-banner-body  { font-size:11px;color:var(--t2);margin-top:4px;line-height:1.55 }
+/* ══════════════════════════════════════════════════════
+   VITALIS — 85-GRID BRIDGE + LABS + REPORT (v1.0)
+   ══════════════════════════════════════════════════════ */
+
+/* ── Shared topbar ── */
+.vcgb-topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:10px;}
+.vcgb-title{font-size:13px;font-weight:700;color:#e8f0f8;letter-spacing:-.01em;}
+.vcgb-badge{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,0.06);color:#7a9ab8;border:1px solid rgba(255,255,255,0.1);}
+
+/* ── Grid Bridge ── */
+.vcgb-summary{font-family:'DM Mono',monospace;font-size:9px;color:#3d5a78;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:10px 13px;margin:0 0 10px;line-height:1.6;}
+.vcgb-ctrl-block{background:rgba(13,30,51,0.9);border:1px solid rgba(255,255,255,0.07);border-radius:12px;overflow:hidden;margin-bottom:10px;}
+.vcgb-ctrl-header{padding:9px 13px;background:rgba(6,15,28,0.8);border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;}
+.vcgb-ctrl-name{font-size:11px;font-weight:700;color:#e8f0f8;}
+.vcgb-ctrl-state{font-family:'DM Mono',monospace;font-size:8px;font-weight:600;padding:2px 8px;border-radius:20px;}
+.vcgb-cells{display:grid;grid-template-columns:repeat(5,1fr);}
+.vcgb-cell{padding:8px 5px;border-right:1px solid rgba(255,255,255,0.06);text-align:center;transition:background .3s;}
+.vcgb-cell:last-child{border-right:none;}
+.vcgb-cell-flow{font-family:'DM Mono',monospace;font-size:6px;color:#3d5a78;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px;}
+.vcgb-cell-addr{font-family:'DM Mono',monospace;font-size:8px;font-weight:600;color:#7a9ab8;margin-bottom:3px;}
+.vcgb-cell-items{font-family:'DM Mono',monospace;font-size:6px;color:#3d5a78;line-height:1.5;}
+.vcgb-cell-act-full{background:rgba(124,92,191,.18);}
+.vcgb-cell-act-full .vcgb-cell-addr{color:#a480f0;}
+.vcgb-cell-act-small{background:rgba(124,92,191,.09);}
+.vcgb-cell-act-small .vcgb-cell-addr{color:#a480f0;}
+.vcgb-cell-hold{background:rgba(0,214,143,.06);}
+.vcgb-cell-hold .vcgb-cell-addr{color:#00d68f;}
+.vcgb-cell-suppress{background:rgba(240,165,0,.1);}
+.vcgb-cell-suppress .vcgb-cell-addr{color:#f0a500;}
+.vcgb-cell-defer{background:rgba(0,229,204,.07);}
+.vcgb-cell-defer .vcgb-cell-addr{color:#00e5cc;}
+.vcgb-cell-revert{background:rgba(255,71,87,.1);}
+.vcgb-cell-revert .vcgb-cell-addr{color:#ff4757;}
+
+/* ── Labs ── */
+.vclabs-section{background:rgba(13,30,51,0.9);border:1px solid rgba(255,255,255,0.07);border-radius:12px;overflow:hidden;margin-bottom:10px;}
+.vclabs-sh{padding:10px 13px;background:rgba(6,15,28,0.8);border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;}
+.vclabs-sh-title{font-size:11px;font-weight:700;color:#e8f0f8;}
+.vcl-badge{font-family:'DM Mono',monospace;font-size:7px;font-weight:600;padding:2px 7px;border-radius:20px;}
+.vcl-d0{color:#ff4757;background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.25);}
+.vcl-d42{color:#f0a500;background:rgba(240,165,0,.1);border:1px solid rgba(240,165,0,.25);}
+.vcl-d90{color:#00d68f;background:rgba(0,214,143,.1);border:1px solid rgba(0,214,143,.25);}
+.vcl-row{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid rgba(255,255,255,0.05);}
+.vcl-row:last-child{border-bottom:none;}
+.vcl-cell{padding:9px 11px;border-right:1px solid rgba(255,255,255,0.05);}
+.vcl-cell:last-child{border-right:none;}
+.vcl-marker{font-size:10px;font-weight:600;color:#e8f0f8;margin-bottom:2px;}
+.vcl-unit{font-family:'DM Mono',monospace;font-size:7px;color:#3d5a78;}
+.vcl-inp{background:transparent;border:none;color:#e8f0f8;font-family:'DM Mono',monospace;font-size:13px;width:100%;outline:none;-webkit-appearance:none;margin-top:3px;}
+.vcl-inp::placeholder{color:#3d5a78;font-size:11px;}
+.vcl-delta{font-family:'DM Mono',monospace;font-size:8px;margin-top:2px;}
+.vcl-pos{color:#00d68f;}
+.vcl-neg{color:#ff4757;}
+.vclabs-note{font-family:'DM Mono',monospace;font-size:8px;color:#3d5a78;padding:8px 13px;background:rgba(6,15,28,0.8);border-top:1px solid rgba(255,255,255,0.07);line-height:1.5;}
+.vclabs-save-row{padding:9px 13px;border-top:1px solid rgba(255,255,255,0.07);}
+.vclabs-save-btn{width:100%;padding:9px;border-radius:9px;border:none;background:rgba(0,229,204,0.15);color:#00e5cc;font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
+.vclabs-save-btn:active{transform:scale(.98);}
+
+/* ── Evidence Report ── */
+.vcr-status-card{background:rgba(13,30,51,0.9);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;margin-bottom:10px;}
+.vcr-status-lbl{font-family:'DM Mono',monospace;font-size:8px;color:#3d5a78;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;}
+#vcr-status-body{font-family:'DM Mono',monospace;font-size:10px;color:#7a9ab8;line-height:1.6;}
+.vcr-summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;}
+.vcr-sm{background:rgba(13,30,51,0.9);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:9px 10px;text-align:center;}
+.vcr-sm-n{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:#e8f0f8;}
+.vcr-sm-l{font-family:'DM Mono',monospace;font-size:7px;color:#3d5a78;margin-top:2px;text-transform:uppercase;letter-spacing:.06em;}
+.vcr-card{background:rgba(13,30,51,0.9);border:1px solid rgba(255,255,255,0.07);border-radius:12px;overflow:hidden;margin-bottom:8px;}
+.vcr-card-header{padding:10px 13px;background:rgba(6,15,28,0.8);border-bottom:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:center;}
+.vcr-card-title{font-size:11px;font-weight:700;color:#e8f0f8;}
+.vcr-card-body{padding:12px 13px;}
+.vcr-row{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:.5px solid rgba(255,255,255,0.05);}
+.vcr-row:last-child{border-bottom:none;}
+.vcr-marker{font-family:'DM Mono',monospace;font-size:10px;color:#7a9ab8;}
+.vcr-pos{color:#00d68f;}
+.vcr-neg{color:#ff4757;}
+.vcr-flat{color:#3d5a78;}
+.vcr-cs-bar{display:flex;gap:3px;align-items:center;margin-top:5px;}
+.vcr-cs-dot{width:9px;height:9px;border-radius:3px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);}
+.vcr-cs-dot.on{background:#00d68f;border-color:#00d68f;}
+.vcr-attr-stmt{background:rgba(6,15,28,0.8);border-radius:10px;padding:11px 13px;margin-bottom:7px;border-left:3px solid #7c5cbf;}
+.vcr-attr-headline{font-size:10px;font-weight:600;color:#e8f0f8;margin-bottom:4px;line-height:1.5;}
+.vcr-attr-sub{font-family:'DM Mono',monospace;font-size:8px;color:#3d5a78;line-height:1.6;}
+.vcr-null-stmt{background:rgba(6,15,28,0.8);border-radius:10px;padding:10px 13px;margin-bottom:6px;border-left:3px solid rgba(255,255,255,0.1);}
+.vcr-null-text{font-family:'DM Mono',monospace;font-size:9px;color:#7a9ab8;line-height:1.5;}
 </style>
 </head>
 <body>
@@ -1930,6 +2014,84 @@ body {
       <div id="log-root"></div>
     </div>
 
+    <!-- ═══ PAGE: 85-GRID BRIDGE ═══ -->
+    <div class="page" id="page-grid-bridge">
+      <div class="vcgb-topbar">
+        <div class="vcgb-title">85-Grid · Engine Bridge</div>
+        <div class="vcgb-badge" id="vcgb-state-badge">—</div>
+      </div>
+      <div class="vcgb-summary" id="vcgb-summary">
+        Enter today's data in Day Log to see which cells are activated.
+      </div>
+      <div id="vcgb-controllers"></div>
+    </div>
+
+    <!-- ═══ PAGE: LABS / BIOMARKERS ═══ -->
+    <div class="page" id="page-labs">
+      <div class="vcgb-topbar">
+        <div class="vcgb-title">Lab Biomarkers</div>
+        <div class="vcgb-badge">3 draws</div>
+      </div>
+      <!-- METABOLIC -->
+      <div class="vclabs-section">
+        <div class="vclabs-sh">
+          <div class="vclabs-sh-title">Metabolic panel</div>
+          <div style="display:flex;gap:4px">
+            <div class="vcl-badge vcl-d0">Day 0</div>
+            <div class="vcl-badge vcl-d42">Day 42</div>
+            <div class="vcl-badge vcl-d90">Day 90</div>
+          </div>
+        </div>
+        <div id="vcl-metabolic"></div>
+        <div class="vclabs-note">Day 0: baseline draw required before Cycle 1 · Day 42: safety gate · Day 90: evidence draw (same lab, same conditions)</div>
+        <div class="vclabs-save-row"><button class="vclabs-save-btn" onclick="vclSaveBiomarkers()">Save all lab values</button></div>
+      </div>
+      <!-- LIPIDS -->
+      <div class="vclabs-section">
+        <div class="vclabs-sh"><div class="vclabs-sh-title">Lipid panel</div></div>
+        <div id="vcl-lipids"></div>
+      </div>
+      <!-- HORMONAL -->
+      <div class="vclabs-section">
+        <div class="vclabs-sh"><div class="vclabs-sh-title">Hormonal + inflammatory</div></div>
+        <div id="vcl-hormonal"></div>
+      </div>
+      <!-- SAFETY -->
+      <div class="vclabs-section">
+        <div class="vclabs-sh">
+          <div class="vclabs-sh-title">Day 42 safety panel</div>
+          <div class="vcl-badge vcl-d42">Safety gate</div>
+        </div>
+        <div id="vcl-safety"></div>
+        <div class="vclabs-note">Required at Day 42: ALT · AST · GGT · Platelet count · ANA titer · Antiphospholipid panel · Iron (Item 15)</div>
+      </div>
+      <!-- SPECIALTY -->
+      <div class="vclabs-section">
+        <div class="vclabs-sh">
+          <div class="vclabs-sh-title">Specialty markers</div>
+          <div class="vcl-badge vcl-d90">End-cycle</div>
+        </div>
+        <div id="vcl-specialty"></div>
+        <div class="vclabs-note">NAD+ whole blood · Omega-3 Index (target &gt;8%) · TruAge biological age · VO2max estimate — Day 0 and Day 90 only</div>
+      </div>
+    </div>
+
+    <!-- ═══ PAGE: EVIDENCE REPORT ═══ -->
+    <div class="page" id="page-report">
+      <div class="vcgb-topbar">
+        <div class="vcgb-title">Cycle 1 Evidence Report</div>
+        <div class="vcgb-badge" id="vcr-day-badge">Day —</div>
+      </div>
+      <div class="vcr-status-card">
+        <div class="vcr-status-lbl">Report status</div>
+        <div id="vcr-status-body">Report compiles at Day 90. Data accumulates daily.</div>
+      </div>
+      <div id="vcr-summary-cards"></div>
+      <div id="vcr-controller-sections"></div>
+      <div id="vcr-attribution-statements"></div>
+      <div id="vcr-footnote"></div>
+    </div>
+
   <!-- BOTTOM NAV -->
   <div class="nav">
     <button class="nav-btn active" data-p="home">
@@ -1965,6 +2127,18 @@ body {
         <span id="log-nav-badge" style="display:none;position:absolute;top:-4px;right:-6px;min-width:13px;height:13px;border-radius:7px;background:var(--teal);font-size:7px;font-weight:800;color:#000;line-height:13px;text-align:center;padding:0 2px"></span>
       </div>
       Day Log
+    </button>
+    <button class="nav-btn" data-p="grid-bridge" id="nav-grid-bridge-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      85-Grid
+    </button>
+    <button class="nav-btn" data-p="labs" id="nav-labs-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v11m0 0H5a2 2 0 0 1-2-2V9m6 5h10a2 2 0 0 0 2-2V9m0 0H3"/></svg>
+      Labs
+    </button>
+    <button class="nav-btn" data-p="report" id="nav-report-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Report
     </button>
 
   </div>
@@ -7049,1795 +7223,510 @@ document.querySelectorAll('.nav-btn[data-p="log"]').forEach(btn => {
 
 </script>
 
+
+<script>
+// ══════════════════════════════════════════════════════════════════
+// VITALIS COORDIS — 85-GRID BRIDGE + LABS + EVIDENCE REPORT
+// v1.0 — wired to dlGetLogs() / dlCycleDay() / vc_biomarkers
+// All IP held by Avotombo Legacy Trust. Operated by Aquila BioSystems Inc.
+// ══════════════════════════════════════════════════════════════════
+
+// ── BIOMARKER STORAGE (shared key) ───────────────────────────────
+const VCL_BM_KEY = 'vc_biomarkers';
+const vclGetBM   = () => { try{return JSON.parse(localStorage.getItem(VCL_BM_KEY)||'{}')}catch{return{}} };
+const vclSaveBM  = d => localStorage.setItem(VCL_BM_KEY, JSON.stringify(d));
+
+// ── 30-CELL LOOKUP TABLE (LOCKED) ────────────────────────────────
+const VCG_CELL_MAP = {
+  'MTO.SUP':{ctrl:'Mitochondria',flow:'Supply',   items:['Momentum AM','Catalyzed Min','NADH','D3+K2','CoQ10']},
+  'MTO.DEL':{ctrl:'Mitochondria',flow:'Delivery', items:['L-Citrulline','CoQ10','Omega-3+BC']},
+  'MTO.DMD':{ctrl:'Mitochondria',flow:'Demand',   items:['NADH','Creatine','Catalyzed Min']},
+  'MTO.PRO':{ctrl:'Mitochondria',flow:'Protection',items:['Tocotrienols','Omega-3+BC','NAC']},
+  'MTO.CLR':{ctrl:'Mitochondria',flow:'Clearance',items:['NAC','Orgono Silica','Liq 40kV']},
+  'BRN.SUP':{ctrl:'Brain',       flow:'Supply',   items:['Momentum AM','D3+K2','NADH']},
+  'BRN.DEL':{ctrl:'Brain',       flow:'Delivery', items:['L-Citrulline','Omega-3+BC']},
+  'BRN.DMD':{ctrl:'Brain',       flow:'Demand',   items:['NADH','TMRW','Qualia Mg']},
+  'BRN.PRO':{ctrl:'Brain',       flow:'Protection',items:['Omega-3+BC','Tocotrienols','NAC']},
+  'BRN.CLR':{ctrl:'Brain',       flow:'Clearance',items:['NAC','Orgono Silica','Synbiotics']},
+  'CRD.SUP':{ctrl:'Cardio',      flow:'Supply',   items:['D3+K2','Omega-3+BC','Bergamot']},
+  'CRD.DEL':{ctrl:'Cardio',      flow:'Delivery', items:['L-Citrulline','Omega-3+BC','Bergamot']},
+  'CRD.DMD':{ctrl:'Cardio',      flow:'Demand',   items:['CoQ10','Creatine','Berberine']},
+  'CRD.PRO':{ctrl:'Cardio',      flow:'Protection',items:['Omega-3+BC','Tocotrienols','Berberine']},
+  'CRD.CLR':{ctrl:'Cardio',      flow:'Clearance',items:['Orgono Silica','Liq 40kV','NAC']},
+  'IMM.SUP':{ctrl:'Immune',      flow:'Supply',   items:['D3+K2','Catalyzed Min','Momentum AM']},
+  'IMM.DEL':{ctrl:'Immune',      flow:'Delivery', items:['Omega-3+BC','L-Citrulline']},
+  'IMM.DMD':{ctrl:'Immune',      flow:'Demand',   items:['Synbiotics','Berberine','TMRW']},
+  'IMM.PRO':{ctrl:'Immune',      flow:'Protection',items:['Omega-3+BC','NAC','Tocotrienols']},
+  'IMM.CLR':{ctrl:'Immune',      flow:'Clearance',items:['Synbiotics','NAC','Orgono Silica']},
+  'GUT.SUP':{ctrl:'Gut',         flow:'Supply',   items:['Synbiotics','Catalyzed Min','Momentum AM']},
+  'GUT.DEL':{ctrl:'Gut',         flow:'Delivery', items:['Orgono Silica','Liq 40kV']},
+  'GUT.DMD':{ctrl:'Gut',         flow:'Demand',   items:['Synbiotics','Berberine','Bergamot']},
+  'GUT.PRO':{ctrl:'Gut',         flow:'Protection',items:['Omega-3+BC','NAC','Synbiotics']},
+  'GUT.CLR':{ctrl:'Gut',         flow:'Clearance',items:['Synbiotics','Orgono Silica','Liq 40kV']},
+  'VAS.SUP':{ctrl:'Vascular',    flow:'Supply',   items:['D3+K2','Omega-3+BC','L-Citrulline']},
+  'VAS.DEL':{ctrl:'Vascular',    flow:'Delivery', items:['L-Citrulline','Bergamot','Omega-3+BC']},
+  'VAS.DMD':{ctrl:'Vascular',    flow:'Demand',   items:['Berberine','CoQ10','Creatine']},
+  'VAS.PRO':{ctrl:'Vascular',    flow:'Protection',items:['Omega-3+BC','Tocotrienols','Berberine']},
+  'VAS.CLR':{ctrl:'Vascular',    flow:'Clearance',items:['Liq 40kV','Orgono Silica','NAC']},
+};
+const VCG_CONTROLLERS = ['Mitochondria','Brain','Cardio','Immune','Gut','Vascular'];
+const VCG_PREFIXES    = {Mitochondria:'MTO',Brain:'BRN',Cardio:'CRD',Immune:'IMM',Gut:'GUT',Vascular:'VAS'};
+const VCG_ICONS       = {Mitochondria:'⚡',Brain:'🧠',Cardio:'❤',Immune:'🛡',Gut:'🌿',Vascular:'🫀'};
+const VCG_FLOWS       = ['SUP','DEL','DMD','PRO','CLR'];
+const VCG_FLOW_LABELS = {SUP:'Supply',DEL:'Deliver',DMD:'Demand',PRO:'Protect',CLR:'Clear'};
+
+function vcgCellClass(state) {
+  if(!state) return '';
+  if(state==='ACT_FULL')            return 'vcgb-cell-act-full';
+  if(state==='ACT_SMALL')           return 'vcgb-cell-act-small';
+  if(state==='HOLD'||state==='EXTEND') return 'vcgb-cell-hold';
+  if(state==='SUPPRESS')            return 'vcgb-cell-suppress';
+  if(state==='REVERT')              return 'vcgb-cell-revert';
+  if(state==='DEFER'||state==='ATTRIBUTION_DEGRADED') return 'vcgb-cell-defer';
+  return '';
+}
+
+function vcgStateColor(state) {
+  const m = {
+    ACT_FULL:'#a480f0', ACT_SMALL:'#a480f0',
+    HOLD:'#00d68f', EXTEND:'#00a86b',
+    DEFER:'#00e5cc', SUPPRESS:'#f0a500',
+    REVERT:'#ff4757', CEILING:'#ff4757',
+    ATTRIBUTION_DEGRADED:'#ff4757', PRE_CYCLE:'#7a9ab8'
+  };
+  return m[state]||'#7a9ab8';
+}
+
+// ── Get latest engine state from today's saved log ────────────────
+function vcgGetTodayState() {
+  const logs = dlGetLogs();
+  const today = typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0,10);
+  const todayLog = logs.find(l => l.date === today);
+  if(!todayLog) return null;
+  // The app stores decision in entry.decision (from computeDecision)
+  return todayLog.decision || null;
+}
+
+function vcgGetTodayCS() {
+  const logs = dlGetLogs();
+  const today = typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0,10);
+  const todayLog = logs.find(l => l.date === today);
+  if(!todayLog) return 0;
+  return todayLog.cs || 0;
+}
+
+// ── RENDER 85-GRID BRIDGE ─────────────────────────────────────────
+function vcgRenderGrid() {
+  const state  = vcgGetTodayState();
+  const cs     = vcgGetTodayCS();
+  const cycleDay = typeof dlCycleDay === 'function' ? dlCycleDay() : null;
+  const today  = typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0,10);
+  const stateColor = vcgStateColor(state);
+
+  // Badge
+  const badge = document.getElementById('vcgb-state-badge');
+  if(badge) {
+    badge.textContent = state || '—';
+    badge.style.color = stateColor;
+    badge.style.background = stateColor + '22';
+    badge.style.borderColor = stateColor + '55';
+  }
+
+  // Summary
+  const summaryEl = document.getElementById('vcgb-summary');
+  if(summaryEl) {
+    if(state && state !== 'PRE_CYCLE') {
+      summaryEl.textContent = 'Engine state: ' + state + '  ·  CS=' + cs + '/3 domains  ·  All 6 controllers shown  ·  Highlighted cells = active engine scope';
+    } else if(state === 'PRE_CYCLE') {
+      summaryEl.textContent = 'Pre-Cycle mode — No protocol decisions. Grid shown for reference only. Start Cycle 1 in the Day Log tab.';
+    } else {
+      summaryEl.textContent = "Log today's data in the Day Log tab to see which cells are activated.";
+    }
+  }
+
+  // Controllers
+  const container = document.getElementById('vcgb-controllers');
+  if(!container) return;
+  container.innerHTML = '';
+
+  VCG_CONTROLLERS.forEach(ctrl => {
+    const prefix = VCG_PREFIXES[ctrl];
+    const icon   = VCG_ICONS[ctrl];
+    const block  = document.createElement('div');
+    block.className = 'vcgb-ctrl-block';
+
+    const stateLabel = state || '—';
+
+    block.innerHTML =
+      '<div class="vcgb-ctrl-header">' +
+        '<div class="vcgb-ctrl-name">' + icon + ' ' + ctrl + '</div>' +
+        '<div class="vcgb-ctrl-state" style="background:' + stateColor + '22;color:' + stateColor + ';border:1px solid ' + stateColor + '44">' + stateLabel + '</div>' +
+      '</div>' +
+      '<div class="vcgb-cells">' +
+        VCG_FLOWS.map(function(flow) {
+          const addr = prefix + '.' + flow;
+          const cell = VCG_CELL_MAP[addr];
+          const cls  = state ? vcgCellClass(state) : '';
+          const itemsHtml = cell.items.map(function(it){ return '<div>' + it + '</div>'; }).join('');
+          return '<div class="vcgb-cell ' + cls + '">' +
+            '<div class="vcgb-cell-flow">' + VCG_FLOW_LABELS[flow] + '</div>' +
+            '<div class="vcgb-cell-addr">' + addr + '</div>' +
+            '<div class="vcgb-cell-items">' + itemsHtml + '</div>' +
+          '</div>';
+        }).join('') +
+      '</div>';
+
+    container.appendChild(block);
+  });
+}
+
+// ── BIOMARKER PANELS DEFINITION ───────────────────────────────────
+const VCL_PANELS = {
+  metabolic: [
+    {id:'glucose',    name:'Glucose',         unit:'mg/dL'},
+    {id:'hba1c',      name:'HbA1c',           unit:'%'},
+    {id:'insulin',    name:'Fasting insulin',  unit:'µIU/mL'},
+    {id:'creatinine', name:'Creatinine',       unit:'mg/dL'},
+    {id:'egfr',       name:'eGFR',             unit:'mL/min/1.73m²'},
+    {id:'alt',        name:'ALT',              unit:'U/L'},
+    {id:'ast',        name:'AST',              unit:'U/L'},
+    {id:'ggt',        name:'GGT',              unit:'U/L'},
+    {id:'albumin',    name:'Albumin',          unit:'g/dL'},
+    {id:'uricacid',   name:'Uric acid',        unit:'mg/dL'},
+    {id:'iron',       name:'Iron (Item 15)',   unit:'µg/dL'},
+  ],
+  lipids: [
+    {id:'totchol',    name:'Total cholesterol',unit:'mg/dL'},
+    {id:'ldl',        name:'LDL',              unit:'mg/dL'},
+    {id:'hdl',        name:'HDL',              unit:'mg/dL'},
+    {id:'trigly',     name:'Triglycerides',    unit:'mg/dL'},
+    {id:'apob',       name:'ApoB',             unit:'mg/dL'},
+    {id:'lpa',        name:'Lp(a)',            unit:'nmol/L'},
+  ],
+  hormonal: [
+    {id:'hscrp',      name:'hs-CRP',           unit:'mg/L'},
+    {id:'il6',        name:'IL-6',             unit:'pg/mL'},
+    {id:'homocyst',   name:'Homocysteine',     unit:'µmol/L'},
+    {id:'testosterone',name:'Testosterone',   unit:'ng/dL'},
+    {id:'estradiol',  name:'Estradiol',        unit:'pg/mL'},
+    {id:'dheas',      name:'DHEA-S',           unit:'µg/dL'},
+    {id:'cortisol',   name:'Cortisol AM',      unit:'µg/dL'},
+    {id:'igf1',       name:'IGF-1',            unit:'ng/mL'},
+    {id:'vitd',       name:'Vitamin D 25OH',   unit:'ng/mL'},
+    {id:'ferritin',   name:'Ferritin',         unit:'ng/mL'},
+    {id:'shbg',       name:'SHBG (Day 28+)',   unit:'nmol/L'},
+  ],
+  safety: [
+    {id:'platelet',   name:'Platelet count',   unit:'K/µL'},
+    {id:'ana',        name:'ANA titer',        unit:'titer'},
+    {id:'anticardio', name:'Anticardiolipin IgG',unit:'GPL'},
+    {id:'b2glyco',    name:'β2-Glycoprotein IgG',unit:'SGU'},
+  ],
+  specialty: [
+    {id:'nad',        name:'NAD+ whole blood', unit:'µM'},
+    {id:'omega3idx',  name:'Omega-3 Index',    unit:'%'},
+    {id:'trueage',    name:'TruAge biol. age', unit:'years'},
+    {id:'vo2max',     name:'VO2max estimate',  unit:'mL/kg/min'},
+  ],
+};
+
+// ── RENDER BIOMARKER FORMS ────────────────────────────────────────
+function vclRenderForms() {
+  const bm = vclGetBM();
+  Object.entries(VCL_PANELS).forEach(function([panel, markers]) {
+    const el = document.getElementById('vcl-' + panel);
+    if(!el) return;
+    el.innerHTML = markers.map(function(m) {
+      const d0  = bm[m.id+'_d0']  || '';
+      const d42 = bm[m.id+'_d42'] || '';
+      const d90 = bm[m.id+'_d90'] || '';
+      let deltaHtml = '';
+      if(d0 && d90) {
+        const diff = parseFloat(d90) - parseFloat(d0);
+        const pct  = d0 ? ((diff/parseFloat(d0))*100).toFixed(1) : '';
+        const cls  = diff >= 0 ? 'vcl-pos' : 'vcl-neg';
+        deltaHtml  = '<div class="vcl-delta ' + cls + '">' + (diff>=0?'+':'') + diff.toFixed(1) + (pct?' ('+pct+'%)':'') + '</div>';
+      }
+      return '<div class="vcl-row">' +
+        '<div class="vcl-cell"><div class="vcl-marker">' + m.name + '</div><div class="vcl-unit">' + m.unit + '</div></div>' +
+        '<div class="vcl-cell"><input class="vcl-inp" id="vcl_' + m.id + '_d0" type="number" inputmode="decimal" placeholder="Day 0" value="' + d0 + '" onchange="vclAutoSave()"></div>' +
+        '<div class="vcl-cell">' +
+          '<input class="vcl-inp" id="vcl_' + m.id + '_d42" type="number" inputmode="decimal" placeholder="Day 42" value="' + d42 + '" onchange="vclAutoSave()">' +
+          '<input class="vcl-inp" id="vcl_' + m.id + '_d90" type="number" inputmode="decimal" placeholder="Day 90" value="' + d90 + '" onchange="vclAutoSave()">' +
+          deltaHtml +
+        '</div>' +
+      '</div>';
+    }).join('');
+  });
+}
+
+function vclAutoSave() { vclSaveBiomarkers(); }
+
+function vclSaveBiomarkers() {
+  const bm = {};
+  Object.values(VCL_PANELS).flat().forEach(function(m) {
+    ['d0','d42','d90'].forEach(function(d) {
+      const el = document.getElementById('vcl_' + m.id + '_' + d);
+      if(el && el.value) bm[m.id + '_' + d] = el.value;
+    });
+  });
+  vclSaveBM(bm);
+  vclRenderForms();
+}
+
+// ── RENDER EVIDENCE REPORT ────────────────────────────────────────
+function vcrBuildReport() {
+  const logs     = dlGetLogs();
+  const bm       = vclGetBM();
+  const cycleDay = typeof dlCycleDay === 'function' ? dlCycleDay() : null;
+  const dn       = cycleDay || 0;
+  const keys     = logs.map(function(l){ return l.date; }).sort();
+  const total    = logs.length;
+
+  // Day badge
+  const dayBadge = document.getElementById('vcr-day-badge');
+  if(dayBadge) dayBadge.textContent = dn ? 'Day ' + dn : 'Pre-Cycle';
+
+  // Status message
+  let statusMsg = '';
+  if(!dn) {
+    statusMsg = 'Cycle 1 has not started. Log baseline data in the Day Log tab. Report accumulates from Day 1.';
+  } else if(dn < 14) {
+    statusMsg = 'Day ' + dn + ' of 90. Attribution analysis requires 14 days minimum. ' + (14-dn) + ' days to first calibration window.';
+  } else if(dn < 90) {
+    statusMsg = 'Day ' + dn + ' of 90. ' + total + ' entries logged. Preliminary patterns visible below. Full probabilistic statements unlock at Day 90 with end-cycle labs.';
+  } else {
+    statusMsg = 'Cycle 1 complete — ' + total + ' entries. Enter Day 90 lab values in Labs tab to generate full attribution statements.';
+  }
+  const statusEl = document.getElementById('vcr-status-body');
+  if(statusEl) statusEl.textContent = statusMsg;
+
+  // Summary cards
+  const ccsAll = logs.map(function(l){ return l.ccs; }).filter(function(x){ return x!=null; });
+  const avgCCS = ccsAll.length ? Math.round(ccsAll.reduce(function(a,b){return a+b;},0)/ccsAll.length*100) : null;
+  const fullDays = logs.filter(function(l){
+    const cr = typeof dlComplianceRate === 'function' ? dlComplianceRate(l) : 0;
+    return cr >= 0.85;
+  }).length;
+  const summaryEl = document.getElementById('vcr-summary-cards');
+  if(summaryEl) {
+    summaryEl.innerHTML =
+      '<div class="vcr-summary-grid">' +
+        '<div class="vcr-sm"><div class="vcr-sm-n">' + total + '</div><div class="vcr-sm-l">Days logged</div></div>' +
+        '<div class="vcr-sm"><div class="vcr-sm-n">' + (avgCCS!=null?avgCCS+'%':'—') + '</div><div class="vcr-sm-l">Avg CCS</div></div>' +
+        '<div class="vcr-sm"><div class="vcr-sm-n">' + (total>0?Math.round(fullDays/total*100)+'%':'—') + '</div><div class="vcr-sm-l">Full days</div></div>' +
+      '</div>';
+  }
+
+  // Layer 1 — Biomarker deltas
+  const DELTA_MARKERS = [
+    {id:'glucose',   name:'Glucose',       unit:'mg/dL'},
+    {id:'hba1c',     name:'HbA1c',         unit:'%'},
+    {id:'alt',       name:'ALT',           unit:'U/L'},
+    {id:'ast',       name:'AST',           unit:'U/L'},
+    {id:'hscrp',     name:'hs-CRP',        unit:'mg/L'},
+    {id:'homocyst',  name:'Homocysteine',  unit:'µmol/L'},
+    {id:'testosterone',name:'Testosterone',unit:'ng/dL'},
+    {id:'vitd',      name:'Vitamin D',     unit:'ng/mL'},
+    {id:'nad',       name:'NAD+ blood',    unit:'µM'},
+    {id:'omega3idx', name:'Omega-3 Index', unit:'%'},
+    {id:'trueage',   name:'TruAge age',    unit:'yrs'},
+  ];
+
+  const deltaRows = DELTA_MARKERS.map(function(m) {
+    const d0  = parseFloat(bm[m.id+'_d0'])||null;
+    const d90 = parseFloat(bm[m.id+'_d90'])||null;
+    if(!d0 && !d90) return null;
+    let deltaHtml = '<span style="color:#3d5a78">—</span>';
+    if(d0 && d90) {
+      const diff = d90 - d0;
+      const pct2 = ((diff/d0)*100).toFixed(1);
+      const cls  = diff > 0 ? 'vcr-pos' : diff < 0 ? 'vcr-neg' : 'vcr-flat';
+      deltaHtml  = '<span class="' + cls + '">' + (diff>0?'+':'') + diff.toFixed(1) + ' (' + pct2 + '%)</span>';
+    }
+    return '<div class="vcr-row">' +
+      '<div><div class="vcr-marker">' + m.name + '</div>' +
+      '<div style="font-family:DM Mono,monospace;font-size:8px;color:#3d5a78">' + m.unit + '</div></div>' +
+      '<div style="text-align:right">' +
+        '<div style="font-family:DM Mono,monospace;font-size:9px;color:#3d5a78">D0: ' + (d0||'—') + ' → D90: ' + (d90||'—') + '</div>' +
+        '<div class="vcr-marker" style="margin-top:2px">' + deltaHtml + '</div>' +
+      '</div></div>';
+  }).filter(Boolean);
+
+  let layer1Html = '';
+  if(deltaRows.length) {
+    layer1Html = '<div class="vcr-card">' +
+      '<div class="vcr-card-header"><div class="vcr-card-title">Layer 1 — Biomarker deltas</div>' +
+      '<div style="font-family:DM Mono,monospace;font-size:8px;color:#3d5a78">D0 vs D90</div></div>' +
+      '<div class="vcr-card-body">' + deltaRows.join('') + '</div>' +
+    '</div>';
+  } else {
+    layer1Html = '<div class="vcr-card">' +
+      '<div class="vcr-card-header"><div class="vcr-card-title">Layer 1 — Biomarker deltas</div></div>' +
+      '<div class="vcr-card-body" style="font-family:DM Mono,monospace;font-size:10px;color:#3d5a78;padding:14px">' +
+        'Enter Day 0 and Day 90 lab values in the Labs tab to generate delta analysis.' +
+      '</div></div>';
+  }
+
+  // Layer 2 — Convergence scores per controller
+  const ctrlSections = VCG_CONTROLLERS.map(function(ctrl) {
+    const subjDays = logs.filter(function(l){
+      const scores = ['energy','cognition','mood','sleep'];
+      const vals = scores.map(function(k){ return l[k]||0; }).filter(function(x){ return x>0; });
+      return vals.length >= 3 && vals.reduce(function(a,b){return a+b;},0)/vals.length >= 7;
+    }).length;
+    const behavDays = logs.filter(function(l){
+      return typeof dlComplianceRate === 'function' ? dlComplianceRate(l) >= 0.85 : false;
+    }).length;
+    const sp = total>0 ? Math.round(subjDays/total*100) : 0;
+    const bp = total>0 ? Math.round(behavDays/total*100) : 0;
+    const dots = [sp>=50, bp>=50, false];
+    const cs3  = dots.filter(Boolean).length;
+    const dotsHtml = ['Subjective','Behavioral','Biomarker'].map(function(d,i){
+      return '<div class="vcr-cs-dot ' + (dots[i]?'on':'') + '"></div>' +
+        '<span style="font-family:DM Mono,monospace;font-size:8px;color:' + (dots[i]?'#00d68f':'#3d5a78') + ';margin-right:8px">' + d + '</span>';
+    }).join('');
+    return '<div style="padding:10px 0;border-bottom:.5px solid rgba(255,255,255,0.05)">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">' +
+        '<div style="font-size:11px;font-weight:700;color:#e8f0f8">' + (VCG_ICONS[ctrl]||'') + ' ' + ctrl + '</div>' +
+        '<div style="font-family:DM Mono,monospace;font-size:10px;color:#7a9ab8">CS=' + cs3 + '/3</div>' +
+      '</div>' +
+      '<div class="vcr-cs-bar">' + dotsHtml + '</div>' +
+    '</div>';
+  }).join('');
+
+  const layer2Html = '<div class="vcr-card" style="margin-top:8px">' +
+    '<div class="vcr-card-header"><div class="vcr-card-title">Layer 2 — Convergence scores</div>' +
+    '<div style="font-family:DM Mono,monospace;font-size:8px;color:#3d5a78">' + total + ' days</div></div>' +
+    '<div class="vcr-card-body">' + ctrlSections + '</div></div>';
+
+  const ctrlEl = document.getElementById('vcr-controller-sections');
+  if(ctrlEl) ctrlEl.innerHTML = layer1Html + layer2Html;
+
+  // Layer 3 — Probabilistic attribution statements (locked rules)
+  const stmts = [];
+  const nulls = [];
+  const stateCount = {};
+  logs.forEach(function(l){ if(l.decision) stateCount[l.decision]=(stateCount[l.decision]||0)+1; });
+  const ccsAll2 = logs.map(function(l){ return l.ccs; }).filter(function(x){ return x!=null; });
+  const avgCCS2 = ccsAll2.length ? Math.round(ccsAll2.reduce(function(a,b){return a+b;},0)/ccsAll2.length*100) : null;
+
+  // NAD+ attribution
+  const nadD0  = parseFloat(bm['nad_d0'])||null;
+  const nadD90 = parseFloat(bm['nad_d90'])||null;
+  const nadPosDays = logs.filter(function(l){ return (l.energy||0)>=8 && (l.cognition||0)>=8; }).length;
+  const nadCSsc = total>0 ? nadPosDays/total : 0;
+  if(nadD0 && nadD90 && nadD90>nadD0 && nadCSsc>=0.5 && total>=14) {
+    const confounders = logs.filter(function(l){ return l.confounders && l.confounders.length>0; }).length;
+    stmts.push({
+      cluster:'NMN · NADH',
+      cells:'MTO.SUP · BRN.SUP',
+      headline:'NAD+ whole blood increased from ' + nadD0 + ' to ' + nadD90 + ' µM (+' + ((nadD90-nadD0)/nadD0*100).toFixed(1) + '%). Positive subjective energy and cognition convergence on ' + Math.round(nadCSsc*100) + '% of logged days.',
+      sub:'CS=' + (nadCSsc>=0.67?3:2) + '/3  ·  Confounder days: ' + confounders + '/' + total + '  ·  Primary alternative: general lifestyle  ·  Confidence: ' + (nadCSsc>=0.67?'MODERATE':'LOW-MODERATE'),
+    });
+  } else if(total>=14) {
+    nulls.push('NMN · NADH (MTO.SUP · BRN.SUP): Insufficient convergence for probabilistic attribution under uncertainty. Delta or CS threshold not met.');
+  }
+
+  // Omega-3 attribution
+  const o3D0  = parseFloat(bm['omega3idx_d0'])||null;
+  const o3D90 = parseFloat(bm['omega3idx_d90'])||null;
+  if(o3D0 && o3D90 && o3D90>o3D0 && total>=14) {
+    stmts.push({
+      cluster:'Omega-3+BC',
+      cells:'MTO.DEL · BRN.PRO · CRD.DEL · VAS.DEL · IMM.PRO · GUT.PRO',
+      headline:'Omega-3 Index moved from ' + o3D0 + '% to ' + o3D90 + '% (' + (o3D90>=8?'above':'below') + ' 8% target). Directional positive delta confirmed.',
+      sub:'CS=1-2/3  ·  Objective biomarker confirmed  ·  Broad coverage: 6 controller cells  ·  Confidence: LOW-MODERATE (single-domain biomarker)',
+    });
+  } else if(total>=14) {
+    nulls.push('Omega-3+BC: No delta or insufficient data. Enter Day 0 and Day 90 Omega-3 Index values in Labs tab.');
+  }
+
+  // CCS compliance statement
+  if(total>=30 && avgCCS2!=null) {
+    const band = avgCCS2>=85?'Full':avgCCS2>=70?'Partial':'Compromised';
+    const actFull  = stateCount['ACT_FULL']||0;
+    const actSmall = stateCount['ACT_SMALL']||0;
+    stmts.push({
+      cluster:'Protocol compliance — all controllers',
+      cells:'All 30 active cells',
+      headline:'Average CCS ' + avgCCS2 + '% (' + band + ') over ' + total + ' logged days. Engine fired ACT_FULL on ' + actFull + ' days and ACT_SMALL on ' + actSmall + ' days.',
+      sub:(total>=60?'Attribution window sufficient for Cycle 1 Evidence Report':'Attribution window building — continue to Day 90') + '  ·  CCS-weighted confidence applies to all statements above',
+    });
+  }
+
+  const stmtHtml = stmts.map(function(s){
+    return '<div class="vcr-attr-stmt">' +
+      '<div class="vcr-attr-headline">' + s.headline + '</div>' +
+      '<div class="vcr-attr-sub">' + s.cluster + '  ·  ' + s.cells + '<br>' + s.sub + '</div>' +
+    '</div>';
+  }).join('');
+
+  const nullHtml = nulls.map(function(n){
+    return '<div class="vcr-null-stmt"><div class="vcr-null-text">' + n + '</div></div>';
+  }).join('');
+
+  const gate = total<14 ?
+    '<div style="font-family:DM Mono,monospace;font-size:10px;color:#3d5a78;padding:14px;background:rgba(6,15,28,0.8);border-radius:10px;margin-bottom:8px">Probabilistic statements unlock after 14 days of logged data.' + (14-total>0?' '+( 14-total)+' days remaining.':'') + '</div>' : '';
+
+  const layer3Html = '<div class="vcr-card" style="margin-top:8px">' +
+    '<div class="vcr-card-header"><div class="vcr-card-title">Layer 3 — Attribution statements</div>' +
+    '<div style="font-family:DM Mono,monospace;font-size:8px;color:#3d5a78">Gated: delta + CS≥2</div></div>' +
+    '<div class="vcr-card-body">' + gate + stmtHtml + nullHtml +
+      (!stmts.length && !nulls.length && total>=14 ?
+        '<div style="font-family:DM Mono,monospace;font-size:10px;color:#3d5a78">No biomarker deltas entered yet. Add Day 0 and Day 90 values in the Labs tab.</div>' : '') +
+    '</div></div>';
+
+  const attrEl = document.getElementById('vcr-attribution-statements');
+  if(attrEl) attrEl.innerHTML = layer3Html;
+
+  // Footer
+  const footEl = document.getElementById('vcr-footnote');
+  if(footEl) {
+    footEl.innerHTML =
+      '<div style="font-family:DM Mono,monospace;font-size:8px;color:#3d5a78;line-height:1.7;padding:10px 2px;margin-bottom:80px">' +
+        'Vitalis Coordis Cycle 1 Evidence Report · V3.2<br>' +
+        'Generated: ' + new Date().toLocaleDateString() + '  ·  Day ' + (dn||'PRE') + ' of 90<br>' +
+        'Attribution confidence is CCS-weighted. Probabilistic attribution under uncertainty requires delta positive + CS≥2.<br>' +
+        'This report does not constitute medical advice. Built and Operated by Aquila BioSystems Inc.' +
+      '</div>';
+  }
+}
+
+// ── HOOK INTO activatePage ────────────────────────────────────────
+(function() {
+  const _orig = window.activatePage;
+  window.activatePage = function(pageId) {
+    if(_orig) _orig(pageId);
+    if(pageId === 'grid-bridge') { vcgRenderGrid(); }
+    if(pageId === 'labs')        { vclRenderForms(); }
+    if(pageId === 'report')      { vcrBuildReport(); }
+  };
+
+  // Wire nav buttons
+  ['grid-bridge','labs','report'].forEach(function(p) {
+    document.querySelectorAll('[data-p="' + p + '"]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        window.activatePage(p);
+      });
+    });
+  });
+})();
+
+// Also refresh grid bridge when Day Log is saved
+(function() {
+  const _origSubmit = window.dlSubmitLog;
+  if(_origSubmit) {
+    window.dlSubmitLog = function() {
+      _origSubmit.apply(this, arguments);
+      // If grid page is visible, refresh it
+      const gridPage = document.getElementById('page-grid-bridge');
+      if(gridPage && gridPage.classList.contains('active')) vcgRenderGrid();
+    };
+  }
+})();
+
+</script>
+
 </body>
 </html>
-<script>
-// ═══════════════════════════════════════════════════════════════════
-// VITALIS COORDIS — ENGINES MODULE (Mobile Parity v1.0)
-// Proof Engine · Decision Engine · Robustness Engine
-// All IP held by Avotombo Legacy Trust. All rights reserved.
-// ═══════════════════════════════════════════════════════════════════
-
-// ── Shared storage helpers ──────────────────────────────────────────
-const ENG_STORE = {
-  get: k => { try { return JSON.parse(localStorage.getItem(k)||'null'); } catch { return null; } },
-  set: (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
-  del: k => { try { localStorage.removeItem(k); } catch {} },
-};
-const PROOF_KEY    = 'vc_mobile_proof_v1';
-const DECISION_KEY = 'vc_mobile_decision_v1';
-
-// ── Shared render helpers ───────────────────────────────────────────
-function engCard(content, glow='') {
-  return `<div style="background:rgba(255,255,255,0.03);border:1px solid ${glow||'rgba(255,255,255,0.08)'};border-radius:14px;padding:16px;margin-bottom:12px">${content}</div>`;
-}
-function engLabel(text, color='rgba(255,255,255,0.35)') {
-  return `<div style="font-size:9px;font-weight:800;letter-spacing:0.12em;color:${color};text-transform:uppercase;margin-bottom:10px">${text}</div>`;
-}
-function engBtn(text, onclick, variant='primary') {
-  const styles = {
-    primary: 'background:linear-gradient(135deg,#00e5cc,#00b8a3);color:#000',
-    ghost:   'background:transparent;border:1px solid rgba(0,229,204,0.3);color:#00e5cc',
-    danger:  'background:transparent;border:1px solid rgba(255,77,109,0.3);color:rgba(255,77,109,0.8)',
-    amber:   'background:linear-gradient(135deg,#f5a623,#d4891a);color:#000',
-    violet:  'background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff',
-  };
-  return `<button onclick="${onclick}" style="width:100%;padding:14px;border-radius:10px;border:none;cursor:pointer;font-size:13px;font-weight:800;font-family:Inter,sans-serif;${styles[variant]||styles.primary}">${text}</button>`;
-}
-function engPhaseBar(phase) {
-  const phases = ['Baseline','Protocol','Delta'];
-  const idx = phase==='measure'?2 : phase==='delta'?2 : phase==='protocol'?1 : 0;
-  const bars = phases.map((_,i)=>`<div style="flex:1;height:3px;border-radius:2px;background:${i<idx?'#00e5cc':i===idx?'#f5a623':'rgba(255,255,255,0.08)'}"></div>`).join('');
-  const labels = phases.map((p,i)=>`<div style="flex:1;font-size:8px;font-weight:700;letter-spacing:0.1em;text-align:center;text-transform:uppercase;color:${i<idx?'#00e5cc':i===idx?'#f5a623':'rgba(255,255,255,0.25)'}">${p}</div>`).join('');
-  return `<div style="margin-bottom:24px"><div style="display:flex;gap:6px;margin-bottom:6px">${bars}</div><div style="display:flex;gap:6px">${labels}</div></div>`;
-}
-
-// ════════════════════════════════════════════════════════════════════
-// PROOF ENGINE
-// ════════════════════════════════════════════════════════════════════
-const PROOF_METRICS = [
-  {id:'hrv',       label:'HRV',         unit:'ms',  dir:'up'},
-  {id:'rhr',       label:'Resting HR',  unit:'bpm', dir:'down'},
-  {id:'sleep_eff', label:'Sleep Eff.',  unit:'%',   dir:'up'},
-  {id:'energy',    label:'Energy',      unit:'/10', dir:'up'},
-  {id:'cog',       label:'Cognitive',   unit:'/10', dir:'up'},
-  {id:'body_comp', label:'Body Comp',   unit:'lbs', dir:'down'},
-];
-
-function proofDaysSince(ts) {
-  if (!ts) return 1;
-  return Math.max(1, Math.round((Date.now()-ts)/86400000));
-}
-function proofCalcDelta(before, after, dir) {
-  const b=parseFloat(before), a=parseFloat(after);
-  if(isNaN(b)||isNaN(a)) return null;
-  const diff=a-b, pct=b!==0?(diff/b)*100:0;
-  const improved=dir==='up'?diff>0:diff<0;
-  const label=(diff>0?'+':'')+Math.abs(pct).toFixed(0)+'%';
-  return {diff,pct,improved,label};
-}
-
-function renderProofEngine() {
-  const data = ENG_STORE.get(PROOF_KEY) || {};
-  const phase = data.phase || 'baseline';
-  const days  = proofDaysSince(data.baseline_ts);
-  let html = `
-    <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px">
-      <div style="font-size:16px;font-weight:800;color:#f0f6ff">Proof Engine</div>
-      <div style="font-size:10px;font-weight:700;color:rgba(0,229,204,0.5);font-style:italic">It works.</div>
-    </div>
-    <div style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#00e5cc;margin-bottom:20px">BEFORE → PROTOCOL → DELTA</div>
-    ${engPhaseBar(phase)}
-  `;
-
-  if (phase === 'baseline') {
-    html += `
-      <div style="background:rgba(0,229,204,0.04);border:1px solid rgba(0,229,204,0.15);border-radius:14px;padding:16px;margin-bottom:20px;text-align:center">
-        <div style="font-size:10px;font-weight:800;letter-spacing:0.12em;color:#00e5cc;text-transform:uppercase;margin-bottom:8px">Step 1 — Lock Your Baseline</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">Enter current biometric readings.<br>This timestamp is permanent.</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-        ${PROOF_METRICS.map(m=>`
-          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px">
-            <div style="font-size:8px;font-weight:800;letter-spacing:0.1em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:6px">${m.label}</div>
-            <input id="proof-bl-${m.id}" type="number" inputmode="decimal" placeholder="—"
-              style="width:100%;background:transparent;border:none;outline:none;font-size:22px;font-weight:700;color:#f0f6ff;font-family:'JetBrains Mono',monospace"/>
-            <div style="font-size:9px;color:rgba(255,255,255,0.25);margin-top:4px">${m.unit}</div>
-          </div>`).join('')}
-      </div>
-      <div id="proof-bl-err" style="display:none;background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.3);border-radius:10px;padding:10px;margin-bottom:12px;font-size:12px;color:rgba(255,77,109,0.9);text-align:center"></div>
-      ${engBtn('Lock Baseline →', 'proofSaveBaseline()')}
-    `;
-  } else if (phase === 'protocol') {
-    const active = data.interventions || [];
-    const logs   = data.daily_logs || [];
-    const INTERVENTIONS = [
-      {id:'sleep_lock',name:'Sleep Timing Lock'},
-      {id:'nad_complex',name:'NAD+ Precursor'},
-      {id:'mag_glyc',name:'Magnesium Glycinate'},
-      {id:'breath',name:'Breathwork'},
-      {id:'creatine',name:'Creatine Monohydrate'},
-      {id:'hydration',name:'Structured Hydration'},
-      {id:'fasting',name:'Time-Restricted Eating'},
-      {id:'cold',name:'Cold Exposure'},
-      {id:'shilajit',name:'Shilajit / Fulvic'},
-      {id:'omega3',name:'Omega-3 / DHA'},
-    ];
-    html += `
-      <div style="margin-bottom:20px">
-        ${engLabel(`Day Tracker — Day ${days} of 14`)}
-        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
-          ${Array.from({length:14},(_,i)=>{
-            const d=i+1, logged=logs.some(l=>l.day===d), today=d===days;
-            return `<div style="height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:${logged?'rgba(0,229,204,0.12)':today?'rgba(245,166,35,0.12)':'rgba(255,255,255,0.04)'};border:1px solid ${logged?'rgba(0,229,204,0.3)':today?'#f5a623':'rgba(255,255,255,0.08)'};color:${logged?'#00e5cc':today?'#f5a623':'rgba(255,255,255,0.3)'}">${d}</div>`;
-          }).join('')}
-        </div>
-      </div>
-      ${engLabel(`Interventions (${active.length} active)`)}
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px">
-        ${INTERVENTIONS.map(iv=>{
-          const on=active.includes(iv.id);
-          return `<div onclick="proofToggleIV('${iv.id}')" style="background:${on?'rgba(0,229,204,0.05)':'rgba(255,255,255,0.03)'};border:1px solid ${on?'rgba(0,229,204,0.3)':'rgba(255,255,255,0.08)'};border-radius:10px;padding:10px 12px;cursor:pointer;display:flex;align-items:center;gap:8px">
-            <div style="width:16px;height:16px;border-radius:4px;flex-shrink:0;background:${on?'#00e5cc':'transparent'};border:1.5px solid ${on?'#00e5cc':'rgba(255,255,255,0.2)'};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#000">${on?'✓':''}</div>
-            <div style="font-size:11px;font-weight:600;color:${on?'#f0f6ff':'rgba(255,255,255,0.45)'};line-height:1.3">${iv.name}</div>
-          </div>`;
-        }).join('')}
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-        ${engBtn('✓ Log Today', 'proofLogToday()', 'primary')}
-        ${engBtn('Measure → Delta', 'proofGoToMeasure()', 'ghost')}
-      </div>
-      ${engBtn('Reset Engine', 'proofReset()', 'danger')}
-    `;
-  } else if (phase === 'measure') {
-    html += `
-      <div style="background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.2);border-radius:14px;padding:16px;margin-bottom:20px;text-align:center">
-        <div style="font-size:10px;font-weight:800;letter-spacing:0.12em;color:#f5a623;text-transform:uppercase;margin-bottom:6px">Day ${days} — Current Readings</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.5)">Enter current biometrics.</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-        ${PROOF_METRICS.map(m=>`
-          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(245,166,35,0.15);border-radius:12px;padding:12px">
-            <div style="font-size:8px;font-weight:800;letter-spacing:0.1em;color:#f5a623;text-transform:uppercase;margin-bottom:6px">${m.label}</div>
-            <input id="proof-cur-${m.id}" type="number" inputmode="decimal" placeholder="—"
-              style="width:100%;background:transparent;border:none;outline:none;font-size:22px;font-weight:700;color:#f0f6ff;font-family:'JetBrains Mono',monospace"/>
-            <div style="font-size:9px;color:rgba(255,255,255,0.25);margin-top:4px">${m.unit} <span style="color:rgba(255,255,255,0.2)">(was ${data.baseline&&data.baseline[m.id]||'—'})</span></div>
-          </div>`).join('')}
-      </div>
-      <div id="proof-cur-err" style="display:none;background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.3);border-radius:10px;padding:10px;margin-bottom:12px;font-size:12px;color:rgba(255,77,109,0.9);text-align:center"></div>
-      <div style="display:grid;grid-template-columns:1fr 2fr;gap:10px">
-        ${engBtn('← Back', 'proofGoToProtocol()', 'ghost')}
-        ${engBtn('Generate Delta →', 'proofGenerateDelta()', 'amber')}
-      </div>
-    `;
-  } else if (phase === 'delta') {
-    const baseline = data.baseline || {};
-    const current  = data.current  || {};
-    const deltas = PROOF_METRICS.map(m=>{
-      const b=baseline[m.id], a=current[m.id];
-      if(!b||!a) return null;
-      const c=proofCalcDelta(b,a,m.dir);
-      if(!c) return null;
-      return {...m,before:b,after:a,...c};
-    }).filter(Boolean);
-    const improved = deltas.filter(d=>d.improved).length;
-    const score    = deltas.length>0 ? Math.round((improved/deltas.length)*100) : 0;
-    html += `
-      <div style="background:rgba(0,229,204,0.04);border:1px solid rgba(0,229,204,0.2);border-radius:16px;padding:24px;margin-bottom:16px;text-align:center">
-        ${engLabel('Optimization Score')}
-        <div style="font-size:64px;font-weight:900;color:#00e5cc;line-height:1;font-family:'JetBrains Mono',monospace">${score}<span style="font-size:24px;color:rgba(255,255,255,0.3)">%</span></div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px">${improved} of ${deltas.length} markers improved in ${days} days</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;margin-bottom:16px">
-        <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.06)">
-          <span style="font-size:10px;font-weight:800;letter-spacing:0.1em;color:#00e5cc;text-transform:uppercase">Biological Delta</span>
-        </div>
-        ${deltas.length===0?'<div style="padding:16px;text-align:center;color:rgba(255,255,255,0.25);font-size:13px">No comparable metrics</div>':
-          deltas.map(d=>`
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.04)">
-            <span style="font-size:12px;color:rgba(255,255,255,0.6)">${d.label}</span>
-            <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:11px;color:rgba(255,255,255,0.3);font-family:'JetBrains Mono',monospace">${parseFloat(d.before).toFixed(1)}</span>
-              <span style="font-size:10px;color:rgba(255,255,255,0.2)">→</span>
-              <span style="font-size:12px;font-weight:700;color:#f0f6ff;font-family:'JetBrains Mono',monospace">${parseFloat(d.after).toFixed(1)}</span>
-              <span style="font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px;color:${d.improved?'#00ff94':'#f5a623'};background:${d.improved?'rgba(0,255,148,0.1)':'rgba(245,166,35,0.1)'}">${d.label}</span>
-            </div>
-          </div>`).join('')}
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-        ${engBtn('Continue Protocol', 'proofContinueProtocol()', 'ghost')}
-        ${engBtn('New Cycle', 'proofReset()', 'danger')}
-      </div>
-    `;
-  }
-
-  document.getElementById('engines-root').innerHTML = `<div id="engines-proof">${html}</div>` +
-    `<div id="engines-decision" style="display:none"></div>` +
-    `<div id="engines-robustness" style="display:none"></div>` +
-    enginesSubNav('proof');
-}
-
-// Proof Engine actions
-function proofSaveBaseline() {
-  const values = {};
-  let filled = 0;
-  PROOF_METRICS.forEach(m => {
-    const v = (document.getElementById('proof-bl-'+m.id)||{}).value?.trim() || '';
-    if (v) { values[m.id]=v; filled++; }
-  });
-  const errEl = document.getElementById('proof-bl-err');
-  if (filled < 1) {
-    if(errEl){errEl.style.display='block';errEl.textContent='Enter at least one baseline metric.';}
-    return;
-  }
-  ENG_STORE.set(PROOF_KEY, {phase:'protocol',baseline:values,baseline_ts:Date.now(),interventions:[],daily_logs:[]});
-  renderProofEngine();
-}
-function proofToggleIV(id) {
-  const data = ENG_STORE.get(PROOF_KEY)||{};
-  const ivs  = [...(data.interventions||[])];
-  const idx  = ivs.indexOf(id);
-  if(idx>=0) ivs.splice(idx,1); else ivs.push(id);
-  ENG_STORE.set(PROOF_KEY, {...data, interventions:ivs});
-  renderProofEngine();
-}
-function proofLogToday() {
-  const data = ENG_STORE.get(PROOF_KEY)||{};
-  const days = proofDaysSince(data.baseline_ts);
-  const logs = [...(data.daily_logs||[])];
-  if (logs.some(l=>l.day===days)) return;
-  logs.push({day:days, ts:Date.now(), interventions:[...(data.interventions||[])]});
-  ENG_STORE.set(PROOF_KEY, {...data, daily_logs:logs});
-  renderProofEngine();
-}
-function proofGoToMeasure()   { const d=ENG_STORE.get(PROOF_KEY)||{}; ENG_STORE.set(PROOF_KEY,{...d,phase:'measure'}); renderProofEngine(); }
-function proofGoToProtocol()  { const d=ENG_STORE.get(PROOF_KEY)||{}; ENG_STORE.set(PROOF_KEY,{...d,phase:'protocol'}); renderProofEngine(); }
-function proofGenerateDelta() {
-  const data = ENG_STORE.get(PROOF_KEY)||{};
-  const values = {};
-  let filled = 0;
-  PROOF_METRICS.forEach(m => {
-    const v = (document.getElementById('proof-cur-'+m.id)||{}).value?.trim() || '';
-    if(v) { values[m.id]=v; filled++; }
-  });
-  const errEl = document.getElementById('proof-cur-err');
-  if(filled < 2) {
-    if(errEl){errEl.style.display='block';errEl.textContent='Enter at least 2 current readings.';}
-    return;
-  }
-  ENG_STORE.set(PROOF_KEY, {...data, phase:'delta', current:values, current_ts:Date.now()});
-  renderProofEngine();
-}
-function proofContinueProtocol() {
-  const d=ENG_STORE.get(PROOF_KEY)||{};
-  ENG_STORE.set(PROOF_KEY, {...d, phase:'protocol', current:undefined, current_ts:undefined});
-  renderProofEngine();
-}
-function proofReset() {
-  ENG_STORE.del(PROOF_KEY);
-  renderProofEngine();
-}
-
-// ════════════════════════════════════════════════════════════════════
-// DECISION ENGINE
-// ════════════════════════════════════════════════════════════════════
-const DECISION_GOALS = {
-  energy:    {label:'Energy & Vitality',   icon:'⚡', color:'#f5a623', controller:'Mitochondria', bottleneck:'Cellular ATP output insufficient for sustained demand', interventions:['NAD+ Precursor Complex','Shilajit / Fulvic Mineral','Mito Stack protocol','Cold Exposure (AM)','Sleep Timing Lock']},
-  sleep:     {label:'Deep Sleep',          icon:'🌙', color:'#b57bee', controller:'Brain',        bottleneck:'GABAergic tone insufficient; cortisol clearance delayed', interventions:['Magnesium Glycinate (PM)','Ashwagandha','5-Layer GABA Convergence','Sleep Timing Lock','Glycine Standalone']},
-  recovery:  {label:'Recovery & Repair',   icon:'🔄', color:'#22d47e', controller:'Cardio',       bottleneck:'HRV suppressed; inflammatory load elevated post-exertion', interventions:['Omega-3 / DHA Complex','Nattokinase (PM)','Cold Exposure','Breathwork Protocol','Urolithin A']},
-  focus:     {label:'Cognitive Focus',     icon:'🧠', color:'#4da6ff', controller:'Brain',        bottleneck:'Prefrontal acetylcholine / dopamine precursor shortage',  interventions:["Lion's Mane","Rhodiola Rosea (AM)",'Ginkgo Biloba','NAD+ Precursor','Breathwork Protocol']},
-  body_comp: {label:'Body Composition',    icon:'💪', color:'#00e5cc', controller:'Gut + Vascular',bottleneck:'Insulin sensitivity + nutrient partitioning misaligned',  interventions:['Berberine (AM)','Tongkat Ali','GlyNAC','Time-Restricted Eating','Sulforaphane']},
-};
-
-function renderDecisionEngine() {
-  const session = ENG_STORE.get(DECISION_KEY);
-  const phase   = session?.phase || 'goal';
-  let html = `
-    <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px">
-      <div style="font-size:16px;font-weight:800;color:#f0f6ff">Decision Engine</div>
-      <div style="font-size:10px;font-weight:700;color:rgba(124,58,237,0.6);font-style:italic">It wins.</div>
-    </div>
-    <div style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#7c3aed;margin-bottom:20px">YOUR PATH · UPGRADED WITH FULL-SYSTEM VISIBILITY</div>
-  `;
-
-  if (phase === 'goal' || !session) {
-    html += `
-      <div style="font-size:14px;font-weight:700;color:#f0f6ff;margin-bottom:16px">What outcome do you want to upgrade?</div>
-      ${Object.entries(DECISION_GOALS).map(([id,g])=>`
-        <div onclick="decisionSelectGoal('${id}')" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
-          <div style="display:flex;align-items:center;gap:12px">
-            <div style="font-size:22px">${g.icon}</div>
-            <div>
-              <div style="font-size:14px;font-weight:700;color:#f0f6ff">${g.label}</div>
-              <div style="font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px">${g.controller}</div>
-            </div>
-          </div>
-          <span style="font-size:16px;color:${g.color}">→</span>
-        </div>`).join('')}
-    `;
-  } else if (phase === 'human_plan') {
-    const g = DECISION_GOALS[session.goal];
-    html += `
-      <div style="background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.2);border-radius:14px;padding:16px;margin-bottom:20px">
-        <div style="font-size:10px;font-weight:800;color:#7c3aed;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Your Current Approach</div>
-        <div style="font-size:15px;font-weight:800;color:#f0f6ff;margin-bottom:4px">${g.icon} ${g.label}</div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.4)">What are you currently doing for this?</div>
-      </div>
-      ${['Consistent sleep schedule','Using supplements already','Regular exercise','Tracking biometrics','No structured protocol'].map(opt=>{
-        const sel = (session.human_plan||[]).includes(opt);
-        return `<div onclick="decisionToggleHP('${opt}')" style="background:${sel?'rgba(124,58,237,0.08)':'rgba(255,255,255,0.03)'};border:1px solid ${sel?'rgba(124,58,237,0.3)':'rgba(255,255,255,0.08)'};border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:10px">
-          <div style="width:16px;height:16px;border-radius:4px;flex-shrink:0;background:${sel?'#7c3aed':'transparent'};border:1.5px solid ${sel?'#7c3aed':'rgba(255,255,255,0.2)'};display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff">${sel?'✓':''}</div>
-          <span style="font-size:13px;color:${sel?'#f0f6ff':'rgba(255,255,255,0.5)'}">${opt}</span>
-        </div>`;
-      }).join('')}
-      <div style="margin-top:12px">
-        ${engBtn('See Vitalis Plan →', 'decisionLockHP()', 'violet')}
-      </div>
-    `;
-  } else if (phase === 'vitalis_plan') {
-    const g = DECISION_GOALS[session.goal];
-    html += `
-      <div style="background:rgba(0,229,204,0.04);border:1px solid rgba(0,229,204,0.2);border-radius:14px;padding:16px;margin-bottom:16px">
-        <div style="font-size:10px;font-weight:800;color:#00e5cc;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">System Bottleneck Identified</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.5">${g.bottleneck}</div>
-      </div>
-      <div style="font-size:13px;font-weight:800;color:#f0f6ff;margin-bottom:12px">Recommended Interventions</div>
-      ${g.interventions.map((iv,i)=>`
-        <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 14px;margin-bottom:8px">
-          <div style="width:22px;height:22px;border-radius:50%;background:rgba(0,229,204,0.1);border:1px solid rgba(0,229,204,0.25);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#00e5cc;flex-shrink:0">${i+1}</div>
-          <span style="font-size:13px;color:#f0f6ff">${iv}</span>
-        </div>`).join('')}
-      <div style="margin-top:16px">
-        ${engBtn('Start Tracking →', 'decisionStartTracking()', 'primary')}
-      </div>
-    `;
-  } else if (phase === 'tracking') {
-    const g = DECISION_GOALS[session.goal];
-    const tracking = session.tracking || [];
-    const today    = Math.max(1, Math.round((Date.now()-(session.started_ts||Date.now()))/86400000));
-    html += `
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
-        <div>
-          <div style="font-size:15px;font-weight:800;color:#f0f6ff">${g.icon} ${g.label}</div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px">Day ${today} tracking</div>
-        </div>
-        <div style="font-size:11px;font-weight:700;color:${g.color};background:${g.color}14;border:1px solid ${g.color}33;border-radius:20px;padding:4px 12px">${g.controller}</div>
-      </div>
-      ${g.interventions.map(iv=>{
-        const done = tracking.some(t=>t.day===today&&t.ivs&&t.ivs.includes(iv));
-        return `<div onclick="decisionToggleTracking('${iv.replace(/'/g,"\\'")}',${today})" style="display:flex;align-items:center;gap:10px;background:${done?'rgba(0,229,204,0.05)':'rgba(255,255,255,0.03)'};border:1px solid ${done?'rgba(0,229,204,0.25)':'rgba(255,255,255,0.08)'};border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer">
-          <div style="width:18px;height:18px;border-radius:5px;flex-shrink:0;background:${done?'#00e5cc':'transparent'};border:1.5px solid ${done?'#00e5cc':'rgba(255,255,255,0.2)'};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#000">${done?'✓':''}</div>
-          <span style="font-size:12px;color:${done?'#f0f6ff':'rgba(255,255,255,0.5)'}">${iv}</span>
-        </div>`;
-      }).join('')}
-      <div style="margin-top:16px">
-        ${engBtn('Generate Report →', 'decisionGenerateReport()', 'violet')}
-      </div>
-    `;
-  } else if (phase === 'report') {
-    const g = DECISION_GOALS[session.goal];
-    const tracking = session.tracking || [];
-    const daysTracked = [...new Set(tracking.map(t=>t.day))].length;
-    const totalChecks = tracking.reduce((s,t)=>s+(t.ivs||[]).length,0);
-    const maxChecks   = daysTracked * g.interventions.length || 1;
-    const adherence   = Math.round((totalChecks/maxChecks)*100);
-    html += `
-      <div style="background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.2);border-radius:16px;padding:24px;margin-bottom:16px;text-align:center">
-        <div style="font-size:10px;font-weight:800;letter-spacing:0.12em;color:#7c3aed;text-transform:uppercase;margin-bottom:8px">Protocol Report</div>
-        <div style="font-size:54px;font-weight:900;color:#7c3aed;line-height:1;font-family:'JetBrains Mono',monospace">${adherence}<span style="font-size:22px;color:rgba(255,255,255,0.3)">%</span></div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px">Adherence across ${daysTracked} tracked day${daysTracked!==1?'s':''}</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:6px">${g.icon} ${g.label} · ${g.controller}</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-        ${engBtn('Continue Tracking', 'decisionBackToTracking()', 'ghost')}
-        ${engBtn('New Goal', 'decisionReset()', 'violet')}
-      </div>
-    `;
-  }
-
-  const engRoot = document.getElementById('engines-root');
-  if (engRoot) {
-    engRoot.querySelector('#engines-decision').innerHTML = html;
-  }
-}
-
-// Decision Engine actions
-function decisionSelectGoal(id) {
-  const session = {goal:id, phase:'human_plan', human_plan:[], started_ts:Date.now(), tracking:[]};
-  ENG_STORE.set(DECISION_KEY, session);
-  renderDecisionEngine();
-}
-function decisionToggleHP(opt) {
-  const s = ENG_STORE.get(DECISION_KEY)||{};
-  const hp = [...(s.human_plan||[])];
-  const idx = hp.indexOf(opt);
-  if(idx>=0) hp.splice(idx,1); else hp.push(opt);
-  ENG_STORE.set(DECISION_KEY, {...s, human_plan:hp});
-  renderDecisionEngine();
-}
-function decisionLockHP() {
-  const s = ENG_STORE.get(DECISION_KEY)||{};
-  ENG_STORE.set(DECISION_KEY, {...s, phase:'vitalis_plan'});
-  renderDecisionEngine();
-}
-function decisionStartTracking() {
-  const s = ENG_STORE.get(DECISION_KEY)||{};
-  ENG_STORE.set(DECISION_KEY, {...s, phase:'tracking', started_ts:s.started_ts||Date.now()});
-  renderDecisionEngine();
-}
-function decisionToggleTracking(iv, day) {
-  const s = ENG_STORE.get(DECISION_KEY)||{};
-  const tracking = [...(s.tracking||[])];
-  let entry = tracking.find(t=>t.day===day);
-  if (!entry) { entry={day,ivs:[]}; tracking.push(entry); }
-  const idx = entry.ivs.indexOf(iv);
-  if(idx>=0) entry.ivs.splice(idx,1); else entry.ivs.push(iv);
-  ENG_STORE.set(DECISION_KEY, {...s, tracking});
-  renderDecisionEngine();
-}
-function decisionGenerateReport() {
-  const s = ENG_STORE.get(DECISION_KEY)||{};
-  ENG_STORE.set(DECISION_KEY, {...s, phase:'report'});
-  renderDecisionEngine();
-}
-function decisionBackToTracking() {
-  const s = ENG_STORE.get(DECISION_KEY)||{};
-  ENG_STORE.set(DECISION_KEY, {...s, phase:'tracking'});
-  renderDecisionEngine();
-}
-function decisionReset() {
-  ENG_STORE.del(DECISION_KEY);
-  renderDecisionEngine();
-}
-
-// ════════════════════════════════════════════════════════════════════
-// ROBUSTNESS ENGINE (mobile-optimized)
-// ════════════════════════════════════════════════════════════════════
-const RGE_SCENARIOS = [
-  {id:'travel',    label:'Travel',         icon:'✈️',  complianceMod:-18, flowMod:{supply:-15,delivery:-20,clearance:-10}},
-  {id:'illness',   label:'Illness',        icon:'🤒',  complianceMod:-30, flowMod:{supply:-25,demand:-20,clearance:+10}},
-  {id:'sleep_dep', label:'Sleep Dep.',     icon:'😴',  complianceMod:-25, flowMod:{demand:-30,protection:-15,delivery:-10}},
-  {id:'workload',  label:'High Workload',  icon:'💼',  complianceMod:-15, flowMod:{demand:+20,supply:-10,clearance:-5}},
-  {id:'missed',    label:'Missed Doses',   icon:'⚠️',  complianceMod:-40, flowMod:{supply:-35,delivery:-30,demand:-20}},
-];
-const RGE_FLOWS = ['supply','delivery','demand','protection','clearance'];
-const RGE_FLOW_LABELS = {supply:'Supply',delivery:'Delivery',demand:'Demand',protection:'Protection',clearance:'Clearance'};
-const RGE_FLOW_COLORS = {supply:'#00e5cc',delivery:'#4da6ff',demand:'#f5a623',protection:'#22d47e',clearance:'#b57bee'};
-
-function rgeComputeScore(activeScenarios) {
-  let baseCompliance = 82; // Real User baseline
-  let flowScores = {supply:78,delivery:74,demand:71,protection:80,clearance:76};
-  activeScenarios.forEach(sid => {
-    const sc = RGE_SCENARIOS.find(s=>s.id===sid);
-    if(!sc) return;
-    baseCompliance += sc.complianceMod;
-    Object.entries(sc.flowMod).forEach(([f,v]) => { flowScores[f] = Math.max(0, Math.min(100, (flowScores[f]||75)+v)); });
-  });
-  baseCompliance = Math.max(0, Math.min(100, baseCompliance));
-  const avgFlow = Math.round(Object.values(flowScores).reduce((a,b)=>a+b,0)/5);
-  const robustness = Math.round(baseCompliance*0.5 + avgFlow*0.5);
-  return {compliance:baseCompliance, flowScores, robustness};
-}
-
-let rgeActive = [];
-function renderRobustnessEngine() {
-  const result = rgeComputeScore(rgeActive);
-  const scoreColor = result.robustness>=70?'#00e5cc':result.robustness>=45?'#f5a623':'#ff4d6d';
-
-  const html = `
-    <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px">
-      <div style="font-size:16px;font-weight:800;color:#f0f6ff">Robustness Engine</div>
-      <div style="font-size:10px;font-weight:700;color:rgba(0,229,204,0.5);font-style:italic">It scales.</div>
-    </div>
-    <div style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:rgba(0,229,204,0.7);text-transform:uppercase;margin-bottom:20px">STRESS SIMULATION · PROTOCOL RESILIENCE</div>
-
-    <!-- Score ring (simplified) -->
-    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;margin-bottom:16px;display:flex;align-items:center;gap:16px">
-      <div style="text-align:center;flex-shrink:0">
-        <div style="font-size:48px;font-weight:900;color:${scoreColor};font-family:'JetBrains Mono',monospace;line-height:1">${result.robustness}</div>
-        <div style="font-size:8px;font-weight:800;letter-spacing:0.1em;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:4px">Robustness</div>
-      </div>
-      <div style="flex:1">
-        <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Flow States</div>
-        ${RGE_FLOWS.map(f=>{
-          const s=result.flowScores[f];
-          const c=s>=70?'#00e5cc':s>=45?'#f5a623':'#ff4d6d';
-          return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-            <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.5);width:64px;text-transform:uppercase">${RGE_FLOW_LABELS[f]}</div>
-            <div style="flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.06)">
-              <div style="height:4px;border-radius:2px;background:${c};width:${s}%;transition:width 0.4s ease"></div>
-            </div>
-            <div style="font-size:10px;font-weight:700;color:${c};font-family:'JetBrains Mono',monospace;width:28px;text-align:right">${s}</div>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>
-
-    <!-- Compliance -->
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center">
-      <div>
-        <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:4px">Compliance Under Stress</div>
-        <div style="font-size:24px;font-weight:900;color:#f0f6ff;font-family:'JetBrains Mono',monospace">${result.compliance}%</div>
-      </div>
-      <div style="font-size:11px;color:rgba(255,255,255,0.4)">
-        ${rgeActive.length===0?'No stress active':''+rgeActive.length+' scenario'+(rgeActive.length>1?'s':'')+' stacked'}
-      </div>
-    </div>
-
-    <!-- Scenario selector -->
-    <div style="font-size:9px;font-weight:800;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:10px">Stress Scenarios</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
-      ${RGE_SCENARIOS.map(sc=>{
-        const on=rgeActive.includes(sc.id);
-        return `<div onclick="rgeToggle('${sc.id}')" style="background:${on?'rgba(245,166,35,0.06)':'rgba(255,255,255,0.03)'};border:1px solid ${on?'rgba(245,166,35,0.3)':'rgba(255,255,255,0.08)'};border-radius:10px;padding:12px;cursor:pointer;text-align:center">
-          <div style="font-size:20px;margin-bottom:4px">${sc.icon}</div>
-          <div style="font-size:10px;font-weight:700;color:${on?'#f5a623':'rgba(255,255,255,0.5)'}">${sc.label}</div>
-          <div style="font-size:9px;color:rgba(255,255,255,0.25);margin-top:2px">${sc.complianceMod}% compliance</div>
-        </div>`;
-      }).join('')}
-    </div>
-    ${rgeActive.length>0?engBtn('Clear All Scenarios','rgeClearAll()','ghost'):''}
-  `;
-
-  const engRoot = document.getElementById('engines-root');
-  if (engRoot) {
-    engRoot.querySelector('#engines-robustness').innerHTML = html;
-  }
-}
-function rgeToggle(id) {
-  const idx = rgeActive.indexOf(id);
-  if(idx>=0) rgeActive.splice(idx,1); else rgeActive.push(id);
-  renderRobustnessEngine();
-}
-function rgeClearAll() { rgeActive=[]; renderRobustnessEngine(); }
-
-// ════════════════════════════════════════════════════════════════════
-// ENGINES HUB — Sub-nav + Orchestration
-// ════════════════════════════════════════════════════════════════════
-let enginesCurrentTab = 'proof';
-
-function enginesSubNav(active) {
-  const tabs = [
-    {id:'proof',          label:'Proof',     color:'#00e5cc'},
-    {id:'decision',       label:'Decision',  color:'#7c3aed'},
-    {id:'robustness',     label:'Robust',    color:'rgba(0,229,204,0.7)'},
-    {id:'behavioral',     label:'Behavior',  color:'#f5a623'},
-    {id:'explainability', label:'Why',       color:'#63b3ed'},
-    {id:'tiering',        label:'Tier',      color:'#22d47e'},
-    {id:'reality',        label:'Reality',   color:'#e879f9'},
-  ];
-  return `
-    <div style="position:sticky;bottom:0;background:rgba(2,8,16,0.95);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.08);padding:10px 0 6px;margin:16px -16px -80px;display:flex;gap:6px;padding:10px 16px 6px">
-      ${tabs.map(t=>`
-        <button onclick="enginesSetTab('${t.id}')" style="flex:1;padding:10px 6px;border-radius:10px;border:none;cursor:pointer;font-family:Inter,sans-serif;
-          background:${active===t.id?`${t.color}14`:'transparent'};
-          border:1px solid ${active===t.id?`${t.color}33`:'rgba(255,255,255,0.06)'};
-          color:${active===t.id?t.color:'rgba(255,255,255,0.35)'};
-          font-size:10px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase">
-          ${t.label}
-        </button>`).join('')}
-    </div>
-  `;
-}
-
-function enginesSetTab(tab) {
-  enginesCurrentTab = tab;
-  renderEnginesPage();
-}
-
-function renderEnginesPage() {
-  const root = document.getElementById('engines-root');
-  if (!root) return;
-
-  // Scaffold all 3 containers
-  root.innerHTML = `
-    <div id="engines-proof"          style="display:${enginesCurrentTab==='proof'?'block':'none'}"></div>
-    <div id="engines-decision"        style="display:${enginesCurrentTab==='decision'?'block':'none'}"></div>
-    <div id="engines-robustness"      style="display:${enginesCurrentTab==='robustness'?'block':'none'}"></div>
-    <div id="engines-behavioral"      style="display:${enginesCurrentTab==='behavioral'?'block':'none'}"></div>
-    <div id="engines-explainability"  style="display:${enginesCurrentTab==='explainability'?'block':'none'}"></div>
-    <div id="engines-tiering"         style="display:${enginesCurrentTab==='tiering'?'block':'none'}"></div>
-    <div id="engines-reality"          style="display:${enginesCurrentTab==='reality'?'block':'none'}"></div>
-    ${enginesSubNav(enginesCurrentTab)}
-  `;
-
-  if (enginesCurrentTab === 'proof')          renderProofEngine();
-  if (enginesCurrentTab === 'decision')       renderDecisionEngine();
-  if (enginesCurrentTab === 'robustness')     renderRobustnessEngine();
-  if (enginesCurrentTab === 'behavioral')     renderBehavioralEngine();
-  if (enginesCurrentTab === 'explainability') renderExplainabilityEngine();
-  if (enginesCurrentTab === 'tiering')        renderTieringEngine();
-  if (enginesCurrentTab === 'reality')        renderRealityEngine();
-}
-
-// Patch renderProofEngine to write into the right container
-const _origRenderProof = renderProofEngine;
-renderProofEngine = function() {
-  const container = document.getElementById('engines-proof');
-  if (!container) return;
-  // Run the original render logic into a temp variable via the html generation
-  // (already handled inside renderProofEngine — it writes to engines-proof directly)
-  _renderProofInto(container);
-};
-function _renderProofInto(container) {
-  const data = ENG_STORE.get(PROOF_KEY) || {};
-  const phase = data.phase || 'baseline';
-  const days  = proofDaysSince(data.baseline_ts);
-  let html = `
-    <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px">
-      <div style="font-size:16px;font-weight:800;color:#f0f6ff">Proof Engine</div>
-      <div style="font-size:10px;font-weight:700;color:rgba(0,229,204,0.5);font-style:italic">It works.</div>
-    </div>
-    <div style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#00e5cc;margin-bottom:20px">BEFORE → PROTOCOL → DELTA</div>
-    ${engPhaseBar(phase)}
-  `;
-  if (phase === 'baseline') {
-    html += renderWHOOPPanel();
-    html += `<div style="background:rgba(0,229,204,0.04);border:1px solid rgba(0,229,204,0.15);border-radius:14px;padding:16px;margin-bottom:20px;text-align:center">
-      <div style="font-size:10px;font-weight:800;letter-spacing:0.12em;color:#00e5cc;text-transform:uppercase;margin-bottom:8px">Step 1 — Lock Your Baseline</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">Enter current biometric readings.<br>This timestamp is permanent.</div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-      ${PROOF_METRICS.map(m=>`<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px">
-        <div style="font-size:8px;font-weight:800;letter-spacing:0.1em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:6px">${m.label}</div>
-        <input id="proof-bl-${m.id}" type="number" inputmode="decimal" placeholder="—" style="width:100%;background:transparent;border:none;outline:none;font-size:22px;font-weight:700;color:#f0f6ff;font-family:'JetBrains Mono',monospace"/>
-        <div style="font-size:9px;color:rgba(255,255,255,0.25);margin-top:4px">${m.unit}</div>
-      </div>`).join('')}
-    </div>
-    <div id="proof-bl-err" style="display:none;background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.3);border-radius:10px;padding:10px;margin-bottom:12px;font-size:12px;color:rgba(255,77,109,0.9);text-align:center"></div>
-    ${engBtn('Lock Baseline →','proofSaveBaseline()')}`;
-  } else if (phase === 'protocol') {
-    const active=data.interventions||[],logs=data.daily_logs||[];
-    const IVS=[{id:'sleep_lock',name:'Sleep Timing Lock'},{id:'nad_complex',name:'NAD+ Precursor'},{id:'mag_glyc',name:'Magnesium Glycinate'},{id:'breath',name:'Breathwork'},{id:'creatine',name:'Creatine'},{id:'hydration',name:'Hydration'},{id:'fasting',name:'TRE'},{id:'cold',name:'Cold Exposure'},{id:'shilajit',name:'Shilajit'},{id:'omega3',name:'Omega-3'}];
-    html += `<div style="margin-bottom:20px">${engLabel(`Day ${days} of 14`)}<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">${Array.from({length:14},(_,i)=>{const d=i+1,logged=logs.some(l=>l.day===d),today=d===days;return `<div style="height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;background:${logged?'rgba(0,229,204,0.12)':today?'rgba(245,166,35,0.12)':'rgba(255,255,255,0.04)'};border:1px solid ${logged?'rgba(0,229,204,0.3)':today?'#f5a623':'rgba(255,255,255,0.08)'};color:${logged?'#00e5cc':today?'#f5a623':'rgba(255,255,255,0.3)'}">${d}</div>`;}).join('')}</div></div>
-    ${engLabel(`Interventions (${active.length} active)`)}<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px">${IVS.map(iv=>{const on=active.includes(iv.id);return `<div onclick="proofToggleIV('${iv.id}')" style="background:${on?'rgba(0,229,204,0.05)':'rgba(255,255,255,0.03)'};border:1px solid ${on?'rgba(0,229,204,0.3)':'rgba(255,255,255,0.08)'};border-radius:8px;padding:8px 10px;cursor:pointer;display:flex;align-items:center;gap:6px"><div style="width:14px;height:14px;border-radius:3px;flex-shrink:0;background:${on?'#00e5cc':'transparent'};border:1.5px solid ${on?'#00e5cc':'rgba(255,255,255,0.2)'};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#000">${on?'✓':''}</div><span style="font-size:10px;font-weight:600;color:${on?'#f0f6ff':'rgba(255,255,255,0.45)'}">${iv.name}</span></div>`;}).join('')}</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">${engBtn('✓ Log Today','proofLogToday()')}${engBtn('Measure → Delta','proofGoToMeasure()','ghost')}</div>
-    ${engBtn('Reset Engine','proofReset()','danger')}`;
-  } else if (phase === 'measure') {
-    html+=`<div style="background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.2);border-radius:14px;padding:14px;margin-bottom:20px;text-align:center"><div style="font-size:10px;font-weight:800;letter-spacing:0.12em;color:#f5a623;text-transform:uppercase;margin-bottom:6px">Day ${days} — Current Readings</div></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">${PROOF_METRICS.map(m=>`<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(245,166,35,0.15);border-radius:12px;padding:12px"><div style="font-size:8px;font-weight:800;color:#f5a623;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">${m.label}</div><input id="proof-cur-${m.id}" type="number" inputmode="decimal" placeholder="—" style="width:100%;background:transparent;border:none;outline:none;font-size:22px;font-weight:700;color:#f0f6ff;font-family:'JetBrains Mono',monospace"/><div style="font-size:9px;color:rgba(255,255,255,0.25);margin-top:4px">${m.unit}</div></div>`).join('')}</div>
-    <div id="proof-cur-err" style="display:none;background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.3);border-radius:10px;padding:10px;margin-bottom:12px;font-size:12px;color:rgba(255,77,109,0.9);text-align:center"></div>
-    <div style="display:grid;grid-template-columns:1fr 2fr;gap:10px">${engBtn('← Back','proofGoToProtocol()','ghost')}${engBtn('Generate Delta →','proofGenerateDelta()','amber')}</div>`;
-  } else if (phase === 'delta') {
-    const deltas=PROOF_METRICS.map(m=>{const b=data.baseline?.[m.id],a=data.current?.[m.id];if(!b||!a)return null;const c=proofCalcDelta(b,a,m.dir);if(!c)return null;return {...m,before:b,after:a,...c};}).filter(Boolean);
-    const imp=deltas.filter(d=>d.improved).length,score=deltas.length>0?Math.round((imp/deltas.length)*100):0;
-    html+=`<div style="background:rgba(0,229,204,0.04);border:1px solid rgba(0,229,204,0.2);border-radius:16px;padding:24px;margin-bottom:16px;text-align:center"><div style="font-size:9px;font-weight:800;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:8px">Optimization Score</div><div style="font-size:64px;font-weight:900;color:#00e5cc;line-height:1;font-family:'JetBrains Mono',monospace">${score}<span style="font-size:22px;color:rgba(255,255,255,0.3)">%</span></div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px">${imp} of ${deltas.length} markers improved</div></div>
-    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;margin-bottom:16px">${deltas.map(d=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,0.04)"><span style="font-size:12px;color:rgba(255,255,255,0.6)">${d.label}</span><div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:rgba(255,255,255,0.3);font-family:'JetBrains Mono',monospace">${parseFloat(d.before).toFixed(1)}</span><span style="font-size:9px;color:rgba(255,255,255,0.2)">→</span><span style="font-size:11px;font-weight:700;color:#f0f6ff;font-family:'JetBrains Mono',monospace">${parseFloat(d.after).toFixed(1)}</span><span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;color:${d.improved?'#00ff94':'#f5a623'};background:${d.improved?'rgba(0,255,148,0.1)':'rgba(245,166,35,0.1)'}">${d.label}</span></div></div>`).join('')}</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">${engBtn('Continue Protocol','proofContinueProtocol()','ghost')}${engBtn('New Cycle','proofReset()','danger')}</div>`;
-  }
-  container.innerHTML = html;
-}
-
-// Patch renderDecisionEngine to write into container
-const _origRenderDecision = renderDecisionEngine;
-renderDecisionEngine = function() {
-  const container = document.getElementById('engines-decision');
-  if (!container) return;
-  const session = ENG_STORE.get(DECISION_KEY);
-  const phase   = session?.phase || 'goal';
-  const g = session ? DECISION_GOALS[session.goal] : null;
-  let html = `<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px"><div style="font-size:16px;font-weight:800;color:#f0f6ff">Decision Engine</div><div style="font-size:10px;font-weight:700;color:rgba(124,58,237,0.6);font-style:italic">It wins.</div></div><div style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#7c3aed;margin-bottom:20px">YOUR PATH · UPGRADED WITH FULL-SYSTEM VISIBILITY</div>`;
-  if (!session || phase==='goal') {
-    html+=`<div style="font-size:14px;font-weight:700;color:#f0f6ff;margin-bottom:16px">What outcome do you want to upgrade?</div>${Object.entries(DECISION_GOALS).map(([id,gd])=>`<div onclick="decisionSelectGoal('${id}')" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:12px"><div style="font-size:22px">${gd.icon}</div><div><div style="font-size:14px;font-weight:700;color:#f0f6ff">${gd.label}</div><div style="font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px">${gd.controller}</div></div></div><span style="font-size:16px;color:${gd.color}">→</span></div>`).join('')}`;
-  } else if (phase==='human_plan') {
-    const opts=['Consistent sleep schedule','Using supplements already','Regular exercise','Tracking biometrics','No structured protocol'];
-    html+=`<div style="background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.2);border-radius:14px;padding:16px;margin-bottom:20px"><div style="font-size:10px;font-weight:800;color:#7c3aed;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Your Current Approach</div><div style="font-size:15px;font-weight:800;color:#f0f6ff">${g.icon} ${g.label}</div></div>${opts.map(opt=>{const sel=(session.human_plan||[]).includes(opt);return `<div onclick="decisionToggleHP('${opt.replace(/'/g,"\\'")}')" style="background:${sel?'rgba(124,58,237,0.08)':'rgba(255,255,255,0.03)'};border:1px solid ${sel?'rgba(124,58,237,0.3)':'rgba(255,255,255,0.08)'};border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:10px"><div style="width:16px;height:16px;border-radius:4px;flex-shrink:0;background:${sel?'#7c3aed':'transparent'};border:1.5px solid ${sel?'#7c3aed':'rgba(255,255,255,0.2)'};display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff">${sel?'✓':''}</div><span style="font-size:13px;color:${sel?'#f0f6ff':'rgba(255,255,255,0.5)'}">${opt}</span></div>`;}).join('')}<div style="margin-top:12px">${engBtn('See Vitalis Plan →','decisionLockHP()','violet')}</div>`;
-  } else if (phase==='vitalis_plan') {
-    html+=`<div style="background:rgba(0,229,204,0.04);border:1px solid rgba(0,229,204,0.2);border-radius:14px;padding:16px;margin-bottom:16px"><div style="font-size:10px;font-weight:800;color:#00e5cc;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">System Bottleneck Identified</div><div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.5">${g.bottleneck}</div></div><div style="font-size:13px;font-weight:800;color:#f0f6ff;margin-bottom:12px">Recommended Interventions</div>${g.interventions.map((iv,i)=>`<div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:11px 14px;margin-bottom:8px"><div style="width:20px;height:20px;border-radius:50%;background:rgba(0,229,204,0.1);border:1px solid rgba(0,229,204,0.25);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#00e5cc;flex-shrink:0">${i+1}</div><span style="font-size:12px;color:#f0f6ff">${iv}</span></div>`).join('')}<div style="margin-top:14px">${engBtn('Start Tracking →','decisionStartTracking()','primary')}</div>`;
-  } else if (phase==='tracking') {
-    const tracking=session.tracking||[],today=Math.max(1,Math.round((Date.now()-(session.started_ts||Date.now()))/86400000));
-    html+=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px"><div><div style="font-size:15px;font-weight:800;color:#f0f6ff">${g.icon} ${g.label}</div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px">Day ${today} tracking</div></div><div style="font-size:10px;font-weight:700;color:${g.color};background:${g.color}14;border:1px solid ${g.color}33;border-radius:20px;padding:3px 10px">${g.controller}</div></div>${g.interventions.map(iv=>{const done=tracking.some(t=>t.day===today&&t.ivs&&t.ivs.includes(iv));return `<div onclick="decisionToggleTracking('${iv.replace(/'/g,"\\'")}',${today})" style="display:flex;align-items:center;gap:10px;background:${done?'rgba(0,229,204,0.05)':'rgba(255,255,255,0.03)'};border:1px solid ${done?'rgba(0,229,204,0.25)':'rgba(255,255,255,0.08)'};border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer"><div style="width:18px;height:18px;border-radius:5px;flex-shrink:0;background:${done?'#00e5cc':'transparent'};border:1.5px solid ${done?'#00e5cc':'rgba(255,255,255,0.2)'};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#000">${done?'✓':''}</div><span style="font-size:12px;color:${done?'#f0f6ff':'rgba(255,255,255,0.5)'}">${iv}</span></div>`;}).join('')}<div style="margin-top:14px">${engBtn('Generate Report →','decisionGenerateReport()','violet')}</div>`;
-  } else if (phase==='report') {
-    const tracking=session.tracking||[],daysTracked=[...new Set(tracking.map(t=>t.day))].length,totalChecks=tracking.reduce((s,t)=>s+(t.ivs||[]).length,0),maxChecks=daysTracked*g.interventions.length||1,adherence=Math.round((totalChecks/maxChecks)*100);
-    html+=`<div style="background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.2);border-radius:16px;padding:24px;margin-bottom:16px;text-align:center"><div style="font-size:10px;font-weight:800;letter-spacing:0.12em;color:#7c3aed;text-transform:uppercase;margin-bottom:8px">Protocol Report</div><div style="font-size:54px;font-weight:900;color:#7c3aed;line-height:1;font-family:'JetBrains Mono',monospace">${adherence}<span style="font-size:22px;color:rgba(255,255,255,0.3)">%</span></div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px">Adherence · ${daysTracked} day${daysTracked!==1?'s':''} tracked</div><div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:6px">${g.icon} ${g.label}</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">${engBtn('Continue','decisionBackToTracking()','ghost')}${engBtn('New Goal','decisionReset()','violet')}</div>`;
-  }
-  container.innerHTML = html;
-};
-
-// Patch renderRobustnessEngine
-const _origRenderRGE = renderRobustnessEngine;
-renderRobustnessEngine = function() {
-  const container = document.getElementById('engines-robustness');
-  if (!container) return;
-  const result = rgeComputeScore(rgeActive);
-  const sc = result.robustness>=70?'#00e5cc':result.robustness>=45?'#f5a623':'#ff4d6d';
-  let html=`<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px"><div style="font-size:16px;font-weight:800;color:#f0f6ff">Robustness Engine</div><div style="font-size:10px;font-weight:700;color:rgba(0,229,204,0.5);font-style:italic">It scales.</div></div><div style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:rgba(0,229,204,0.7);text-transform:uppercase;margin-bottom:20px">STRESS SIMULATION · PROTOCOL RESILIENCE</div>
-  <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:18px;margin-bottom:14px;display:flex;align-items:center;gap:14px"><div style="text-align:center;flex-shrink:0"><div style="font-size:44px;font-weight:900;color:${sc};font-family:'JetBrains Mono',monospace;line-height:1">${result.robustness}</div><div style="font-size:8px;font-weight:800;letter-spacing:0.1em;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:4px">Score</div></div><div style="flex:1">${RGE_FLOWS.map(f=>{const s=result.flowScores[f],c=s>=70?'#00e5cc':s>=45?'#f5a623':'#ff4d6d';return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><div style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);width:56px;text-transform:uppercase">${RGE_FLOW_LABELS[f]}</div><div style="flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.06)"><div style="height:4px;border-radius:2px;background:${c};width:${s}%"></div></div><div style="font-size:9px;font-weight:700;color:${c};font-family:'JetBrains Mono',monospace;width:24px;text-align:right">${s}</div></div>`;}).join('')}</div></div>
-  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:8px;font-weight:800;letter-spacing:0.1em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:4px">Compliance Under Stress</div><div style="font-size:22px;font-weight:900;color:#f0f6ff;font-family:'JetBrains Mono',monospace">${result.compliance}%</div></div><div style="font-size:10px;color:rgba(255,255,255,0.4)">${rgeActive.length===0?'No stress active':rgeActive.length+' scenario'+(rgeActive.length>1?'s':'')+' stacked'}</div></div>
-  <div style="font-size:9px;font-weight:800;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:10px">Stress Scenarios</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">${RGE_SCENARIOS.map(s=>{const on=rgeActive.includes(s.id);return `<div onclick="rgeToggle('${s.id}')" style="background:${on?'rgba(245,166,35,0.06)':'rgba(255,255,255,0.03)'};border:1px solid ${on?'rgba(245,166,35,0.3)':'rgba(255,255,255,0.08)'};border-radius:10px;padding:10px;cursor:pointer;text-align:center"><div style="font-size:18px;margin-bottom:4px">${s.icon}</div><div style="font-size:9px;font-weight:700;color:${on?'#f5a623':'rgba(255,255,255,0.5)'}">${s.label}</div><div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:2px">${s.complianceMod}%</div></div>`;}).join('')}</div>
-  ${rgeActive.length>0?engBtn('Clear All','rgeClearAll()','ghost'):''}`;
-  container.innerHTML = html;
-};
-
-// ═══════════════════════════════════════════════════════════════════
-// WHOOP API INTEGRATION
-// Pulls HRV, Recovery, Sleep % from WHOOP v2 API via OAuth token
-// Falls back gracefully to manual entry if not connected
-// All IP held by Avotombo Legacy Trust. All rights reserved.
-// ═══════════════════════════════════════════════════════════════════
-const WHOOP_KEY = 'vtl_whoop_token';
-const WHOOP_DATA_KEY = 'vtl_whoop_data';
-const WHOOP_LAST_SYNC = 'vtl_whoop_sync_ts';
-
-function whoopIsConnected() {
-  try { return !!localStorage.getItem(WHOOP_KEY); } catch(e) { return false; }
-}
-
-async function whoopFetchLatest() {
-  const token = localStorage.getItem(WHOOP_KEY);
-  if (!token) return null;
-  try {
-    // WHOOP v2 API — recovery and sleep endpoints
-    const [recRes, sleepRes] = await Promise.all([
-      fetch('https://api.prod.whoop.com/developer/v1/recovery?limit=1', {
-        headers: { 'Authorization': `Bearer ${token}` }
-      }),
-      fetch('https://api.prod.whoop.com/developer/v1/activity/sleep?limit=1', {
-        headers: { 'Authorization': `Bearer ${token}` }
-      })
-    ]);
-    if (!recRes.ok || !sleepRes.ok) throw new Error('WHOOP API error');
-    const recData   = await recRes.json();
-    const sleepData = await sleepRes.json();
-    const rec  = recData.records?.[0];
-    const slp  = sleepData.records?.[0];
-    if (!rec) return null;
-    const data = {
-      hrv:      Math.round(rec.score?.hrv_rmssd_milli || 0),
-      recovery: Math.round(rec.score?.recovery_score || 0),
-      sleep:    Math.round(slp?.score?.sleep_performance_percentage || 0),
-      synced_at: Date.now()
-    };
-    localStorage.setItem(WHOOP_DATA_KEY, JSON.stringify(data));
-    localStorage.setItem(WHOOP_LAST_SYNC, Date.now().toString());
-    // Auto-write into daily readiness
-    saveReadiness(data.hrv, data.sleep, data.recovery);
-    return data;
-  } catch(e) {
-    console.warn('[Vitalis WHOOP] fetch failed:', e);
-    return null;
-  }
-}
-
-function whoopConnectURL() {
-  // WHOOP OAuth2 authorization URL
-  // Redirect URI must be registered — using this page as callback
-  const CLIENT_ID = localStorage.getItem('vtl_whoop_client_id') || '';
-  const redirectUri = encodeURIComponent(window.location.href.split('?')[0]);
-  return `https://api.prod.whoop.com/oauth/oauth2/auth?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${redirectUri}&scope=read:recovery+read:sleep+read:profile`;
-}
-
-function whoopCheckCallback() {
-  // Check if we're returning from WHOOP OAuth
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code');
-  if (!code) return;
-  // Exchange code for token via backend — for now show instructions
-  renderWHOOPConnectInstructions(code);
-}
-
-function whoopDisconnect() {
-  localStorage.removeItem(WHOOP_KEY);
-  localStorage.removeItem(WHOOP_DATA_KEY);
-  localStorage.removeItem(WHOOP_LAST_SYNC);
-  renderProofEngine();
-}
-
-function whoopSaveToken(token) {
-  if (!token || token.trim().length < 20) return false;
-  localStorage.setItem(WHOOP_KEY, token.trim());
-  return true;
-}
-
-function renderWHOOPPanel() {
-  const connected = whoopIsConnected();
-  let cached = null;
-  try { cached = JSON.parse(localStorage.getItem(WHOOP_DATA_KEY)); } catch(e) {}
-  const lastSync = localStorage.getItem(WHOOP_LAST_SYNC);
-  const syncAgo  = lastSync ? Math.round((Date.now() - parseInt(lastSync)) / 60000) : null;
-
-  // Load any previously saved manual readiness for today
-  let savedManual = null;
-  try {
-    const rKey = 'vtl_readiness_' + new Date().toISOString().slice(0,10);
-    savedManual = JSON.parse(localStorage.getItem(rKey));
-  } catch(e) {}
-
-  // Display values: API cache takes priority, then saved manual, then blank
-  const dispHRV      = (connected && cached) ? cached.hrv      : (savedManual ? savedManual.hrv      : '');
-  const dispRecovery = (connected && cached) ? cached.recovery : (savedManual ? savedManual.recovery : '');
-  const dispSleep    = (connected && cached) ? cached.sleep    : (savedManual ? savedManual.sleep    : '');
-
-  return `
-  <div style="background:rgba(0,229,204,0.04);border:1px solid rgba(0,229,204,0.15);border-radius:14px;padding:14px;margin-bottom:14px">
-
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:28px;height:28px;border-radius:8px;background:rgba(0,229,204,0.1);border:1px solid rgba(0,229,204,0.25);display:flex;align-items:center;justify-content:center;font-size:14px">📊</div>
-        <div>
-          <div style="font-size:11px;font-weight:800;color:#f0f6ff">Daily Readiness</div>
-          <div style="font-size:9px;color:rgba(255,255,255,0.35)">${connected ? (syncAgo!==null?`WHOOP synced ${syncAgo}m ago`:'WHOOP connected') : 'Enter from your wearable or app'}</div>
-        </div>
-      </div>
-      ${connected ? `<button onclick="whoopSync();renderEnginesPage()" style="background:rgba(0,229,204,0.08);border:1px solid rgba(0,229,204,0.25);border-radius:8px;padding:5px 10px;color:#00e5cc;font-size:10px;font-weight:700;font-family:Inter,sans-serif;cursor:pointer">↻ Sync</button>` : ''}
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(0,229,204,0.12);border-radius:10px;padding:10px;text-align:center">
-        <div style="font-size:8px;font-weight:800;letter-spacing:0.08em;color:rgba(0,229,204,0.6);text-transform:uppercase;margin-bottom:6px">HRV</div>
-        <input id="dr-hrv" type="number" inputmode="decimal" placeholder="—" value="${dispHRV}" style="width:100%;background:transparent;border:none;outline:none;font-size:20px;font-weight:900;color:#00e5cc;font-family:'JetBrains Mono',monospace;text-align:center"/>
-        <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:2px">ms</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(34,212,126,0.12);border-radius:10px;padding:10px;text-align:center">
-        <div style="font-size:8px;font-weight:800;letter-spacing:0.08em;color:rgba(34,212,126,0.6);text-transform:uppercase;margin-bottom:6px">Recovery</div>
-        <input id="dr-recovery" type="number" inputmode="decimal" placeholder="—" value="${dispRecovery}" style="width:100%;background:transparent;border:none;outline:none;font-size:20px;font-weight:900;color:#22d47e;font-family:'JetBrains Mono',monospace;text-align:center"/>
-        <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:2px">%</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(181,123,238,0.12);border-radius:10px;padding:10px;text-align:center">
-        <div style="font-size:8px;font-weight:800;letter-spacing:0.08em;color:rgba(181,123,238,0.6);text-transform:uppercase;margin-bottom:6px">Sleep</div>
-        <input id="dr-sleep" type="number" inputmode="decimal" placeholder="—" value="${dispSleep}" style="width:100%;background:transparent;border:none;outline:none;font-size:20px;font-weight:900;color:#b57bee;font-family:'JetBrains Mono',monospace;text-align:center"/>
-        <div style="font-size:8px;color:rgba(255,255,255,0.25);margin-top:2px">%</div>
-      </div>
-    </div>
-
-    <button onclick="drSaveManual()" style="width:100%;padding:10px;background:rgba(0,229,204,0.08);border:1px solid rgba(0,229,204,0.25);border-radius:10px;color:#00e5cc;font-size:11px;font-weight:800;font-family:Inter,sans-serif;cursor:pointer;letter-spacing:0.06em">SAVE READINESS</button>
-
-    <div style="margin-top:10px;text-align:center">
-      <button onclick="showWHOOPConnect()" style="background:transparent;border:none;color:rgba(255,255,255,0.25);font-size:10px;font-family:Inter,sans-serif;cursor:pointer;text-decoration:underline">${connected ? 'Manage WHOOP API' : 'Connect WHOOP API (optional)'}</button>
-    </div>
-  </div>`;
-}
-
-function drSaveManual() {
-  const hrv      = parseFloat(document.getElementById('dr-hrv')?.value);
-  const recovery = parseFloat(document.getElementById('dr-recovery')?.value);
-  const sleep    = parseFloat(document.getElementById('dr-sleep')?.value);
-  if (isNaN(hrv) && isNaN(recovery) && isNaN(sleep)) return;
-  // Save to readiness store
-  saveReadiness(
-    isNaN(hrv)      ? null : hrv,
-    isNaN(sleep)    ? null : sleep,
-    isNaN(recovery) ? null : recovery
-  );
-  // Also cache in daily key for re-display
-  try {
-    const rKey = 'vtl_readiness_' + new Date().toISOString().slice(0,10);
-    localStorage.setItem(rKey, JSON.stringify({
-      hrv:      isNaN(hrv)      ? null : hrv,
-      recovery: isNaN(recovery) ? null : recovery,
-      sleep:    isNaN(sleep)    ? null : sleep
-    }));
-  } catch(e) {}
-  // Visual confirmation
-  const btn = document.querySelector('button[onclick="drSaveManual()"]');
-  if (btn) { btn.textContent = '✓ SAVED'; btn.style.color = '#22d47e'; btn.style.borderColor = 'rgba(34,212,126,0.4)'; setTimeout(()=>{ btn.textContent = 'SAVE READINESS'; btn.style.color = '#00e5cc'; btn.style.borderColor = 'rgba(0,229,204,0.25)'; }, 1800); }
-}
-
-function showWHOOPConnect() {
-  const el = document.getElementById('whoop-connect-panel');
-  if (el) { el.style.display = el.style.display === 'none' ? 'block' : 'none'; return; }
-  // Inject connect panel into proof engine container
-  const container = document.getElementById('engines-proof') || document.getElementById('engines-root');
-  if (!container) return;
-  const panel = document.createElement('div');
-  panel.id = 'whoop-connect-panel';
-  panel.style.cssText = 'position:fixed;inset:0;background:rgba(2,8,16,0.95);z-index:999;padding:40px 20px;overflow-y:auto;display:flex;flex-direction:column';
-  panel.innerHTML = `
-    <div style="margin-bottom:24px">
-      <div style="font-size:9px;font-weight:800;letter-spacing:0.14em;color:rgba(0,229,204,0.7);text-transform:uppercase;margin-bottom:8px">WHOOP Connection</div>
-      <div style="font-size:22px;font-weight:900;color:#fff">Connect your <span style="color:#00e5cc">WHOOP</span></div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.45);margin-top:8px;line-height:1.5">Paste your WHOOP API access token below. This auto-fills HRV, Recovery, and Sleep % into your daily protocol.</div>
-    </div>
-    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px;margin-bottom:16px">
-      <div style="font-size:10px;font-weight:800;color:#f5a623;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">ℹ️ How to get your token</div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.7">
-        1. Go to <strong style="color:#fff">app.whoop.com</strong><br>
-        2. Settings → Developer API<br>
-        3. Create an access token<br>
-        4. Copy and paste it below
-      </div>
-    </div>
-    <input id="whoop-token-field" type="text" placeholder="Paste WHOOP access token..." style="background:rgba(255,255,255,0.05);border:1px solid rgba(0,229,204,0.25);border-radius:10px;padding:14px 16px;color:#fff;font-size:13px;font-family:Inter,sans-serif;width:100%;box-sizing:border-box;margin-bottom:12px;outline:none">
-    <div id="whoop-connect-status" style="display:none;font-size:12px;padding:10px 14px;border-radius:8px;margin-bottom:12px"></div>
-    <button onclick="whoopConnectWithToken()" style="width:100%;padding:16px;background:linear-gradient(135deg,#00e5cc,#00b8a3);color:#000;font-size:14px;font-weight:800;border:none;border-radius:12px;cursor:pointer;font-family:Inter,sans-serif;margin-bottom:8px">Connect WHOOP</button>
-    <button onclick="document.getElementById('whoop-connect-panel').remove()" style="width:100%;padding:13px;background:transparent;color:rgba(255,255,255,0.4);font-size:13px;border:none;cursor:pointer;font-family:Inter,sans-serif">Cancel</button>
-  `;
-  document.body.appendChild(panel);
-}
-
-async function whoopConnectWithToken() {
-  const input = document.getElementById('whoop-token-field');
-  const status = document.getElementById('whoop-connect-status');
-  if (!input || !input.value.trim()) return;
-  const saved = whoopSaveToken(input.value.trim());
-  if (!saved) {
-    status.style.display = 'block';
-    status.style.background = 'rgba(255,77,109,0.1)';
-    status.style.color = '#ff4d6d';
-    status.style.border = '1px solid rgba(255,77,109,0.3)';
-    status.textContent = 'Token too short — check and paste again.';
-    return;
-  }
-  status.style.display = 'block';
-  status.style.background = 'rgba(0,229,204,0.08)';
-  status.style.color = '#00e5cc';
-  status.style.border = '1px solid rgba(0,229,204,0.2)';
-  status.textContent = 'Connecting…';
-  const data = await whoopFetchLatest();
-  if (data) {
-    status.textContent = `✓ Connected — HRV ${data.hrv}ms · Recovery ${data.recovery}% · Sleep ${data.sleep}%`;
-    setTimeout(() => {
-      const panel = document.getElementById('whoop-connect-panel');
-      if (panel) panel.remove();
-      renderProofEngine();
-    }, 1800);
-  } else {
-    status.textContent = 'Could not reach WHOOP API. Check token and try again.';
-    status.style.background = 'rgba(255,77,109,0.1)';
-    status.style.color = '#ff4d6d';
-  }
-}
-
-async function whoopSync() {
-  const data = await whoopFetchLatest();
-  if (data) renderProofEngine();
-}
-
-// ═══════════════════════════════════════════════════════════════════
-// BEHAVIORAL ENGINE — Adherence, Streaks, Pattern Detection
-// Tracks daily compound check-ins, computes streak, identifies
-// consistency patterns and weak spots across the protocol.
-// All IP held by Avotombo Legacy Trust. All rights reserved.
-// ═══════════════════════════════════════════════════════════════════
-const BEH_KEY = 'vtl_behavioral_v1';
-
-function behGetData() {
-  try { return JSON.parse(localStorage.getItem(BEH_KEY)) || { logs: [], streak: 0, best_streak: 0, start_ts: Date.now() }; }
-  catch(e) { return { logs: [], streak: 0, best_streak: 0, start_ts: Date.now() }; }
-}
-
-function behSave(data) {
-  try { localStorage.setItem(BEH_KEY, JSON.stringify(data)); } catch(e) {}
-}
-
-function behTodayKey() {
-  const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-
-function behLogToday(phase, compounds) {
-  const data  = behGetData();
-  const today = behTodayKey();
-  const existing = data.logs.findIndex(l => l.date === today && l.phase === phase);
-  const entry = { date: today, phase, compounds, ts: Date.now() };
-  if (existing >= 0) data.logs[existing] = entry;
-  else data.logs.push(entry);
-  // Recalculate streak
-  data.streak     = behCalcStreak(data.logs);
-  data.best_streak = Math.max(data.best_streak || 0, data.streak);
-  behSave(data);
-  renderBehavioralEngine();
-}
-
-function behCalcStreak(logs) {
-  const days = [...new Set(logs.map(l => l.date))].sort().reverse();
-  const today = behTodayKey();
-  let streak = 0;
-  let expect = today;
-  for (const d of days) {
-    if (d === expect) {
-      streak++;
-      const dt = new Date(d);
-      dt.setDate(dt.getDate() - 1);
-      expect = `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
-    } else break;
-  }
-  return streak;
-}
-
-function behGetWeek(logs) {
-  const days = [];
-  for (let i = 6; i >= 0; i--) {
-    const d = new Date(); d.setDate(d.getDate() - i);
-    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-    const dayLogs = logs.filter(l => l.date === key);
-    const logged  = dayLogs.length > 0;
-    const phases  = dayLogs.map(l => l.phase);
-    days.push({ key, day: ['S','M','T','W','T','F','S'][d.getDay()], logged, phases });
-  }
-  return days;
-}
-
-function behAdherenceByPhase(logs) {
-  const totals = { am: 0, mid: 0, pm: 0 };
-  const counts = { am: 0, mid: 0, pm: 0 };
-  logs.forEach(l => { if (l.phase in totals) { counts[l.phase]++; totals[l.phase] += (l.compounds?.length || 0); } });
-  return {
-    am:  counts.am  > 0 ? Math.round((totals.am  / (counts.am  * (STACK_ITEMS.am.length  || 1))) * 100) : 0,
-    mid: counts.mid > 0 ? Math.round((totals.mid / (counts.mid * (STACK_ITEMS.mid.length || 1))) * 100) : 0,
-    pm:  counts.pm  > 0 ? Math.round((totals.pm  / (counts.pm  * (STACK_ITEMS.pm.length  || 1))) * 100) : 0,
-  };
-}
-
-function renderBehavioralEngine() {
-  const container = document.getElementById('engines-behavioral');
-  if (!container) return;
-  const data  = behGetData();
-  const week  = behGetWeek(data.logs);
-  const adh   = behAdherenceByPhase(data.logs);
-  const total_days = [...new Set(data.logs.map(l => l.date))].length;
-  const overall = total_days > 0 ? Math.round([adh.am, adh.mid, adh.pm].reduce((a,b)=>a+b,0)/3) : 0;
-  const streakColor = data.streak >= 7 ? '#00e5cc' : data.streak >= 3 ? '#f5a623' : 'rgba(255,255,255,0.4)';
-  const today = behTodayKey();
-  const todayLogged = data.logs.filter(l => l.date === today);
-  const amDone  = todayLogged.some(l => l.phase === 'am');
-  const midDone = todayLogged.some(l => l.phase === 'mid');
-  const pmDone  = todayLogged.some(l => l.phase === 'pm');
-
-  container.innerHTML = `
-  <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px">
-    <div style="font-size:16px;font-weight:800;color:#f0f6ff">Behavioral Engine</div>
-    <div style="font-size:10px;font-weight:700;color:rgba(245,166,35,0.6);font-style:italic">It compounds.</div>
-  </div>
-  <div style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#f5a623;text-transform:uppercase;margin-bottom:20px">ADHERENCE · STREAKS · PATTERN INTELLIGENCE</div>
-
-  <!-- Streak + Stats row -->
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
-    <div style="background:rgba(255,255,255,0.03);border:1px solid ${streakColor}33;border-radius:12px;padding:12px;text-align:center">
-      <div style="font-size:30px;font-weight:900;color:${streakColor};font-family:'JetBrains Mono',monospace;line-height:1">${data.streak}</div>
-      <div style="font-size:8px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px">Day Streak</div>
-    </div>
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:center">
-      <div style="font-size:30px;font-weight:900;color:#f0f6ff;font-family:'JetBrains Mono',monospace;line-height:1">${data.best_streak||0}</div>
-      <div style="font-size:8px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px">Best Streak</div>
-    </div>
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(0,229,204,0.15);border-radius:12px;padding:12px;text-align:center">
-      <div style="font-size:30px;font-weight:900;color:#00e5cc;font-family:'JetBrains Mono',monospace;line-height:1">${overall}<span style="font-size:14px">%</span></div>
-      <div style="font-size:8px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px">Adherence</div>
-    </div>
-  </div>
-
-  <!-- 7-day heatmap -->
-  <div style="font-size:9px;font-weight:800;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:10px">Last 7 Days</div>
-  <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:16px">
-    ${week.map(d => `
-    <div style="text-align:center">
-      <div style="font-size:8px;color:rgba(255,255,255,0.3);margin-bottom:4px;font-weight:700">${d.day}</div>
-      <div style="height:36px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
-        background:${d.logged?'rgba(0,229,204,0.1)':'rgba(255,255,255,0.03)'};
-        border:1px solid ${d.logged?'rgba(0,229,204,0.3)':'rgba(255,255,255,0.07)'}">
-        ${['am','mid','pm'].map(p => `<div style="width:6px;height:6px;border-radius:50%;background:${
-          p==='am'?'#f5a623':p==='mid'?'#00e5cc':'#b57bee'};opacity:${d.phases.includes(p)?'1':'0.15'}"></div>`).join('')}
-      </div>
-    </div>`).join('')}
-  </div>
-
-  <!-- Phase adherence bars -->
-  <div style="font-size:9px;font-weight:800;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:10px">Protocol Adherence by Window</div>
-  <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:14px;margin-bottom:16px">
-    ${[{id:'am',label:'Morning',color:'#f5a623'},{id:'mid',label:'Midday',color:'#00e5cc'},{id:'pm',label:'Evening',color:'#b57bee'}].map(p=>`
-    <div style="margin-bottom:${p.id==='pm'?'0':'12px'}">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-        <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.5)">${p.label}</div>
-        <div style="font-size:10px;font-weight:800;color:${p.color};font-family:'JetBrains Mono',monospace">${adh[p.id]}%</div>
-      </div>
-      <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:3px"><div style="height:6px;border-radius:3px;background:${p.color};width:${adh[p.id]}%;transition:width 0.5s"></div></div>
-    </div>`).join('')}
-  </div>
-
-  <!-- Today's check-in -->
-  <div style="font-size:9px;font-weight:800;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:10px">Today's Protocol</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
-    ${[{id:'am',label:'Morning',icon:'☀️',color:'#f5a623',done:amDone},{id:'mid',label:'Midday',icon:'⚡',color:'#00e5cc',done:midDone},{id:'pm',label:'Evening',icon:'🌙',color:'#b57bee',done:pmDone}].map(p=>`
-    <button onclick="behCheckIn('${p.id}')" style="background:${p.done?`${p.color}12`:'rgba(255,255,255,0.03)'};border:1px solid ${p.done?`${p.color}40`:'rgba(255,255,255,0.08)'};border-radius:12px;padding:14px 8px;cursor:pointer;text-align:center">
-      <div style="font-size:20px;margin-bottom:4px">${p.done?'✓':p.icon}</div>
-      <div style="font-size:9px;font-weight:800;color:${p.done?p.color:'rgba(255,255,255,0.4)'};text-transform:uppercase;letter-spacing:0.06em">${p.label}</div>
-    </button>`).join('')}
-  </div>
-
-  ${data.streak >= 7 ? `
-  <div style="background:rgba(0,229,204,0.06);border:1px solid rgba(0,229,204,0.2);border-radius:12px;padding:12px;text-align:center;margin-bottom:12px">
-    <div style="font-size:20px;margin-bottom:4px">🔥</div>
-    <div style="font-size:11px;font-weight:800;color:#00e5cc">${data.streak}-Day Streak — Compounding Activated</div>
-    <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:4px">Behavioral patterns are becoming structural</div>
-  </div>` : data.streak >= 3 ? `
-  <div style="background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.2);border-radius:12px;padding:12px;text-align:center;margin-bottom:12px">
-    <div style="font-size:11px;font-weight:800;color:#f5a623">${data.streak}-Day Streak — Building Momentum</div>
-    <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:4px">${7 - data.streak} more days to activate Compounding</div>
-  </div>` : `
-  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:center;margin-bottom:12px">
-    <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.4)">Log 3 consecutive days to build momentum</div>
-  </div>`}
-  `;
-}
-
-function behCheckIn(phase) {
-  const compounds = (STACK_ITEMS[phase] || []).map(c => c.n);
-  behLogToday(phase, compounds);
-}
-
-// ═══════════════════════════════════════════════════════════════════
-// EXPLAINABILITY ENGINE — Why the System Decided What It Decided
-// Every Proof delta, every grid cell state, every intervention
-// recommendation gets a human-readable rationale.
-// All IP held by Avotombo Legacy Trust. All rights reserved.
-// ═══════════════════════════════════════════════════════════════════
-
-const EXPLAIN_CONTEXTS = [
-  {
-    id: 'proof_delta',
-    label: 'Proof Engine Delta',
-    icon: '📊',
-    color: '#00e5cc',
-    getExplanation: () => {
-      const data = ENG_STORE.get(PROOF_KEY) || {};
-      if (!data.baseline) return { title: 'No baseline set', body: 'Lock your baseline in the Proof Engine first. The system needs a before-state to explain what changed and why.' };
-      if (data.phase !== 'delta' || !data.current) return { title: 'Protocol in progress', body: `Day ${proofDaysSince(data.baseline_ts)} of 14. The system is accumulating protocol exposure data. A delta explanation will generate when you measure current readings.` };
-      const deltas = PROOF_METRICS.map(m => {
-        const b = data.baseline?.[m.id], a = data.current?.[m.id];
-        if (!b || !a) return null;
-        const delta = ((a - b) / b) * 100;
-        return { label: m.label, before: b, after: a, delta: delta.toFixed(1), improved: m.dir === 'up' ? a > b : a < b };
-      }).filter(Boolean);
-      const improved = deltas.filter(d => d.improved);
-      const declined = deltas.filter(d => !d.improved);
-      let body = `The protocol produced measurable changes across ${deltas.length} tracked markers after ${proofDaysSince(data.baseline_ts)} days.\n\n`;
-      if (improved.length > 0) body += `IMPROVED (${improved.length}): ${improved.map(d => `${d.label} +${Math.abs(d.delta)}%`).join(', ')}.\n\n`;
-      if (declined.length > 0) body += `NEEDS ATTENTION (${declined.length}): ${declined.map(d => `${d.label} ${d.delta}%`).join(', ')}. Consider adjusting interventions or extending the protocol window.`;
-      return { title: `${improved.length}/${deltas.length} markers improved`, body };
-    }
-  },
-  {
-    id: 'biometric_state',
-    label: 'Biometric Classification',
-    icon: '🫀',
-    color: '#63b3ed',
-    getExplanation: () => {
-      const r = getReadiness();
-      if (!r || (!r.hrv && !r.recovery && !r.sleep)) return { title: 'No biometrics logged today', body: 'Log HRV, Recovery, and Sleep % via the Biometric Input on the System tab. The engine will explain how each value maps to your controller states.' };
-      const hrv = classifyHRV(r.hrv); const rec = classifyRecovery(r.recovery);
-      const tiers = { OPTIMAL: 'optimal — no intervention needed', MODERATE: 'moderate — monitor and support', LOW: 'low — active support required', CRITICAL: 'critical — immediate protocol adjustment' };
-      return {
-        title: `HRV ${hrv.tier} · Recovery ${rec.tier}`,
-        body: `HRV at ${r.hrv}ms is ${tiers[hrv.tier] || 'unclassified'}. This maps to Cardio (CRD) and Mitochondria (MTO) controller stress states.\n\nRecovery at ${r.recovery}% is ${tiers[rec.tier] || 'unclassified'}. Low recovery activates pathology flags across Immune and Gut controllers.\n\nSleep at ${r.sleep}% affects Brain (BRN) demand state and Cardio HRV ceiling. Suboptimal sleep degrades protocol efficacy by 15–40%.`
-      };
-    }
-  },
-  {
-    id: 'stack_mapping',
-    label: 'Stack → Grid Mapping',
-    icon: '🔬',
-    color: '#b57bee',
-    getExplanation: () => {
-      const total = STACK_ITEMS.am.length + STACK_ITEMS.mid.length + STACK_ITEMS.pm.length;
-      return {
-        title: `${total} compounds · 85-Grid coverage`,
-        body: `Every compound in your stack maps to specific cells in the 85-Grid (5 Flows × 17 Systems).\n\nAM protocol (${STACK_ITEMS.am.length} compounds): Timed to Supply and Delivery flows during cortisol peak. Mitochondrial support compounds (Mito Stack, Shilajit, NMN) are front-loaded because mitochondrial biogenesis signaling peaks 6–8 AM.\n\nMidday (${STACK_ITEMS.mid.length} compounds): Demand and Protection flows. Anti-inflammatory compounds (Beet Extract, Ginkgo) placed at inflammatory peak window.\n\nPM (${STACK_ITEMS.pm.length} compounds): Clearance flow. Nattokinase, Magnesium, and Reishi operate during parasympathetic dominance. System uses nighttime anabolic state for repair.`
-      };
-    }
-  },
-  {
-    id: 'decision_rationale',
-    label: 'Decision Engine Rationale',
-    icon: '⚡',
-    color: '#7c3aed',
-    getExplanation: () => {
-      const session = ENG_STORE.get(DECISION_KEY);
-      if (!session) return { title: 'No active Decision Engine session', body: 'Start a Decision Engine session first. Select a goal and the system will explain the bottleneck identification and intervention selection logic.' };
-      const g = DECISION_GOALS[session.goal];
-      if (!g) return { title: 'Goal not found', body: 'Restart the Decision Engine and select a goal.' };
-      return {
-        title: `${g.icon} ${g.label} — ${g.controller}`,
-        body: `Goal: ${g.label}\nController: ${g.controller}\n\nBottleneck: ${g.bottleneck}\n\nThe system identified this controller as the rate-limiting factor based on your biometric profile and current cell coverage. Interventions are ranked by expected impact on the controller’s weakest cells, not by popularity or general efficacy.\n\nVitalis upgrades decisions with full-system visibility. It does not tell you what to do — it shows you what the system sees that you can’t.`
-      };
-    }
-  }
-];
-
-function renderExplainabilityEngine() {
-  const container = document.getElementById('engines-explainability');
-  if (!container) return;
-
-  let html = `
-  <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px">
-    <div style="font-size:16px;font-weight:800;color:#f0f6ff">Explainability Engine</div>
-    <div style="font-size:10px;font-weight:700;color:rgba(99,179,237,0.6);font-style:italic">It shows its work.</div>
-  </div>
-  <div style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#63b3ed;text-transform:uppercase;margin-bottom:20px">WHY THE SYSTEM DECIDED WHAT IT DECIDED</div>
-  `;
-
-  EXPLAIN_CONTEXTS.forEach(ctx => {
-    const exp = ctx.getExplanation();
-    html += `
-    <div style="background:rgba(255,255,255,0.02);border:1px solid ${ctx.color}22;border-radius:14px;padding:14px;margin-bottom:12px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div style="display:flex;align-items:center;gap:8px">
-          <div style="font-size:18px">${ctx.icon}</div>
-          <div>
-            <div style="font-size:10px;font-weight:800;letter-spacing:0.08em;color:rgba(255,255,255,0.35);text-transform:uppercase">${ctx.label}</div>
-            <div style="font-size:12px;font-weight:700;color:#f0f6ff;margin-top:2px">${exp.title}</div>
-          </div>
-        </div>
-        <div style="width:8px;height:8px;border-radius:50%;background:${ctx.color};flex-shrink:0"></div>
-      </div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.65;white-space:pre-line">${exp.body}</div>
-    </div>`;
-  });
-
-  html += `
-  <div style="background:rgba(99,179,237,0.05);border:1px solid rgba(99,179,237,0.15);border-radius:12px;padding:12px;text-align:center">
-    <div style="font-size:11px;font-weight:700;color:#63b3ed">Policy learning influences prioritization.</div>
-    <div style="font-size:10px;color:rgba(255,255,255,0.35);margin-top:4px">It never touches governance.</div>
-  </div>`;
-
-  container.innerHTML = html;
-}
-
-// ═══════════════════════════════════════════════════════════════════
-// TIERING ENGINE — Core 15 vs Full 34 vs Custom Stack
-// Intelligently recommends which tier a user should be on
-// based on streak, adherence, and days on protocol.
-// All IP held by Avotombo Legacy Trust. All rights reserved.
-// ═══════════════════════════════════════════════════════════════════
-const TIER_KEY = 'vtl_tier_v1';
-
-const TIER_DEFS = {
-  foundation: {
-    id:    'foundation',
-    label: 'Foundation',
-    compounds: 15,
-    color: '#22d47e',
-    icon:  '🌱',
-    tagline: 'Build the habit first.',
-    description: 'Core 15 compounds. Circadian-timed AM/MID/PM. Designed for new protocol users or anyone rebuilding consistency.',
-    criteria: 'Recommended when streak < 7 days or adherence < 70%',
-    cells_covered: 45,
-    unlock_next: 'Maintain 7-day streak with 80%+ adherence'
-  },
-  standard: {
-    id:    'standard',
-    label: 'Standard',
-    compounds: 24,
-    color: '#00e5cc',
-    icon:  '⚡',
-    tagline: 'Full system coverage.',
-    description: 'All 24 items (22 supplements + 2 infrastructure) across all 5 flows. Maximum 85-Grid coverage.',
-    criteria: 'Recommended when streak ≥ 7 days and adherence ≥ 70%',
-    cells_covered: 75,
-    unlock_next: 'Maintain 30-day streak with 85%+ adherence'
-  },
-  advanced: {
-    id:    'advanced',
-    label: 'Advanced',
-    compounds: '34+',
-    color: '#b57bee',
-    icon:  '🔬',
-    tagline: 'Custom protocol. Full optimization.',
-    description: 'Full 24-compound stack plus targeted additions based on Proof Engine delta results and identified cell gaps.',
-    criteria: 'Unlocked after 30-day streak with 85%+ adherence and at least 1 completed Proof cycle',
-    cells_covered: 85,
-    unlock_next: null
-  }
-};
-
-function tierGetCurrent() {
-  try { return localStorage.getItem(TIER_KEY) || 'foundation'; } catch(e) { return 'foundation'; }
-}
-
-function tierSetCurrent(id) {
-  try { localStorage.setItem(TIER_KEY, id); setCore15Mode(id === 'foundation'); renderTieringEngine(); } catch(e) {}
-}
-
-function tierRecommend() {
-  const beh  = behGetData();
-  const adh  = behAdherenceByPhase(beh.logs);
-  const overall = Math.round([adh.am, adh.mid, adh.pm].reduce((a,b)=>a+b,0)/3);
-  const proof = ENG_STORE.get(PROOF_KEY) || {};
-  const hasProofCycle = proof.phase === 'delta';
-
-  if (beh.streak >= 30 && overall >= 85 && hasProofCycle) return 'advanced';
-  if (beh.streak >= 7 && overall >= 70) return 'standard';
-  return 'foundation';
-}
-
-function renderTieringEngine() {
-  const container = document.getElementById('engines-tiering');
-  if (!container) return;
-  const beh  = behGetData();
-  const adh  = behAdherenceByPhase(beh.logs);
-  const overall = beh.logs.length > 0 ? Math.round([adh.am, adh.mid, adh.pm].reduce((a,b)=>a+b,0)/3) : 0;
-  const recommended = tierRecommend();
-  const current     = tierGetCurrent();
-  const proof = ENG_STORE.get(PROOF_KEY) || {};
-  const hasProofCycle = proof.phase === 'delta';
-
-  let html = `
-  <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px">
-    <div style="font-size:16px;font-weight:800;color:#f0f6ff">Tiering Engine</div>
-    <div style="font-size:10px;font-weight:700;color:rgba(34,212,126,0.6);font-style:italic">It meets you where you are.</div>
-  </div>
-  <div style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#22d47e;text-transform:uppercase;margin-bottom:20px">PROTOCOL TIER · PROGRESSION · UNLOCK STATUS</div>
-
-  <!-- Current tier status -->
-  <div style="background:rgba(${current==='foundation'?'34,212,126':current==='standard'?'0,229,204':'181,123,238'},0.06);border:1px solid rgba(${current==='foundation'?'34,212,126':current==='standard'?'0,229,204':'181,123,238'},0.2);border-radius:16px;padding:20px;margin-bottom:16px;text-align:center">
-    <div style="font-size:28px;margin-bottom:6px">${TIER_DEFS[current].icon}</div>
-    <div style="font-size:9px;font-weight:800;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:4px">Active Tier</div>
-    <div style="font-size:22px;font-weight:900;color:#f0f6ff">${TIER_DEFS[current].label}</div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px">${TIER_DEFS[current].compounds} compounds · ${TIER_DEFS[current].cells_covered} cells covered</div>
-    <div style="font-size:11px;font-style:italic;color:rgba(255,255,255,0.35);margin-top:8px">&ldquo;${TIER_DEFS[current].tagline}&rdquo;</div>
-  </div>
-
-  <!-- Recommendation -->
-  ${recommended !== current ? `
-  <div style="background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.25);border-radius:12px;padding:12px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:10px">
-    <div>
-      <div style="font-size:10px;font-weight:800;color:#f5a623;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px">System Recommendation</div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.6)">Upgrade to <strong style="color:#fff">${TIER_DEFS[recommended].label}</strong></div>
-    </div>
-    <button onclick="tierSetCurrent('${recommended}')" style="background:rgba(245,166,35,0.12);border:1px solid rgba(245,166,35,0.3);border-radius:8px;padding:8px 14px;color:#f5a623;font-size:10px;font-weight:800;font-family:Inter,sans-serif;cursor:pointer;flex-shrink:0">Apply</button>
-  </div>` : `
-  <div style="background:rgba(0,229,204,0.05);border:1px solid rgba(0,229,204,0.15);border-radius:12px;padding:12px;margin-bottom:16px;text-align:center">
-    <div style="font-size:11px;font-weight:700;color:#00e5cc">✓ You are on the optimal tier for your current protocol state</div>
-  </div>`}
-
-  <!-- Progress metrics -->
-  <div style="font-size:9px;font-weight:800;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:10px">Your Progress</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
-    <div style="background:rgba(255,255,255,0.03);border:1px solid ${beh.streak>=7?'rgba(0,229,204,0.25)':'rgba(255,255,255,0.08)'};border-radius:10px;padding:12px;text-align:center">
-      <div style="font-size:22px;font-weight:900;color:${beh.streak>=7?'#00e5cc':'#f0f6ff'};font-family:'JetBrains Mono',monospace">${beh.streak}</div>
-      <div style="font-size:8px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-top:2px">Day Streak</div>
-      <div style="font-size:9px;color:${beh.streak>=7?'#00e5cc':'rgba(245,166,35,0.7)'};margin-top:4px">${beh.streak>=7?'✓ Met':'Need 7+'}</div>
-    </div>
-    <div style="background:rgba(255,255,255,0.03);border:1px solid ${overall>=70?'rgba(0,229,204,0.25)':'rgba(255,255,255,0.08)'};border-radius:10px;padding:12px;text-align:center">
-      <div style="font-size:22px;font-weight:900;color:${overall>=70?'#00e5cc':'#f0f6ff'};font-family:'JetBrains Mono',monospace">${overall}%</div>
-      <div style="font-size:8px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-top:2px">Adherence</div>
-      <div style="font-size:9px;color:${overall>=70?'#00e5cc':'rgba(245,166,35,0.7)'};margin-top:4px">${overall>=70?'✓ Met':'Need 70%+'}</div>
-    </div>
-  </div>
-
-  <!-- All tiers -->
-  <div style="font-size:9px;font-weight:800;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:10px">All Protocol Tiers</div>
-  ${Object.values(TIER_DEFS).map(t => {
-    const isActive = t.id === current;
-    const isRec    = t.id === recommended;
-    const locked   = t.id === 'advanced' && !(beh.streak >= 30 && overall >= 85 && hasProofCycle);
-    return `
-    <div style="background:${isActive?`rgba(${t.id==='foundation'?'34,212,126':t.id==='standard'?'0,229,204':'181,123,238'},0.06)`:'rgba(255,255,255,0.02)'};border:1px solid ${isActive?`${t.color}30`:'rgba(255,255,255,0.07)'};border-radius:12px;padding:14px;margin-bottom:8px;opacity:${locked?'0.5':'1'}">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div style="font-size:20px">${t.icon}</div>
-          <div>
-            <div style="font-size:12px;font-weight:800;color:#f0f6ff">${t.label} ${isActive?'<span style="font-size:9px;color:'+t.color+'">ACTIVE</span>':isRec?'<span style="font-size:9px;color:#f5a623">RECOMMENDED</span>':''}</div>
-            <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px">${t.compounds} compounds · ${t.cells_covered} cells</div>
-          </div>
-        </div>
-        ${!isActive && !locked ? `<button onclick="tierSetCurrent('${t.id}')" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:6px 12px;color:rgba(255,255,255,0.6);font-size:10px;font-weight:700;font-family:Inter,sans-serif;cursor:pointer">Switch</button>` : locked ? `<span style="font-size:10px;color:rgba(255,255,255,0.25)">🔒 Locked</span>` : ''}
-      </div>
-      <div style="font-size:11px;color:rgba(255,255,255,0.4);line-height:1.4">${t.description}</div>
-      ${t.unlock_next && !isActive ? `<div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:6px;font-style:italic">Unlock: ${t.unlock_next}</div>` : ''}
-    </div>`;
-  }).join('')}
-  `;
-
-  container.innerHTML = html;
-}
-
-// Hook into page navigation — runs immediately (script is post-body, DOM is ready)
-(function() {
-  // Override page activation to trigger engines render
-  const origActivatePage = window.activatePage;
-  window.activatePage = function(pageId) {
-    origActivatePage(pageId);
-    if (pageId === 'engines') {
-      renderEnginesPage();
-    }
-  };
-  // Also hook the engines nav button with an extra click listener
-  document.querySelectorAll('.nav-btn[data-p="engines"]').forEach(btn => {
-    btn.addEventListener('click', () => renderEnginesPage());
-  });
-})();
-</script>
-
-<script>
-// ─── REALITY ENGINE — Mobile Panel ──────────────────────────────────────────
-// Plausibility Gate · Subjective Layer · Dynamic Coverage
-// IP: Avotombo Legacy Trust. All rights reserved.
-
-const RE_CHECKIN_KEY = 'vitalis_re_checkin';
-
-function reGetCheckin() {
-  try { const v = localStorage.getItem(RE_CHECKIN_KEY); return v ? JSON.parse(v) : null; } catch(e) { return null; }
-}
-
-function reSaveCheckin(d) {
-  try { localStorage.setItem(RE_CHECKIN_KEY, JSON.stringify({...d, ts: Date.now()})); } catch(e) {}
-}
-
-function rePlausibilityGate(checkin, sensor) {
-  // Rolling baseline comparison — flag artifact or conflict
-  const flags = [];
-  if (sensor && sensor.hrv !== null && sensor.hrv !== undefined) {
-    if (checkin.energy === 1 && sensor.hrv < 25) flags.push('Low HRV conflicts with high energy report');
-    if (checkin.energy === 5 && sensor.hrv > 90) flags.push('Exceptional HRV — verify subjective alignment');
-  }
-  if (checkin.sleep >= 4 && sensor && sensor.sleep < 40) flags.push('Low sleep score conflicts with subjective report');
-  const suspect = flags.length > 0;
-  return { suspect, flags, confidence: suspect ? 0.72 : 0.91 };
-}
-
-function reComputeCoverage() {
-  // Stack coverage proxy — maps to 30 controller cells
-  const stackSize = 24; // active compounds — v2.3 Apr 29 2026
-  const cellsCovered = 30;
-  const totalCells = 30;
-  return { covered: cellsCovered, total: totalCells, pct: Math.round((cellsCovered/totalCells)*100) };
-}
-
-function reStateModifier(controllerScores) {
-  // v2 deficit-based formula
-  const avg = controllerScores.reduce((a,b)=>a+b,0)/controllerScores.length;
-  const deficit = (avg - 100) / 100;
-  return Math.min(1.35, Math.max(0.75, 1.00 + deficit));
-}
-
-function renderRealityEngine() {
-  const container = document.getElementById('engines-reality');
-  if (!container) return;
-
-  const checkin = reGetCheckin();
-  const sensor  = getReadiness ? getReadiness() : null;
-  const coverage = reComputeCoverage();
-  // Controller scores from session context
-  const ctrlScores = [59, 66, 60, 49, 68, 51];
-  const statemod = reStateModifier(ctrlScores);
-  const plaus = checkin ? rePlausibilityGate(checkin, sensor) : { suspect: false, flags: [], confidence: 0.89 };
-  const confidence = Math.round(plaus.confidence * 100);
-
-  const PINK = '#e879f9';
-  const TEAL = '#00e5cc';
-  const RED  = '#f87171';
-  const GOLD = '#f5a623';
-
-  const energyLabels = ['','Critical','Low','Moderate','Good','Optimal'];
-  const clarityLabels= ['','Foggy','Low','Clear','Sharp','Peak'];
-  const stressLabels = ['','None','Low','Moderate','High','Critical'];
-
-  container.innerHTML = `
-    <div style="padding:4px 0 80px">
-
-      <!-- Header -->
-      <div style="margin-bottom:20px">
-        <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;color:${PINK};text-transform:uppercase;margin-bottom:4px">REALITY ENGINE</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.4">Sensor fusion · Plausibility gate · Coverage verification</div>
-      </div>
-
-      <!-- Confidence + StateModifier row -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-        <div style="background:rgba(232,121,249,0.08);border:1px solid rgba(232,121,249,0.2);border-radius:14px;padding:16px;text-align:center">
-          <div style="font-size:28px;font-weight:800;color:${PINK};line-height:1">${confidence}%</div>
-          <div style="font-size:9px;font-weight:700;letter-spacing:0.08em;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-top:4px">Engine Confidence</div>
-          <div style="margin-top:8px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden">
-            <div style="height:100%;width:${confidence}%;background:${PINK};border-radius:2px"></div>
-          </div>
-        </div>
-        <div style="background:rgba(0,229,204,0.08);border:1px solid rgba(0,229,204,0.2);border-radius:14px;padding:16px;text-align:center">
-          <div style="font-size:28px;font-weight:800;color:${TEAL};line-height:1">${statemod.toFixed(2)}</div>
-          <div style="font-size:9px;font-weight:700;letter-spacing:0.08em;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-top:4px">State Modifier</div>
-          <div style="margin-top:8px;font-size:9px;color:${statemod <= 0.75 ? RED : statemod >= 1.0 ? TEAL : GOLD}">${statemod <= 0.75 ? 'FLOOR — HIGH DEFICIT' : statemod >= 1.0 ? 'OPTIMAL RANGE' : 'BELOW BASELINE'}</div>
-        </div>
-      </div>
-
-      <!-- Coverage bar -->
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px;margin-bottom:16px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-          <div style="font-size:10px;font-weight:700;letter-spacing:0.07em;color:rgba(255,255,255,0.5);text-transform:uppercase">Cell Coverage</div>
-          <div style="font-size:13px;font-weight:800;color:${TEAL}">${coverage.covered}/${coverage.total} <span style="font-size:10px;color:rgba(255,255,255,0.4)">cells</span></div>
-        </div>
-        <div style="height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden">
-          <div style="height:100%;width:${coverage.pct}%;background:linear-gradient(90deg,${TEAL},${PINK});border-radius:3px"></div>
-        </div>
-        <div style="margin-top:6px;font-size:9px;color:rgba(255,255,255,0.35)">24-compound stack · 5 Flows × 6 Controllers</div>
-      </div>
-
-      <!-- Plausibility status -->
-      <div style="background:${plaus.suspect ? 'rgba(248,113,113,0.08)' : 'rgba(34,212,126,0.08)'};border:1px solid ${plaus.suspect ? 'rgba(248,113,113,0.25)' : 'rgba(34,212,126,0.2)'};border-radius:14px;padding:16px;margin-bottom:16px">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:${plaus.flags.length>0?'10px':'0'}">
-          <div style="width:32px;height:32px;border-radius:50%;background:${plaus.suspect?'rgba(248,113,113,0.15)':'rgba(34,212,126,0.15)'};display:flex;align-items:center;justify-content:center;font-size:16px">${plaus.suspect ? '⚠️' : '✓'}</div>
-          <div>
-            <div style="font-size:12px;font-weight:700;color:${plaus.suspect?RED:'#22d47e'}">${plaus.suspect ? 'PLAUSIBILITY FLAG' : 'DATA CONSISTENT'}</div>
-            <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:2px">${checkin ? 'Sensor vs subjective cross-checked' : 'No check-in logged today'}</div>
-          </div>
-        </div>
-        ${plaus.flags.map(f=>`<div style="font-size:10px;color:${RED};background:rgba(248,113,113,0.08);border-radius:8px;padding:6px 10px;margin-top:6px">${f}</div>`).join('')}
-      </div>
-
-      <!-- Daily Check-In -->
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px;margin-bottom:16px">
-        <div style="font-size:10px;font-weight:700;letter-spacing:0.07em;color:rgba(255,255,255,0.5);text-transform:uppercase;margin-bottom:14px">Daily Check-In</div>
-
-        <div id="re-voice-wrap" style="margin-bottom:16px">
-          <button id="re-voice-btn" onclick="reVoiceStart()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:13px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);cursor:pointer">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="re-voice-icon"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
-            <span id="re-voice-label" style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:rgba(255,255,255,0.3);text-transform:uppercase">Voice Check-In</span>
-          </button>
-          <p style="font-size:9px;color:rgba(255,255,255,0.2);text-align:center;margin-top:6px">Say &ldquo;energy 4 fatigue 2 stress 1&rdquo; or &ldquo;feeling good, low stress, a little tired&rdquo;</p>
-          <div id="re-voice-transcript" style="display:none;margin-top:8px;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);font-size:9px;color:rgba(255,255,255,0.4)"></div>
-        </div>
-
-        ${['energy','clarity','stress'].map((field, fi) => {
-          const labels = [energyLabels, clarityLabels, stressLabels][fi];
-          const colors = ['#00e5cc','#7c3aed','#f5a623'];
-          const titles = ['Energy Level','Mental Clarity','Stress Load'];
-          const cur = checkin ? checkin[field] : 0;
-          return `
-          <div style="margin-bottom:14px">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-              <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.7)">${titles[fi]}</div>
-              <div style="font-size:11px;font-weight:700;color:${colors[fi]}">${cur>0?labels[cur]:'--'}</div>
-            </div>
-            <div style="display:flex;gap:6px">
-              ${[1,2,3,4,5].map(v=>`
-                <button onclick="reSetField('${field}',${v})" style="flex:1;height:32px;border-radius:8px;border:1px solid ${cur===v?colors[fi]+'55':'rgba(255,255,255,0.08)'};background:${cur===v?colors[fi]+'18':'transparent'};color:${cur===v?colors[fi]:'rgba(255,255,255,0.3)'};font-size:11px;font-weight:700;cursor:pointer">${v}</button>
-              `).join('')}
-            </div>
-          </div>`;
-        }).join('')}
-
-        <button onclick="reSubmitCheckin()" style="width:100%;margin-top:6px;padding:13px;border-radius:12px;border:none;background:${PINK}22;border:1px solid ${PINK}44;color:${PINK};font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">LOG CHECK-IN</button>
-        ${checkin ? `<div style="margin-top:8px;font-size:9px;color:rgba(255,255,255,0.3);text-align:center">Last logged ${new Date(checkin.ts).toLocaleDateString()} · ${energyLabels[checkin.energy]||'--'} energy</div>` : ''}
-      </div>
-
-      <!-- Controller mini-grid -->
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px">
-        <div style="font-size:10px;font-weight:700;letter-spacing:0.07em;color:rgba(255,255,255,0.5);text-transform:uppercase;margin-bottom:12px">Controller Scores — Full Data</div>
-        ${[
-          {name:'Mitochondria', score:59, color:'#00e5cc'},
-          {name:'Brain',        score:66, color:'#7c3aed'},
-          {name:'Cardio',       score:60, color:'#e879f9'},
-          {name:'Immune',       score:49, color:'#f87171'},
-          {name:'Gut',          score:68, color:'#22d47e'},
-          {name:'Vascular',     score:51, color:'#63b3ed'},
-        ].map(c=>{
-          const tier = c.score >= 80 ? 'OPTIMAL' : c.score >= 65 ? 'FUNCTIONAL' : c.score >= 50 ? 'SUBOPTIMAL' : 'CRITICAL';
-          const tc   = c.score >= 80 ? '#22d47e' : c.score >= 65 ? TEAL : c.score >= 50 ? GOLD : RED;
-          return `
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-            <div style="width:8px;height:8px;border-radius:50%;background:${c.color};flex-shrink:0"></div>
-            <div style="flex:1;font-size:11px;color:rgba(255,255,255,0.7)">${c.name}</div>
-            <div style="width:80px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden">
-              <div style="height:100%;width:${c.score}%;background:${c.color};border-radius:2px"></div>
-            </div>
-            <div style="width:28px;text-align:right;font-size:11px;font-weight:700;color:${tc}">${c.score}</div>
-          </div>`;
-        }).join('')}
-        <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between">
-          <div style="font-size:9px;color:rgba(255,255,255,0.35)">Composite Flow Score</div>
-          <div style="font-size:12px;font-weight:800;color:${TEAL}">60.2 / 100</div>
-        </div>
-      </div>
-
-    </div>
-  `;
-}
-
-// State for in-progress check-in
-let reCheckinDraft = {};
-
-function reSetField(field, val) {
-  const existing = reGetCheckin() || {};
-  reCheckinDraft = {...existing, ...reCheckinDraft, [field]: val};
-  renderRealityEngine();
-  // Restore draft values after re-render
-  ['energy','clarity','stress'].forEach(f => {
-    if (reCheckinDraft[f]) {
-      const btns = document.querySelectorAll(`[onclick^="reSetField('${f}'"]`);
-      // handled by re-render
-    }
-  });
-}
-
-function reSubmitCheckin() {
-  const existing = reGetCheckin() || {};
-  const merged = {...existing, ...reCheckinDraft};
-  if (!merged.energy || !merged.clarity || !merged.stress) {
-    alert('Please rate all 3 fields before logging.');
-    return;
-  }
-  reSaveCheckin(merged);
-  reCheckinDraft = {};
-  renderRealityEngine();
-}
-
-// ── Voice Check-In ────────────────────────────────────────────────────────────
-const RE_WORD_MAP = {one:1,two:2,three:3,four:4,five:5,'1':1,'2':2,'3':3,'4':4,'5':5};
-const RE_DESCRIPTORS = {
-  depleted:{energy:1},exhausted:{energy:1},drained:{energy:1},sluggish:{energy:2},
-  energized:{energy:4},great:{energy:5},peak:{energy:5},optimal:{energy:5},
-  good:{energy:4},solid:{energy:4},decent:{energy:3},okay:{energy:3},
-  rested:{fatigue:1},fresh:{fatigue:1},tired:{fatigue:3},fatigued:{fatigue:4},wrecked:{fatigue:5},
-  calm:{stress:1},relaxed:{stress:1},chill:{stress:1},stressed:{stress:4},anxious:{stress:4},overwhelmed:{stress:5},
-};
-
-function reParseVoice(raw) {
-  const text = raw.toLowerCase().trim();
-  const result = {energy:null, fatigue:null, stress:null};
-
-  // Pattern 1: explicit field + number
-  ['energy','fatigue','stress'].forEach(f => {
-    const m = text.match(new RegExp(f+'\\s+(one|two|three|four|five|[1-5])','i'));
-    if (m) result[f] = RE_WORD_MAP[m[1].toLowerCase()] || null;
-  });
-
-  // Pattern 2: three bare numbers in sequence
-  if (!result.energy && !result.fatigue && !result.stress) {
-    const nums = text.match(/\b([1-5])\b/g);
-    if (nums && nums.length >= 3) {
-      result.energy  = parseInt(nums[0]);
-      result.fatigue = parseInt(nums[1]);
-      result.stress  = parseInt(nums[2]);
-    }
-  }
-
-  // Pattern 3: descriptor words
-  text.split(/\s+/).forEach(w => {
-    const hit = RE_DESCRIPTORS[w];
-    if (hit) Object.entries(hit).forEach(([f,v]) => { if (!result[f]) result[f] = v; });
-  });
-
-  // Pattern 4: modifier phrases
-  if (!result.stress && /no stress|zero stress/.test(text))   result.stress  = 1;
-  if (!result.stress && /low stress/.test(text))              result.stress  = 2;
-  if (!result.stress && /high stress/.test(text))             result.stress  = 4;
-  if (!result.fatigue && /not tired|no fatigue/.test(text))   result.fatigue = 1;
-  if (!result.fatigue && /a little tired/.test(text))         result.fatigue = 2;
-  if (!result.fatigue && /very tired|really tired/.test(text))result.fatigue = 5;
-  if (!result.energy && /low energy/.test(text))              result.energy  = 2;
-  if (!result.energy && /high energy/.test(text))             result.energy  = 4;
-
-  return result;
-}
-
-function reVoiceStart() {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) {
-    alert('Voice input not supported on this browser. Try Chrome or Safari.');
-    return;
-  }
-
-  const btn   = document.getElementById('re-voice-btn');
-  const label = document.getElementById('re-voice-label');
-  const icon  = document.getElementById('re-voice-icon');
-  const tDiv  = document.getElementById('re-voice-transcript');
-
-  const recog = new SpeechRecognition();
-  recog.continuous     = false;
-  recog.interimResults = false;
-  recog.lang           = 'en-US';
-
-  recog.onstart = () => {
-    btn.style.borderColor   = '#e879f955';
-    btn.style.background    = 'rgba(232,121,249,0.10)';
-    icon.setAttribute('stroke','#e879f9');
-    label.style.color       = '#e879f9';
-    label.textContent       = 'LISTENING...';
-  };
-
-  recog.onresult = (e) => {
-    const raw    = e.results[0][0].transcript;
-    const parsed = reParseVoice(raw);
-
-    // Auto-fill draft
-    if (parsed.energy)  reCheckinDraft.energy  = parsed.energy;
-    if (parsed.fatigue) reCheckinDraft.fatigue = parsed.fatigue;
-    if (parsed.stress)  reCheckinDraft.stress  = parsed.stress;
-
-    // Show transcript
-    tDiv.style.display = 'block';
-    const found = Object.values(parsed).filter(Boolean).length;
-    tDiv.innerHTML = `<span style="color:rgba(255,255,255,0.3)">HEARD: </span><span style="color:rgba(255,255,255,0.6)">${raw}</span><br>
-      <span style="color:#00E5CC99;margin-top:2px;display:inline-block">Energy ${parsed.energy||'?'} &middot; Fatigue ${parsed.fatigue||'?'} &middot; Stress ${parsed.stress||'?'} &mdash; ${found}/3 fields parsed</span>`;
-
-    btn.style.borderColor = '#00E5CC44';
-    btn.style.background  = 'rgba(0,229,204,0.06)';
-    icon.setAttribute('stroke','#00E5CC');
-    label.style.color     = '#00E5CC';
-    label.textContent     = found === 3 ? 'GOT IT — TAP LOG TO SAVE' : 'PARTIAL — TAP TO RETRY';
-
-    renderRealityEngine();
-  };
-
-  recog.onerror = () => {
-    btn.style.borderColor = 'rgba(248,113,113,0.4)';
-    icon.setAttribute('stroke','#f87171');
-    label.style.color     = '#f87171';
-    label.textContent     = 'MIC ERROR — TAP TO RETRY';
-  };
-
-  recog.start();
-}
-</script>
-
-<script>
-// ─── DEVICE SYNC CARD ───────────────────────────────────────────────────────
-const SYNC_URL_KEY_CARD = 'vitalis_sync_url';
-const SYNC_TOK_KEY_CARD = 'vitalis_sync_token';
-const DEFAULT_RELAY     = 'wss://vitalis-sync.jaquilabusiness.workers.dev/ws';
-
-(function initSyncCard() {
-  const url   = localStorage.getItem(SYNC_URL_KEY_CARD) || '';
-  const token = localStorage.getItem(SYNC_TOK_KEY_CARD) || '';
-  const urlEl   = document.getElementById('sync-url-input');
-  const tokEl   = document.getElementById('sync-token-input');
-  const label   = document.getElementById('sync-card-status-label');
-  if (urlEl)   urlEl.value   = url;
-  if (tokEl)   tokEl.value   = token;
-  if (label) {
-    if (url && token) {
-      label.textContent = 'Configured · tap to review';
-      label.style.color = '#00e5cc';
-      updateSyncLiveDot(true);
-    }
-  }
-})();
-
-function toggleSyncCard() {
-  const body    = document.getElementById('sync-card-body');
-  const chevron = document.getElementById('sync-card-chevron');
-  if (!body) return;
-  const open = body.style.display === 'none' || body.style.display === '';
-  body.style.display       = open ? 'block' : 'none';
-  if (chevron) chevron.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
-}
-
-function updateSyncLiveDot(connected) {
-  const dot = document.getElementById('sync-live-dot');
-  const lbl = document.getElementById('sync-live-label');
-  if (!dot || !lbl) return;
-  if (connected) {
-    dot.style.background = '#00e5cc';
-    dot.style.boxShadow  = '0 0 6px rgba(0,229,204,0.6)';
-    lbl.textContent      = 'Connected · relay active';
-    lbl.style.color      = '#00e5cc';
-  } else {
-    dot.style.background = 'rgba(255,255,255,0.2)';
-    dot.style.boxShadow  = 'none';
-    lbl.textContent      = 'Not connected';
-    lbl.style.color      = '';
-  }
-}
-
-function saveSyncSettings() {
-  const url   = (document.getElementById('sync-url-input')?.value || '').trim();
-  const token = (document.getElementById('sync-token-input')?.value || '').trim();
-  if (!url || !token) { alert('Enter both Relay URL and Sync Token.'); return; }
-  localStorage.setItem(SYNC_URL_KEY_CARD, url);
-  localStorage.setItem(SYNC_TOK_KEY_CARD, token);
-  const label = document.getElementById('sync-card-status-label');
-  if (label) { label.textContent = 'Configured · tap to review'; label.style.color = '#00e5cc'; }
-  updateSyncLiveDot(true);
-  const body    = document.getElementById('sync-card-body');
-  const chevron = document.getElementById('sync-card-chevron');
-  if (body)    body.style.display       = 'none';
-  if (chevron) chevron.style.transform  = 'rotate(0deg)';
-  setTimeout(() => location.reload(), 400);
-}
-
-function clearSyncSettings() {
-  if (!confirm('Clear sync settings?')) return;
-  localStorage.removeItem(SYNC_URL_KEY_CARD);
-  localStorage.removeItem(SYNC_TOK_KEY_CARD);
-  const urlEl = document.getElementById('sync-url-input');
-  const tokEl = document.getElementById('sync-token-input');
-  const label = document.getElementById('sync-card-status-label');
-  if (urlEl) urlEl.value = '';
-  if (tokEl) tokEl.value = '';
-  if (label) { label.textContent = 'Tap to configure'; label.style.color = ''; }
-  updateSyncLiveDot(false);
-}
-
-function quickFillSync() {
-  const urlEl = document.getElementById('sync-url-input');
-  if (urlEl) urlEl.value = DEFAULT_RELAY;
-}
-</script>
