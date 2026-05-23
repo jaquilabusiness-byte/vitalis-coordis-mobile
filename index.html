@@ -2107,7 +2107,8 @@ body {
           <div class="vcl-badge vcl-d42">Safety gate</div>
         </div>
         <div id="vcl-safety"></div>
-        <div class="vclabs-note">Required at Day 42: ALT · AST · GGT · Platelet count · ANA titer · Antiphospholipid panel · Iron (Item 15)</div>
+        <div class="vclabs-note">Required at Day 42: ALT · AST · GGT · Platelet count · WBC differential · CRP · ANA titer · Antiphospholipid panel · Iron (Item 15)</div>
+        <div id="vcl-wbc-alert"></div>
       </div>
       <!-- SPECIALTY -->
       <div class="vclabs-section">
@@ -7630,6 +7631,8 @@ const VCL_PANELS = {
   ],
   safety: [
     {id:'platelet',   name:'Platelet count',   unit:'K/µL'},
+    {id:'wbc',        name:'WBC (L3 — ANA+)',   unit:'K/µL'},
+    {id:'crp',        name:'CRP (L3 — ANA+)',   unit:'mg/L'},
     {id:'ana',        name:'ANA titer',        unit:'titer'},
     {id:'anticardio', name:'Anticardiolipin IgG',unit:'GPL'},
     {id:'b2glyco',    name:'β2-Glycoprotein IgG',unit:'SGU'},
@@ -7674,6 +7677,33 @@ function vclRenderForms() {
 
 function vclAutoSave() { vclSaveBiomarkers(); }
 
+// WBC Day 42 hard stop alert — L3 ANA+ module
+function vclRenderWBCAlert() {
+  const el = document.getElementById('vcl-wbc-alert');
+  if (!el) return;
+  const bm = vclGetBM();
+  const wbcD0  = parseFloat(bm['wbc_d0'])||null;
+  const wbcD42 = parseFloat(bm['wbc_d42'])||null;
+  if (!wbcD0 && !wbcD42) { el.innerHTML = ''; return; }
+  let html = '';
+  if (wbcD42 && wbcD42 < 2.5) {
+    html = '<div style="margin-top:8px;padding:10px 12px;border-radius:10px;border:1px solid rgba(239,68,68,0.5);background:rgba(239,68,68,0.08);font-size:11px;font-weight:600;color:#F87171;line-height:1.6">' +
+      '&#9888; HARD STOP — WBC at Day 42: ' + wbcD42 + 'L is below 2.5L threshold.<br>' +
+      '<span style="font-weight:400;color:#CBD5E0">Protocol SUSPENDED pending physician review. Do not proceed to Day 90 without clearance. Notify supervising physician immediately.</span>' +
+      '</div>';
+  } else if (wbcD42 && wbcD42 < 3.0) {
+    html = '<div style="margin-top:8px;padding:10px 12px;border-radius:10px;border:1px solid rgba(245,166,35,0.4);background:rgba(245,166,35,0.06);font-size:11px;font-weight:600;color:var(--amber);line-height:1.6">' +
+      '&#9888; FLAG — WBC at Day 42: ' + wbcD42 + 'L. Below 3.0L — below baseline (' + (wbcD0||'--') + 'L).<br>' +
+      '<span style="font-weight:400;color:#CBD5E0">Continue with monitoring. Review with physician before Day 90. ANA+ alternative explanation active.</span>' +
+      '</div>';
+  } else if (wbcD0 && wbcD42 && wbcD42 >= wbcD0) {
+    html = '<div style="margin-top:8px;padding:8px 12px;border-radius:10px;border:1px solid rgba(0,229,204,0.2);background:rgba(0,229,204,0.04);font-size:10px;color:var(--teal);line-height:1.5">' +
+      'WBC Day 42: ' + wbcD42 + 'L — stable or improved from baseline (' + wbcD0 + 'L). Day 42 safety gate PASSED for WBC threshold.' +
+      '</div>';
+  }
+  el.innerHTML = html;
+}
+
 function vclSaveBiomarkers() {
   const bm = {};
   Object.values(VCL_PANELS).flat().forEach(function(m) {
@@ -7684,6 +7714,7 @@ function vclSaveBiomarkers() {
   });
   vclSaveBM(bm);
   vclRenderForms();
+  vclRenderWBCAlert();
 }
 
 // ── RENDER EVIDENCE REPORT ────────────────────────────────────────
@@ -7830,12 +7861,22 @@ function vcrBuildReport() {
   const nadCSsc = total>0 ? nadPosDays/total : 0;
   if(nadD0 && nadD90 && nadD90>nadD0 && nadCSsc>=0.5 && total>=14) {
     const confounders = logs.filter(function(l){ return l.confounders && l.confounders.length>0; }).length;
-    stmts.push({
-      cluster:'NMN · NADH',
-      cells:'MTO.SUP · BRN.SUP',
-      headline:'NAD+ whole blood increased from ' + nadD0 + ' to ' + nadD90 + ' µM (+' + ((nadD90-nadD0)/nadD0*100).toFixed(1) + '%). Positive subjective energy and cognition convergence on ' + Math.round(nadCSsc*100) + '% of logged days.',
-      sub:'CS=' + (nadCSsc>=0.67?3:2) + '/3  ·  Confounder days: ' + confounders + '/' + total + '  ·  Primary alternative: general lifestyle  ·  Confidence: ' + (nadCSsc>=0.67?'MODERATE':'LOW-MODERATE'),
-    });
+    // Challenge 3 fix: CS=2-with-biomarker (NAD confirmed) vs CS=2-subjective-only
+    (function() {
+      const cs = nadCSsc >= 0.67 ? 3 : 2;
+      const hasBiomarker = !!(nadD0 && nadD90 && nadD90 > nadD0);
+      let confLabel;
+      if (cs === 3 && hasBiomarker) confLabel = 'MODERATE — three-domain convergence + biomarker confirmed';
+      else if (cs === 3) confLabel = 'MODERATE — three-domain convergence (no independent biomarker)';
+      else if (cs === 2 && hasBiomarker) confLabel = 'LOW-MODERATE — CS=2 with biomarker confirmation (NAD+ whole blood)';
+      else confLabel = 'LOW — CS=2 subjective/behavioral only · biomarker not yet confirmed';
+      stmts.push({
+        cluster:'NMN · NADH',
+        cells:'MTO.SUP · BRN.SUP',
+        headline:'NAD+ whole blood increased from ' + nadD0 + ' to ' + nadD90 + ' µM (+' + ((nadD90-nadD0)/nadD0*100).toFixed(1) + '%). Positive subjective energy and cognition convergence on ' + Math.round(nadCSsc*100) + '% of logged days.',
+        sub:'CS=' + cs + '/3  ·  Confounder days: ' + confounders + '/' + total + '  ·  Primary alternative: general lifestyle  ·  Confidence: ' + confLabel,
+      });
+    })();
   } else if(total>=14) {
     nulls.push('NMN · NADH (MTO.SUP · BRN.SUP): Insufficient convergence for probabilistic attribution under uncertainty. Delta or CS threshold not met.');
   }
@@ -7844,14 +7885,75 @@ function vcrBuildReport() {
   const o3D0  = parseFloat(bm['omega3idx_d0'])||null;
   const o3D90 = parseFloat(bm['omega3idx_d90'])||null;
   if(o3D0 && o3D90 && o3D90>o3D0 && total>=14) {
-    stmts.push({
-      cluster:'Omega-3+BC',
-      cells:'MTO.DEL · BRN.PRO · CRD.DEL · VAS.DEL · IMM.PRO · GUT.PRO',
-      headline:'Omega-3 Index moved from ' + o3D0 + '% to ' + o3D90 + '% (' + (o3D90>=8?'above':'below') + ' 8% target). Directional positive delta confirmed.',
-      sub:'CS=1-2/3  ·  Objective biomarker confirmed  ·  Broad coverage: 6 controller cells  ·  Confidence: LOW-MODERATE (single-domain biomarker)',
-    });
+    // Challenge 3 fix: Omega-3 Index is a biomarker-only confirmation (slow-moving, 8-12 week window)
+    // CS=1 if only biomarker moves (objective only — subjective/behavioral not attributable to Omega-3 alone)
+    // CS=2-BIO requires biomarker + one behavioral/subjective domain pointing to same direction
+    (function() {
+      const o3Delta = ((o3D90 - o3D0) / o3D0 * 100).toFixed(1);
+      const aboveTarget = o3D90 >= 8;
+      // Note: Omega-3 observation window is 56 days minimum — early positive delta is weak attribution
+      const obsWindowNote = total < 56 ? ' · NOTE: Omega-3 Index requires 8-12 week observation window — current data may be premature' : '';
+      stmts.push({
+        cluster:'Omega-3+BC',
+        cells:'MTO.DEL · BRN.PRO · CRD.DEL · VAS.DEL · IMM.PRO · GUT.PRO',
+        headline:'Omega-3 Index moved from ' + o3D0 + '% to ' + o3D90 + '% (+' + o3Delta + '%). ' + (aboveTarget ? 'Above 8% optimal threshold.' : 'Below 8% target — partial progress.') + ' Biomarker-confirmed delta.',
+        sub:'CS=1/3 (biomarker domain only)  ·  Single-domain confirmation — subjective and behavioral domains are non-specific for Omega-3  ·  Confidence: LOW (biomarker confirmed, single domain)  ·  Minimum observation window: 56 days' + obsWindowNote,
+      });
+    })();
   } else if(total>=14) {
     nulls.push('Omega-3+BC: No delta or insufficient data. Enter Day 0 and Day 90 Omega-3 Index values in Labs tab.');
+  }
+
+  // IMM controller — ANA+/WBC specific block (L3 Module active)
+  // Only emits if WBC day 0 and day 90 are entered. Mixed finding logic per L3 module.
+  const wbcD0  = parseFloat(bm['wbc_d0'])||null;
+  const wbcD90 = parseFloat(bm['wbc_d90'])||null;
+  const crpD0  = parseFloat(bm['crp_d0'])||null;
+  const crpD90 = parseFloat(bm['crp_d90'])||null;
+  if(wbcD0 && wbcD90 && total>=14) {
+    const wbcDelta = wbcD90 - wbcD0;
+    const crpDown = crpD0 && crpD90 && crpD90 < crpD0;
+    const wbcStableOrUp = wbcDelta >= 0;
+    const wbcDown = wbcDelta < -0.2; // >0.2 drop is meaningful
+    // Subjective convergence proxy — energy + cognition (same as NAD proxy, imperfect but available)
+    const immSubjDays = logs.filter(function(l){ return (l.energy||0)>=7 && (l.cognition||0)>=7; }).length;
+    const immSubjFrac = total > 0 ? immSubjDays/total : 0;
+    const hasSubjSignal = immSubjFrac >= 0.5;
+
+    if(wbcDown) {
+      // MIXED FINDING — WBC falling, positive subjective signal does not override
+      stmts.push({
+        cluster:'IMM Controller (ANA+/WBC L3 Module)',
+        cells:'IMM.SUP · IMM.DMD · IMM.PRO · IMM.CLR',
+        headline:'MIXED FINDING — WBC declined from ' + wbcD0 + ' to ' + wbcD90 + 'L (' + wbcDelta.toFixed(2) + '). Positive subjective signal does not override falling biomarker in ANA+ context.',
+        sub:'Layer 3 gate NOT satisfied for positive attribution · ANA+ alternative explanation applies · Recommend rheumatology review · This is not a protocol failure — it may reflect disease trajectory independent of protocol',
+        mixed: true,
+      });
+    } else if(wbcStableOrUp && (crpDown || hasSubjSignal)) {
+      // Positive signal — determine CS level
+      const hasBiomarker = wbcStableOrUp && !!crpDown;
+      const hasSubj = hasSubjSignal;
+      const cs = (hasBiomarker ? 1 : 0) + (hasSubj ? 1 : 0) + (wbcDelta > 0.2 ? 1 : 0); // max 3
+      let confLabel;
+      if(cs >= 2 && hasBiomarker) confLabel = 'LOW-MODERATE — CS=' + cs + '/3 with biomarker confirmation · ANA+ caveat mandatory';
+      else if(cs >= 2) confLabel = 'LOW — CS=' + cs + '/3 subjective/behavioral only · ANA+ caveat mandatory';
+      else confLabel = 'INSUFFICIENT — CS=' + cs + '/3 · Gate not met';
+      if(cs >= 2) {
+        stmts.push({
+          cluster:'IMM Controller (ANA+/WBC L3 Module)',
+          cells:'IMM.SUP · IMM.DMD · IMM.PRO · IMM.CLR',
+          headline:'WBC ' + (wbcDelta>=0?'stable or improved':'improved') + ': ' + wbcD0 + ' → ' + wbcD90 + 'L.' + (crpDown?' CRP directionally decreased.':'') + (hasSubjSignal?' Subjective energy/cognition above threshold on ' + Math.round(immSubjFrac*100) + '% of days.':''),
+          sub:'CS=' + cs + '/3  ·  ANA+ CAVEAT: natural disease trajectory is the primary alternative explanation for all IMM findings  ·  Maximum achievable confidence in ANA+ n=1 context: MODERATE-HIGH  ·  Confidence: ' + confLabel,
+          anaFlag: true,
+        });
+      } else {
+        nulls.push('IMM Controller (ANA+/WBC): CS=' + cs + '/3 — gate not met. WBC stable but insufficient domain convergence for attribution statement.');
+      }
+    } else {
+      nulls.push('IMM Controller (ANA+/WBC): WBC data present but no convergence. WBC Δ=' + wbcDelta.toFixed(2) + '. Enter CRP and continue logging.');
+    }
+  } else if(total>=14) {
+    nulls.push('IMM Controller (ANA+/WBC L3 Module): Enter Day 0 and Day 90 WBC values in Labs tab to activate IMM attribution. ANA+ caveat will apply to all IMM findings.');
   }
 
   // CCS compliance statement
@@ -7868,8 +7970,11 @@ function vcrBuildReport() {
   }
 
   const stmtHtml = stmts.map(function(s){
-    return '<div class="vcr-attr-stmt">' +
-      '<div class="vcr-attr-headline">' + s.headline + '</div>' +
+    const mixedBorder = s.mixed ? 'border-left:2px solid var(--amber);padding-left:10px;' : '';
+    const anaTag = s.anaFlag ? '<div style="font-size:8px;font-weight:700;letter-spacing:0.1em;color:var(--amber);text-transform:uppercase;margin-bottom:3px">ANA+ CAVEAT ACTIVE — NATURAL DISEASE TRAJECTORY IS PRIMARY ALTERNATIVE</div>' : '';
+    return '<div class="vcr-attr-stmt" style="' + mixedBorder + '">' +
+      anaTag +
+      '<div class="vcr-attr-headline" style="' + (s.mixed?'color:var(--amber)':'') + '">' + s.headline + '</div>' +
       '<div class="vcr-attr-sub">' + s.cluster + '  ·  ' + s.cells + '<br>' + s.sub + '</div>' +
     '</div>';
   }).join('');
@@ -7881,10 +7986,19 @@ function vcrBuildReport() {
   const gate = total<14 ?
     '<div style="font-family:DM Mono,monospace;font-size:10px;color:#3d5a78;padding:14px;background:rgba(6,15,28,0.8);border-radius:10px;margin-bottom:8px">Probabilistic statements unlock after 14 days of logged data.' + (14-total>0?' '+( 14-total)+' days remaining.':'') + '</div>' : '';
 
+  const evidStd = '<div style="font-family:DM Mono,monospace;font-size:9px;color:rgba(0,229,204,0.6);' +
+    'border:1px solid rgba(0,229,204,0.15);border-radius:8px;padding:10px 12px;margin-bottom:10px;line-height:1.7">' +
+    '<span style="color:var(--teal);font-weight:700">EVIDENTIARY STANDARD — CYCLE 1</span><br>' +
+    'Primary gate: binary (delta directionally positive AND CS≥2).<br>' +
+    'CS=2 confidence depends on whether biomarker domain is included:<br>' +
+    '&nbsp;&nbsp;CS=2 + biomarker → LOW-MODERATE &nbsp;|&nbsp; CS=2 subjective/behavioral only → LOW<br>' +
+    'Desktop attribution confidence score (HOS engine) is SUPPORTING CONTEXT only — does not override binary gate.<br>' +
+    'IMM controller: binary gate is necessary but not sufficient — WBC must not fall below Day 0 baseline.' +
+    '</div>';
   const layer3Html = '<div class="vcr-card" style="margin-top:8px">' +
     '<div class="vcr-card-header"><div class="vcr-card-title">Layer 3 — Attribution statements</div>' +
-    '<div style="font-family:DM Mono,monospace;font-size:8px;color:#3d5a78">Gated: delta + CS≥2</div></div>' +
-    '<div class="vcr-card-body">' + gate + stmtHtml + nullHtml +
+    '<div style="font-family:DM Mono,monospace;font-size:8px;color:#3d5a78">Gated: delta + CS≥2 · binary standard</div></div>' +
+    '<div class="vcr-card-body">' + evidStd + gate + stmtHtml + nullHtml +
       (!stmts.length && !nulls.length && total>=14 ?
         '<div style="font-family:DM Mono,monospace;font-size:10px;color:#3d5a78">No biomarker deltas entered yet. Add Day 0 and Day 90 values in the Labs tab.</div>' : '') +
     '</div></div>';
@@ -7911,7 +8025,7 @@ function vcrBuildReport() {
   window.activatePage = function(pageId) {
     if(_orig) _orig(pageId);
     if(pageId === 'grid-bridge') { vcgRenderGrid(); }
-    if(pageId === 'labs')        { vclRenderForms(); }
+    if(pageId === 'labs')        { vclRenderForms(); vclRenderWBCAlert(); }
     if(pageId === 'report')      { vcrBuildReport(); }
   };
 
