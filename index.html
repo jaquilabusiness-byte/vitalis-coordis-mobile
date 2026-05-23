@@ -317,6 +317,47 @@ body {
   color:var(--t3);
 }
 
+/* HRV BASELINE SETUP CARD */
+.hrv-bl-card {
+  margin-bottom:12px;padding:14px 16px;
+  border-radius:16px;border:1px solid rgba(0,229,204,0.22);
+  background:linear-gradient(135deg,rgba(0,229,204,0.06),var(--bg-surface));
+}
+.hrv-bl-card.set {
+  border-color:rgba(0,229,204,0.15);
+  background:linear-gradient(135deg,rgba(0,229,204,0.03),var(--bg-surface));
+}
+.hrv-bl-label {
+  font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:4px;
+}
+.hrv-bl-desc { font-size:11px;color:var(--t2);margin-bottom:12px;line-height:1.5 }
+.hrv-bl-inputs { display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px }
+.hrv-bl-field { display:flex;flex-direction:column;gap:3px }
+.hrv-bl-field label { font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--t3) }
+.hrv-bl-field input {
+  background:var(--bg-card);border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px;color:var(--t1);font-size:14px;font-weight:600;
+  padding:8px 10px;outline:none;width:100%;box-sizing:border-box;
+  transition:border-color 0.2s;
+}
+.hrv-bl-field input:focus { border-color:var(--teal);box-shadow:0 0 0 2px rgba(0,229,204,0.12) }
+.hrv-bl-save {
+  width:100%;padding:9px;border-radius:10px;border:none;
+  background:linear-gradient(90deg,rgba(0,229,204,0.18),rgba(0,229,204,0.10));
+  color:var(--teal);font-size:11px;font-weight:700;letter-spacing:0.08em;
+  text-transform:uppercase;cursor:pointer;transition:all 0.15s;
+}
+.hrv-bl-save:active { background:rgba(0,229,204,0.25) }
+.hrv-bl-set-row { display:flex;align-items:center;justify-content:space-between }
+.hrv-bl-set-val { font-size:13px;font-weight:600;color:var(--teal) }
+.hrv-bl-set-meta { font-size:10px;color:var(--t3) }
+.hrv-bl-reset {
+  font-size:9px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--t3);background:none;border:none;cursor:pointer;padding:2px 6px;
+  border-radius:6px;border:1px solid rgba(255,255,255,0.07);
+}
+
 /* BIOMETRIC INPUT — Daily Readiness */
 .bio-card {
   margin-bottom:12px;padding:16px;
@@ -1807,6 +1848,9 @@ body {
 
       <!-- Gap Recommendations -->
       <div id="gap-rec-wrap" class="gap-rec-wrap fu fu2"></div>
+
+      <!-- HRV BASELINE SETUP CARD -->
+      <div id="hrv-baseline-card" class="fu fu2"></div>
 
       <!-- BIOMETRIC INPUT -->
       <div id="bio-card" class="bio-card fu fu2" onclick="showReadinessPanel()">
@@ -4018,6 +4062,90 @@ function closeCellDetail() {
 // HRV: ms (typical 20–120). Sleep: % (0–100). Recovery: % (0–100)
 // ═══════════════════════════════════════════
 
+// ─── HRV BASELINE (personal, 14-day) ────────────────────────────────────────
+// localStorage key: vc_hrv_baseline → { meanMs, sdMs, daysSampled, source, setAt }
+// Must be set before Day 0 using 14-day values from Whoop desktop panel.
+// When set, classifyHRV() uses baseline-normalized z-score instead of
+// fixed population thresholds. Matches V3.2 engine normalization logic.
+
+function getHRVBaseline() {
+  try {
+    const raw = localStorage.getItem('vc_hrv_baseline');
+    if (!raw) return null;
+    const b = JSON.parse(raw);
+    if (!b.meanMs || b.meanMs <= 0 || b.sdMs < 0) return null;
+    return b;
+  } catch(e) { return null; }
+}
+
+function saveHRVBaseline(meanMs, sdMs, daysSampled) {
+  try {
+    const b = {
+      meanMs: parseFloat(meanMs),
+      sdMs: parseFloat(sdMs),
+      daysSampled: parseInt(daysSampled) || 14,
+      source: 'whoop_14d',
+      setAt: new Date().toISOString()
+    };
+    localStorage.setItem('vc_hrv_baseline', JSON.stringify(b));
+    return b;
+  } catch(e) { return null; }
+}
+
+function clearHRVBaseline() {
+  localStorage.removeItem('vc_hrv_baseline');
+}
+
+// Normalize today's HRV against personal baseline.
+// Returns { direction: float [-1,+1], confidence: float [0,0.9], zScore: float }
+// Mirrors V3.2 engine normalize_hrv_direction() logic exactly.
+function normalizeHRVDirection(todayMs, baseline) {
+  if (!baseline || baseline.sdMs === 0) {
+    const dir = todayMs > baseline.meanMs ? 1.0 : todayMs < baseline.meanMs ? -1.0 : 0.0;
+    return { direction: dir, confidence: 0.50, zScore: null, normalized: true };
+  }
+  const z = (todayMs - baseline.meanMs) / baseline.sdMs;
+  const SD_CAP = 3.0;
+  const zClamped = Math.max(-SD_CAP, Math.min(SD_CAP, z));
+  const direction = parseFloat((zClamped / SD_CAP).toFixed(4));
+
+  let confidence = 0.85;
+  if (baseline.daysSampled < 7) {
+    const sparseFactor = 0.50 + (baseline.daysSampled - 1) * (0.35 / 6);
+    confidence = Math.min(confidence, sparseFactor);
+  }
+  if (baseline.sdMs > 10.0) {
+    const noisePenalty = Math.min(0.20, (baseline.sdMs - 10.0) * 0.01);
+    confidence = Math.max(0.40, confidence - noisePenalty);
+  }
+  confidence = parseFloat(Math.min(0.90, confidence).toFixed(4));
+
+  return { direction, confidence, zScore: parseFloat(z.toFixed(2)), normalized: true };
+}
+
+// Classify HRV using personal baseline when available.
+// When baseline is set: tier is relative to personal band (z-score based).
+// When baseline is NOT set: falls back to fixed population thresholds.
+function classifyHRVWithBaseline(v) {
+  if (v === null || v === undefined || isNaN(v)) return null;
+  const baseline = getHRVBaseline();
+  if (baseline) {
+    const { zScore } = normalizeHRVDirection(v, baseline);
+    const z = zScore !== null ? zScore : (v - baseline.meanMs) / (baseline.sdMs || 1);
+    const baselineLabel = `(baseline ${baseline.meanMs.toFixed(0)}±${baseline.sdMs.toFixed(0)}ms)`;
+    if (z <= -1.5) return { tier:'CRITICAL', color:'var(--red)',     label:'Below Baseline', baselineLabel, z };
+    if (z < -0.5)  return { tier:'LOW',      color:'var(--amber)',   label:'Below Baseline', baselineLabel, z };
+    if (z <= 0.5)  return { tier:'MODERATE', color:'#f5a623',        label:'At Baseline',    baselineLabel, z };
+    if (z <= 1.5)  return { tier:'OPTIMAL',  color:'var(--emerald)', label:'Above Baseline', baselineLabel, z };
+    return               { tier:'OPTIMAL',   color:'var(--teal)',    label:'Elevated',       baselineLabel, z };
+  }
+  // Fallback: population thresholds
+  if (v < 40)  return {tier:'CRITICAL', color:'var(--red)',    label:'Critical',  baselineLabel:null};
+  if (v < 65)  return {tier:'LOW',      color:'var(--amber)',  label:'Low',       baselineLabel:null};
+  if (v < 85)  return {tier:'MODERATE', color:'#f5a623',       label:'Moderate',  baselineLabel:null};
+  return               {tier:'OPTIMAL', color:'var(--emerald)',label:'Optimal',   baselineLabel:null};
+}
+
 function readinessKey() {
   const d = new Date();
   return `vtl_readiness_${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
@@ -4036,11 +4164,9 @@ function saveReadiness(hrv, sleep, recovery) {
 // Recovery: <33=critical, 33-49=low, 50-69=moderate, ≥70=optimal
 // Sleep: <60=critical, 60-74=low, 75-84=moderate, ≥85=optimal
 function classifyHRV(v) {
-  if (v === null || v === undefined) return null;
-  if (v < 40)  return {tier:'CRITICAL', color:'var(--red)',    label:'Critical'};
-  if (v < 65)  return {tier:'LOW',      color:'var(--amber)',  label:'Low'};
-  if (v < 85)  return {tier:'MODERATE', color:'#f5a623',       label:'Moderate'};
-  return               {tier:'OPTIMAL', color:'var(--emerald)',label:'Optimal'};
+  // Delegates to classifyHRVWithBaseline — uses personal 14-day baseline
+  // when vc_hrv_baseline is set; falls back to population thresholds otherwise.
+  return classifyHRVWithBaseline(v);
 }
 function classifyRecovery(v) {
   if (v === null || v === undefined) return null;
@@ -4087,8 +4213,15 @@ function renderBiometricCard() {
     return `${val}${suffix}`;
   };
   const metricColor = (cls) => cls ? cls.color : 'var(--purple)';
-  const flagHtml = (cls) => cls && cls.tier !== 'OPTIMAL'
-    ? `<div class="bio-m-flag" style="color:${cls.color}">${cls.label}</div>` : '';
+  const flagHtml = (cls) => {
+    if (!cls) return '';
+    const baseTag = cls.baselineLabel
+      ? `<div style="font-size:6px;color:var(--t3);margin-top:1px">${cls.baselineLabel}</div>` : '';
+    if (cls.tier !== 'OPTIMAL') {
+      return `<div class="bio-m-flag" style="color:${cls.color}">${cls.label}</div>${baseTag}`;
+    }
+    return baseTag;
+  };
 
   // Readiness bar
   let readinessBar = '';
@@ -5812,6 +5945,84 @@ checkDashConnection();
 
 
 // ═══════════════════════════════════════════
+// ─── HRV BASELINE CARD ───────────────────────────────────────────────────────
+// Renders into #hrv-baseline-card on the home page.
+// Shows setup form when no baseline is set, confirmation row when set.
+function renderHRVBaselineCard() {
+  const el = document.getElementById('hrv-baseline-card');
+  if (!el) return;
+  const b = getHRVBaseline();
+
+  if (b) {
+    // Baseline is set — show compact confirmation
+    const setDate = b.setAt ? new Date(b.setAt).toLocaleDateString('en-US', {month:'short',day:'numeric'}) : 'set';
+    el.innerHTML = `
+      <div class="hrv-bl-card set">
+        <div class="hrv-bl-label">HRV Baseline — Set</div>
+        <div class="hrv-bl-set-row">
+          <div>
+            <span class="hrv-bl-set-val">${b.meanMs.toFixed(1)} ± ${b.sdMs.toFixed(1)} ms</span>
+            <span class="hrv-bl-set-meta" style="margin-left:8px">${b.daysSampled}d sample · ${setDate}</span>
+          </div>
+          <button class="hrv-bl-reset" onclick="clearHRVBaselineAndRefresh()">Reset</button>
+        </div>
+        <div style="font-size:10px;color:var(--t3);margin-top:6px">
+          Guard 2 biomarker signal normalized against this band. Confidence: ${b.daysSampled >= 7 ? '0.85' : 'reduced (< 7 days)'}.
+        </div>
+      </div>`;
+  } else {
+    // No baseline — show setup form
+    el.innerHTML = `
+      <div class="hrv-bl-card" id="hrv-bl-form-card">
+        <div class="hrv-bl-label">HRV Baseline — Pre-Cycle Action Required</div>
+        <div class="hrv-bl-desc">
+          Set your 14-day personal HRV baseline from the Whoop desktop panel before Day 0.
+          Without this, Guard 2 uses population thresholds instead of your personal band.
+        </div>
+        <div class="hrv-bl-inputs">
+          <div class="hrv-bl-field">
+            <label>14-Day Mean (ms)</label>
+            <input id="hrv-bl-mean" type="number" inputmode="decimal" placeholder="e.g. 30" min="5" max="200" step="0.1">
+          </div>
+          <div class="hrv-bl-field">
+            <label>Std Dev (ms)</label>
+            <input id="hrv-bl-sd" type="number" inputmode="decimal" placeholder="e.g. 5" min="0" max="50" step="0.1">
+          </div>
+          <div class="hrv-bl-field">
+            <label>Days Sampled</label>
+            <input id="hrv-bl-days" type="number" inputmode="numeric" placeholder="14" min="1" max="30" value="14">
+          </div>
+        </div>
+        <button class="hrv-bl-save" onclick="saveHRVBaselineFromForm()">Save Baseline</button>
+      </div>`;
+  }
+}
+
+function saveHRVBaselineFromForm() {
+  const mean = parseFloat(document.getElementById('hrv-bl-mean')?.value);
+  const sd   = parseFloat(document.getElementById('hrv-bl-sd')?.value);
+  const days = parseInt(document.getElementById('hrv-bl-days')?.value) || 14;
+  if (!mean || mean <= 0 || isNaN(mean)) {
+    alert('Enter a valid 14-day mean HRV (ms).');
+    return;
+  }
+  if (isNaN(sd) || sd < 0) {
+    alert('Enter a valid standard deviation (0 or higher).');
+    return;
+  }
+  saveHRVBaseline(mean, sd, days);
+  renderHRVBaselineCard();
+  // Also refresh the biometric card in case HRV was already entered today
+  if (typeof renderBiometricCard === 'function') renderBiometricCard();
+}
+
+function clearHRVBaselineAndRefresh() {
+  clearHRVBaseline();
+  renderHRVBaselineCard();
+  if (typeof renderBiometricCard === 'function') renderBiometricCard();
+}
+
+
 // INIT
 // ═══════════════════════════════════════════
 buildHome();
@@ -5820,6 +6031,7 @@ buildStack();
 renderIntake();
 renderInterventions();
 updateIVBadge();
+renderHRVBaselineCard();
 renderBiometricCard();
 updateHomeStats();
 renderGapRecs();
