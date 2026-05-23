@@ -1484,6 +1484,141 @@ body {
   font-size:7px;font-weight:700;padding:1px 5px;border-radius:3px;
   text-transform:uppercase;letter-spacing:0.06em;
 }
+
+/* ═══════════════════════════════════════════
+   DAILY LOG — V3.2 INPUT LAYER
+═══════════════════════════════════════════ */
+.log-header { padding:18px 0 6px; }
+.log-title  { font-size:17px;font-weight:800;color:var(--t1);letter-spacing:0.01em }
+.log-sub    { font-size:11px;font-weight:500;color:var(--t3);margin-top:2px;text-transform:uppercase;letter-spacing:0.08em }
+
+.log-section { margin-bottom:18px }
+.log-section-label {
+  font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;
+  color:var(--t3);margin-bottom:8px;display:flex;align-items:center;gap:8px
+}
+.log-section-label::after { content:'';flex:1;height:1px;background:var(--line) }
+
+/* Score sliders — 1–10 tap buttons */
+.score-row { display:flex;gap:5px;align-items:center }
+.score-label { font-size:11px;font-weight:600;color:var(--t2);min-width:70px }
+.score-btns  { display:flex;gap:3px;flex:1 }
+.score-btn   {
+  flex:1;height:28px;border:none;border-radius:5px;cursor:pointer;
+  font-size:9px;font-weight:700;font-family:Inter,sans-serif;
+  background:rgba(255,255,255,0.05);color:var(--t3);transition:all 0.12s;
+}
+.score-btn.active {
+  background:var(--teal);color:#000;
+  box-shadow:0 0 8px rgba(0,229,204,0.45);
+}
+.score-btn:hover:not(.active) { background:rgba(255,255,255,0.1);color:var(--t2) }
+
+/* HRV input */
+.hrv-row { display:flex;align-items:center;gap:10px }
+.hrv-input {
+  background:rgba(255,255,255,0.05);border:1px solid var(--line-md);
+  border-radius:8px;padding:8px 12px;color:var(--t1);font-size:14px;
+  font-family:'JetBrains Mono',monospace;font-weight:600;width:90px;
+  outline:none;text-align:center;
+}
+.hrv-input:focus { border-color:var(--teal);box-shadow:0 0 0 2px rgba(0,229,204,0.15) }
+.hrv-unit { font-size:11px;color:var(--t3);font-weight:500 }
+
+/* Compliance grid */
+.compliance-grid {
+  display:grid;grid-template-columns:1fr 1fr;gap:6px
+}
+.comp-item {
+  display:flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,0.03);border:1px solid var(--line);
+  border-radius:8px;padding:7px 9px;cursor:pointer;transition:all 0.12s;
+  user-select:none;
+}
+.comp-item.taken { background:rgba(0,229,204,0.07);border-color:rgba(0,229,204,0.3) }
+.comp-item.partial { background:rgba(245,166,35,0.07);border-color:rgba(245,166,35,0.3) }
+.comp-item.missed { background:rgba(255,77,109,0.05);border-color:rgba(255,77,109,0.25) }
+.comp-box {
+  width:14px;height:14px;border-radius:3px;flex-shrink:0;
+  border:1.5px solid rgba(255,255,255,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:8px;font-weight:900;color:#000;
+}
+.comp-item.taken .comp-box    { background:var(--teal);border-color:var(--teal) }
+.comp-item.partial .comp-box  { background:var(--amber);border-color:var(--amber) }
+.comp-item.missed .comp-box   { background:var(--red);border-color:var(--red) }
+.comp-name { font-size:10px;font-weight:600;color:var(--t2);line-height:1.2 }
+.comp-item.taken .comp-name   { color:var(--t1) }
+
+/* Confounder flags */
+.confounder-flags { display:flex;flex-wrap:wrap;gap:6px }
+.conf-chip {
+  padding:5px 10px;border-radius:20px;font-size:10px;font-weight:700;
+  border:1px solid var(--line-md);background:rgba(255,255,255,0.04);
+  color:var(--t3);cursor:pointer;transition:all 0.12s;letter-spacing:0.03em
+}
+.conf-chip.active { background:rgba(245,166,35,0.15);border-color:rgba(245,166,35,0.5);color:var(--amber) }
+
+/* CCS + Decision output */
+.log-output-card {
+  background:rgba(255,255,255,0.03);border:1px solid var(--line-md);
+  border-radius:12px;padding:16px;margin-bottom:14px;
+}
+.ccs-bar-wrap { height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin:6px 0 4px }
+.ccs-bar-fill { height:6px;border-radius:3px;transition:width 0.5s ease }
+.ccs-val  { font-size:24px;font-weight:900;color:var(--teal);font-family:'JetBrains Mono',monospace }
+.ccs-band-label { font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-left:8px }
+
+.decision-chip {
+  display:inline-block;padding:6px 14px;border-radius:20px;
+  font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;
+  margin-top:8px;
+}
+.decision-reason { font-size:11px;line-height:1.6;color:var(--t2);margin-top:8px }
+
+/* Guard status row */
+.guard-row { display:flex;gap:6px;flex-wrap:wrap;margin-top:8px }
+.guard-pill {
+  font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;
+  letter-spacing:0.06em;text-transform:uppercase;
+}
+.guard-pass { background:rgba(34,212,126,0.15);color:var(--emerald);border:1px solid rgba(34,212,126,0.3) }
+.guard-block{ background:rgba(255,77,109,0.12);color:var(--red);border:1px solid rgba(255,77,109,0.3) }
+
+/* Log history */
+.log-hist-row {
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:10px 0;border-bottom:1px solid var(--line);
+}
+.log-hist-date { font-size:11px;font-weight:600;color:var(--t2) }
+.log-hist-ccs  { font-size:11px;font-weight:800;color:var(--teal);font-family:'JetBrains Mono',monospace }
+.log-hist-dec  { font-size:10px;font-weight:700;color:var(--t3);margin-top:2px }
+
+/* Save button */
+.log-save-btn {
+  width:100%;padding:14px;background:var(--teal);color:#000;
+  border:none;border-radius:10px;font-size:13px;font-weight:800;
+  font-family:Inter,sans-serif;cursor:pointer;letter-spacing:0.04em;
+  transition:all 0.15s;margin-top:4px;
+}
+.log-save-btn:active { opacity:0.8;transform:scale(0.98) }
+.log-save-btn:disabled { background:rgba(0,229,204,0.3);color:rgba(0,0,0,0.5);cursor:not-allowed }
+
+.log-day-counter {
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(0,229,204,0.08);border:1px solid rgba(0,229,204,0.2);
+  border-radius:20px;padding:4px 12px;margin-top:6px;
+}
+.log-day-num { font-size:13px;font-weight:900;color:var(--teal);font-family:'JetBrains Mono',monospace }
+.log-day-lbl { font-size:10px;font-weight:600;color:var(--t3) }
+
+/* Pre-cycle banner */
+.precycle-banner {
+  background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.3);
+  border-radius:10px;padding:12px 14px;margin-bottom:14px;
+}
+.precycle-banner-title { font-size:11px;font-weight:800;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em }
+.precycle-banner-body  { font-size:11px;color:var(--t2);margin-top:4px;line-height:1.55 }
 </style>
 </head>
 <body>
@@ -1788,6 +1923,13 @@ body {
 
   </div><!-- /scroll -->
 
+    <!-- ═══════════════════════════════════
+         PAGE: DAILY LOG (V3.2 Input Layer)
+    ═══════════════════════════════════ -->
+    <div class="page" id="page-log">
+      <div id="log-root"></div>
+    </div>
+
   <!-- BOTTOM NAV -->
   <div class="nav">
     <button class="nav-btn active" data-p="home">
@@ -1817,6 +1959,14 @@ body {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       Engines
     </button>
+    <button class="nav-btn" data-p="log" id="nav-log-btn">
+      <div style="position:relative;display:inline-flex">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span id="log-nav-badge" style="display:none;position:absolute;top:-4px;right:-6px;min-width:13px;height:13px;border-radius:7px;background:var(--teal);font-size:7px;font-weight:800;color:#000;line-height:13px;text-align:center;padding:0 2px"></span>
+      </div>
+      Day Log
+    </button>
+
   </div>
 
 </div><!-- /shell -->
@@ -6173,6 +6323,730 @@ renderGapRecs();
     init();
   }
 })();
+</script>
+
+
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// VITALIS COORDIS — DAILY LOG MODULE (V3.2 Input Layer)
+// Client-side port of vitalis_engine_v32.py decision logic
+// Persistence: localStorage. No backend required for Cycle 1.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── CONSTANTS (V3.2) ────────────────────────────────────────────────────────
+const DL_STORE_KEY     = 'vc_daily_logs_v32';
+const DL_STARTDATE_KEY = 'vc_cycle1_start';
+const DL_DRAFT_KEY     = 'vc_daily_draft';
+
+const CCS_THRESHOLDS = { full:0.85, partial:0.70, compromised:0.55 };
+const EC_LOW = 0.30, EC_MED = 0.60;
+
+// V3.2 Decision enum
+const DECISION = {
+  ACT_SMALL:            'ACT_SMALL',
+  ACT_FULL:             'ACT_FULL',
+  HOLD:                 'HOLD',
+  EXTEND:               'EXTEND',
+  DEFER:                'DEFER',
+  SUPPRESS:             'SUPPRESS',
+  REVERT:               'REVERT',
+  CEILING:              'CEILING',
+  ATTRIBUTION_DEGRADED: 'ATTRIBUTION_DEGRADED',
+};
+
+const DECISION_DISPLAY = {
+  ACT_SMALL:            { label:'ACT SMALL',           color:'#00e5cc', bg:'rgba(0,229,204,0.12)' },
+  ACT_FULL:             { label:'ACT FULL',             color:'#22d47e', bg:'rgba(34,212,126,0.12)' },
+  HOLD:                 { label:'HOLD',                 color:'#8ba3c9', bg:'rgba(139,163,201,0.1)' },
+  EXTEND:               { label:'EXTEND',               color:'#b57bee', bg:'rgba(181,123,238,0.12)' },
+  DEFER:                { label:'DEFER',                color:'#4da6ff', bg:'rgba(77,166,255,0.12)' },
+  SUPPRESS:             { label:'SUPPRESS',             color:'#ff4d6d', bg:'rgba(255,77,109,0.12)' },
+  REVERT:               { label:'REVERT',               color:'#ff4d6d', bg:'rgba(255,77,109,0.15)' },
+  CEILING:              { label:'CEILING',              color:'#f5a623', bg:'rgba(245,166,35,0.12)' },
+  ATTRIBUTION_DEGRADED: { label:'ATTRIBUTION DEGRADED', color:'#f5a623', bg:'rgba(245,166,35,0.1)'  },
+  PRE_CYCLE:            { label:'PRE-CYCLE',            color:'#f5a623', bg:'rgba(245,166,35,0.1)'  },
+};
+
+const DECISION_REASON = {
+  ACT_SMALL:            'Two-domain signal convergence confirmed. Acting at minimum effective change. Dose bounded — do not escalate without ACT_FULL confirmation.',
+  ACT_FULL:             'Three-domain signal convergence confirmed. Full action permitted. Biomarker, subjective, and behavioral signals aligned.',
+  HOLD:                 'Signal is stable. No action needed. HOLD is not failure — it is the correct output when acting is worse than not acting. Continue current stack unchanged.',
+  EXTEND:               'Minimum exposure time not yet satisfied. System is extending the observation window. Continue current stack. No new intervention.',
+  DEFER:                'Signal quality is insufficient for a reliable decision. Data is too sparse or contradictory. Extending observation window. No action taken.',
+  SUPPRESS:             'Negative signal detected. Suppressing intervention lever. Attribution record updated.',
+  REVERT:               'Post-intervention signal worsened beyond noise threshold. Reverting to prior baseline configuration.',
+  CEILING:              'Attribution ceiling reached. Diminishing returns — further intervention cannot be attributed. Maintain current state.',
+  ATTRIBUTION_DEGRADED: 'Attribution is not currently reliable due to intervention overlap, inconsistent adherence, or conflicting signals. The system is allowed to do nothing indefinitely. No decision until conditions improve.',
+  PRE_CYCLE:            'Cycle 1 has not started. Log daily readiness data during pre-cycle to establish baseline. No protocol decisions are made in pre-cycle.',
+};
+
+// 20 Daily stack items (Cycle 1 V2.5)
+const DAILY_STACK = [
+  { id:'momentum_am',   name:'Momentum AM',         time:'AM', locked:true },
+  { id:'catmin_shilajit',name:'Catalyzed Min Complex',time:'AM', locked:true },
+  { id:'nadh',          name:'NADH (10 drops)',      time:'AM', locked:true },
+  { id:'d3k2',          name:'D3 + K2',              time:'AM', locked:false },
+  { id:'omega3_bc',     name:'Omega-3 + Black Cumin',time:'AM', locked:false },
+  { id:'berberine',     name:'Berberine 500mg',      time:'AM', locked:false },
+  { id:'bergamot',      name:'Bergamot',             time:'AM', locked:false },
+  { id:'lcitrulline',   name:'L-Citrulline',         time:'AM', locked:false },
+  { id:'silica',        name:'Orgono Silica',         time:'AM', locked:false },
+  { id:'synbiotics',    name:'Synbiotics (3-part)',   time:'AM', locked:false },
+  { id:'qualia_mag',    name:'Qualia Magnesium',      time:'PM', locked:false },
+  { id:'tmrw',          name:'TMRW (daily)',          time:'PM', locked:true },
+  { id:'nac',           name:'NAC',                   time:'PM', locked:false },
+  { id:'tocotrienols',  name:'Tocotrienols 1000mg',  time:'PM', locked:false },
+  { id:'coq10',         name:'CoQ10',                 time:'PM', locked:false },
+  { id:'creatine',      name:'Creatine',              time:'PM', locked:false },
+  { id:'liv_silica',    name:'Living Silica (topical)',time:'PM', locked:false },
+  { id:'liq_minerals',  name:'Liquid 40k Volts',      time:'PM', locked:false },
+  { id:'spermidine_wk', name:'Spermidine (Sat/Sun)',  time:'ROTATIONAL', locked:false },
+  { id:'ultra_vit',     name:'Ultra Vitamin (rot.)',  time:'ROTATIONAL', locked:false },
+];
+
+const CONFOUNDER_FLAGS = [
+  { id:'poor_sleep',   label:'Poor Sleep' },
+  { id:'travel',       label:'Travel' },
+  { id:'illness',      label:'Illness' },
+  { id:'high_stress',  label:'High Stress' },
+  { id:'alcohol',      label:'Alcohol' },
+  { id:'skipped_meal', label:'Skipped Meal' },
+  { id:'workout',      label:'Hard Workout' },
+  { id:'medication',   label:'OTC Medication' },
+];
+
+// ── DRAFT STATE ──────────────────────────────────────────────────────────────
+let dlDraft = {
+  date:       todayISO(),
+  energy:     null,    // 1–10
+  cognition:  null,    // 1–10
+  mood:       null,    // 1–10
+  sleep:      null,    // 1–10
+  hrv:        null,    // ms
+  compliance: {},      // { item_id: 'taken'|'partial'|'missed' }
+  confounders:[],      // array of flag ids
+  notes:      '',
+};
+
+window.dlViewMode = window.dlViewMode || 'input'; // 'input' | 'output' | 'history'
+
+function todayISO() {
+  const d = new Date();
+  return d.toISOString().slice(0,10);
+}
+
+function dlLoadDraft() {
+  try {
+    const saved = localStorage.getItem(DL_DRAFT_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      // Only restore if it's today's draft
+      if (parsed.date === todayISO()) {
+        dlDraft = parsed;
+      }
+    }
+  } catch(e) {}
+}
+
+function dlSaveDraft() {
+  try { localStorage.setItem(DL_DRAFT_KEY, JSON.stringify(dlDraft)); } catch(e) {}
+}
+
+// ── PERSISTENCE ──────────────────────────────────────────────────────────────
+function dlGetLogs() {
+  try { return JSON.parse(localStorage.getItem(DL_STORE_KEY) || '[]'); } catch(e) { return []; }
+}
+
+function dlSaveLog(entry) {
+  const logs = dlGetLogs();
+  // Replace if same date
+  const idx = logs.findIndex(l => l.date === entry.date);
+  if (idx >= 0) logs[idx] = entry;
+  else logs.push(entry);
+  // Keep last 180 days
+  logs.sort((a,b) => a.date.localeCompare(b.date));
+  const trimmed = logs.slice(-180);
+  try { localStorage.setItem(DL_STORE_KEY, JSON.stringify(trimmed)); } catch(e) {}
+}
+
+function dlGetCycleStart() {
+  return localStorage.getItem(DL_STARTDATE_KEY) || null;
+}
+
+function dlSetCycleStart(dateISO) {
+  localStorage.setItem(DL_STARTDATE_KEY, dateISO);
+}
+
+function dlCycleDay() {
+  const start = dlGetCycleStart();
+  if (!start) return null;
+  const startD = new Date(start + 'T00:00:00');
+  const todayD  = new Date(todayISO() + 'T00:00:00');
+  const diff    = Math.round((todayD - startD) / 86400000);
+  return diff + 1; // Day 1 = start date
+}
+
+// ── V3.2 CCS ENGINE (JS port) ────────────────────────────────────────────────
+function computeCCS(logs) {
+  // Recency-weighted: 7d=50%, 14d=30%, 30d=20%
+  // Each log has a compliance ratio 0.0–1.0
+  if (!logs || logs.length === 0) return 1.0;
+
+  const sorted = [...logs].sort((a,b) => a.date.localeCompare(b.date));
+  const recent = sorted.slice(-30);
+
+  if (recent.length < 7) {
+    const rates = recent.map(l => dlComplianceRate(l));
+    return rates.reduce((a,b)=>a+b,0) / rates.length;
+  }
+
+  const band7  = recent.slice(-7);
+  const band14 = recent.length >= 14 ? recent.slice(-14,-7) : [];
+  const band30 = recent.length >= 30 ? recent.slice(-30,-14) : [];
+
+  const avg  = arr => arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : null;
+  const r7   = avg(band7.map(l => dlComplianceRate(l)));
+  const r14  = band14.length ? avg(band14.map(l => dlComplianceRate(l))) : r7;
+  const r30  = band30.length ? avg(band30.map(l => dlComplianceRate(l))) : r14;
+
+  return (r7 * 0.50) + (r14 * 0.30) + (r30 * 0.20);
+}
+
+function dlComplianceRate(log) {
+  if (!log.compliance) return 0;
+  const items = Object.values(log.compliance);
+  if (!items.length) return 0;
+  const score = items.reduce((acc, s) => {
+    if (s === 'taken')   return acc + 1.0;
+    if (s === 'partial') return acc + 0.5;
+    return acc; // missed = 0
+  }, 0);
+  return score / items.length;
+}
+
+function ccsBand(ccs) {
+  if (ccs >= CCS_THRESHOLDS.full)        return 'full';
+  if (ccs >= CCS_THRESHOLDS.partial)     return 'partial';
+  if (ccs >= CCS_THRESHOLDS.compromised) return 'compromised';
+  return 'suspension';
+}
+
+function ccsBandColor(band) {
+  return { full:'#00e5cc', partial:'#22d47e', compromised:'#f5a623', suspension:'#ff4d6d' }[band] || '#8ba3c9';
+}
+
+function ccsBandLabel(band) {
+  return { full:'Full Attribution', partial:'Partial Attribution', compromised:'Compromised', suspension:'Suspended' }[band] || band;
+}
+
+// ── V3.2 CONVERGENCE SCORE ────────────────────────────────────────────────────
+function computeConvergenceScore(log, histLogs) {
+  // Domain 1: Subjective — energy + cognition + mood trending positive
+  const subj = dlSubjectiveDirection(log, histLogs);
+  // Domain 2: Behavioral — compliance rate ≥ 85% today
+  const behav = dlComplianceRate(log) >= 0.85 ? 1 : (dlComplianceRate(log) >= 0.70 ? 0.5 : 0);
+  const behavDir = behav >= 0.75 ? 1 : (behav >= 0.5 ? 0.5 : 0);
+  // Domain 3: Biomarker — HRV (proxy; positive if ≥ 45ms and trending, else neutral)
+  const biomarker = dlHRVDirection(log, histLogs);
+
+  const domains = [
+    { name:'Subjective',  dir: subj },
+    { name:'Behavioral',  dir: behavDir },
+    { name:'Biomarker',   dir: biomarker },
+  ];
+
+  const positive = domains.filter(d => d.dir > 0.2);
+  const negative = domains.filter(d => d.dir < -0.2);
+  let dir = 'neutral';
+  if (positive.length >= negative.length && positive.length > 0) dir = 'positive';
+  else if (negative.length > positive.length) dir = 'negative';
+
+  return { cs: positive.length, direction: dir, domains };
+}
+
+function dlSubjectiveDirection(log, histLogs) {
+  // Average of energy/cognition/mood/sleep vs prior 3-day average
+  const scores = [log.energy, log.cognition, log.mood, log.sleep].filter(v => v != null);
+  if (scores.length < 2) return 0; // insufficient
+  const avg = scores.reduce((a,b)=>a+b,0) / scores.length;
+
+  const prior = histLogs.slice(-3);
+  if (!prior.length) {
+    // No history — midpoint = 5.5
+    return avg >= 7 ? 1 : avg >= 5 ? 0 : -1;
+  }
+  const priorScores = prior.flatMap(l => [l.energy,l.cognition,l.mood,l.sleep].filter(v=>v!=null));
+  if (!priorScores.length) return avg >= 7 ? 1 : 0;
+  const priorAvg = priorScores.reduce((a,b)=>a+b,0) / priorScores.length;
+  const delta = avg - priorAvg;
+  if (delta >= 0.8)  return 1;
+  if (delta <= -0.8) return -1;
+  if (avg >= 7.5)    return 1;
+  if (avg <= 4.0)    return -1;
+  return 0;
+}
+
+function dlHRVDirection(log, histLogs) {
+  if (!log.hrv) return 0; // no reading = neutral
+  const prior = histLogs.filter(l => l.hrv).slice(-7);
+  if (!prior.length) {
+    return log.hrv >= 45 ? 0.5 : log.hrv >= 35 ? 0 : -0.5;
+  }
+  const priorAvg = prior.map(l=>l.hrv).reduce((a,b)=>a+b,0) / prior.length;
+  const delta = log.hrv - priorAvg;
+  if (delta >= 5)  return 1;
+  if (delta <= -5) return -1;
+  return log.hrv >= 45 ? 0.5 : 0;
+}
+
+// ── V3.2 DECISION ROUTER ──────────────────────────────────────────────────────
+function computeDecision(log, allLogs, cycleDay) {
+  if (cycleDay === null) return { decision: 'PRE_CYCLE', ccs:1.0, ccsB:'full', cs:0, guards:[], detail:'Pre-cycle mode.' };
+
+  const histLogs = allLogs.filter(l => l.date < log.date);
+  const ccs = computeCCS(allLogs.filter(l => l.date <= log.date));
+  const ccsB = ccsBand(ccs);
+  const ec = ccs; // EC = CCS in Cycle 1 (no ACS layer yet)
+
+  const { cs, direction, domains } = computeConvergenceScore(log, histLogs);
+
+  // Compliance rate today
+  const todayRate = dlComplianceRate(log);
+
+  // Active intervention count (proxy: items marked taken today)
+  const activeCount = Object.values(log.compliance || {}).filter(s => s === 'taken').length;
+
+  // Confounder check
+  const hasConfounder = (log.confounders || []).length > 0;
+  const illnessFlag   = (log.confounders || []).includes('illness');
+
+  const guards = [];
+  let decision = null;
+  let guardNotes = [];
+
+  // Pre-guard: ATTRIBUTION_DEGRADED (AND gate — all 3)
+  const highLoad   = activeCount > 6;  // NOTE: 6+ active non-locked interventions
+  const lowCCS     = ccs < 0.75;
+  const conflicted = direction === 'mixed' || (direction !== 'positive' && direction !== 'negative' && cs === 0 && histLogs.length > 7);
+  if (highLoad && lowCCS && conflicted) {
+    guards.push({ id:0, name:'Attribution', passed:false });
+    return { decision: DECISION.ATTRIBUTION_DEGRADED, ccs, ccsB, cs, domains, guards, detail:null };
+  }
+  guards.push({ id:0, name:'Attribution', passed:true });
+
+  // Guard 4: CCS — suspension band = DEFER
+  if (ccsB === 'suspension' && histLogs.length >= 7) {
+    guards.push({ id:4, name:'CCS', passed:false });
+    decision = DECISION.DEFER;
+    return { decision, ccs, ccsB, cs, domains, guards, detail: null };
+  }
+  guards.push({ id:4, name:'CCS', passed:true });
+
+  // Guard 1: Reversibility — EC threshold gating
+  // In Cycle 1 all items are score 1 or LOCKED — EC_LOW still allows action
+  // Flag: if illness + EC < 0.30 → DEFER
+  if (illnessFlag && ec < EC_LOW) {
+    guards.push({ id:1, name:'Reversibility', passed:false });
+    return { decision: DECISION.DEFER, ccs, ccsB, cs, domains, guards, detail:'Illness confounder + low EC — defer decisions.' };
+  }
+  guards.push({ id:1, name:'Reversibility', passed:true });
+
+  // Guard 2: Signal convergence
+  if (cycleDay < 7) {
+    guards.push({ id:2, name:'Convergence', passed:false });
+    return { decision: DECISION.EXTEND, ccs, ccsB, cs, domains, guards, detail:'Day 1–6: MET not reached for most cells. Extending observation.' };
+  }
+  guards.push({ id:2, name:'Convergence', passed:true });
+
+  // Guard 3: MEC / compliance floor
+  if (todayRate < 0.50) {
+    guards.push({ id:3, name:'MEC', passed:false });
+    return { decision: DECISION.DEFER, ccs, ccsB, cs, domains, guards, detail:'Compliance below 50% today. Cannot generate reliable signal.' };
+  }
+  guards.push({ id:3, name:'MEC', passed:true });
+
+  // Revert check — if subjective score dropped >1.5 vs 3-day average
+  if (histLogs.length >= 3) {
+    const prev3 = histLogs.slice(-3);
+    const prevAvg = prev3.flatMap(l=>[l.energy,l.cognition,l.mood].filter(v=>v!=null)).reduce((a,b)=>a+b,0);
+    const prevCount = prev3.flatMap(l=>[l.energy,l.cognition,l.mood].filter(v=>v!=null)).length;
+    const todayScores = [log.energy,log.cognition,log.mood].filter(v=>v!=null);
+    if (prevCount > 0 && todayScores.length > 0) {
+      const prevMean = prevAvg / prevCount;
+      const todayMean = todayScores.reduce((a,b)=>a+b,0)/todayScores.length;
+      if (todayMean - prevMean <= -1.5) {
+        return { decision: DECISION.REVERT, ccs, ccsB, cs, domains, guards, detail:`Score dropped ${(todayMean-prevMean).toFixed(1)} vs 3-day average. Worsening threshold exceeded.` };
+      }
+    }
+  }
+
+  // Routing
+  if (cs === 0 && histLogs.length < 14) return { decision: DECISION.EXTEND, ccs, ccsB, cs, domains, guards, detail:null };
+  if (cs === 0 || cs === 1) return { decision: DECISION.HOLD, ccs, ccsB, cs, domains, guards, detail:null };
+  if (cs === 2 && direction === 'positive') return { decision: DECISION.ACT_SMALL, ccs, ccsB, cs, domains, guards, detail:null };
+  if (cs >= 3 && direction === 'positive') return { decision: DECISION.ACT_FULL, ccs, ccsB, cs, domains, guards, detail:null };
+  if (direction === 'negative' && cs >= 2) return { decision: DECISION.SUPPRESS, ccs, ccsB, cs, domains, guards, detail:null };
+
+  return { decision: DECISION.HOLD, ccs, ccsB, cs, domains, guards, detail:null };
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function renderDailyLog() {
+  dlLoadDraft();
+  const root = document.getElementById('log-root');
+  if (!root) return;
+
+  const cycleDay  = dlCycleDay();
+  const allLogs   = dlGetLogs();
+  const todayLog  = allLogs.find(l => l.date === todayISO());
+  const isSaved   = !!todayLog;
+
+  // If saved today and viewing output mode, show output
+  if (window.dlViewMode === 'output' && isSaved) {
+    renderLogOutput(root, todayLog, allLogs, cycleDay);
+    return;
+  }
+  if (window.dlViewMode === 'history') {
+    renderLogHistory(root, allLogs);
+    return;
+  }
+
+  // ── INPUT FORM ──
+  let h = '';
+
+  // Header
+  h += `<div class="log-header">
+    <div class="log-title">Daily Log</div>
+    <div class="log-sub">V3.2 Input Layer · ${formatDate(todayISO())}</div>`;
+
+  if (cycleDay === null) {
+    h += `<div style="margin-top:10px">
+      <div class="precycle-banner">
+        <div class="precycle-banner-title">⚡ Pre-Cycle Mode</div>
+        <div class="precycle-banner-body">
+          Cycle 1 has not started. Log daily readiness to build baseline data before Day 0.<br>
+          When you're ready to begin, tap <strong style="color:#f5a623">Start Cycle</strong> below.
+        </div>
+      </div>`;
+    h += `<button onclick="dlStartCycle()" style="background:rgba(245,166,35,0.12);border:1px solid rgba(245,166,35,0.4);border-radius:8px;padding:9px 16px;color:#f5a623;font-size:11px;font-weight:800;font-family:Inter,sans-serif;cursor:pointer;letter-spacing:0.05em;width:100%">START CYCLE 1 — SET TODAY AS DAY 0</button>
+    </div>`;
+  } else {
+    h += `<div style="margin-top:8px">
+      <div class="log-day-counter">
+        <span class="log-day-num">Day ${cycleDay}</span>
+        <span class="log-day-lbl">of 90</span>
+      </div>
+    </div>`;
+  }
+  h += `</div>`;
+
+  // Subjective Scores
+  h += `<div class="log-section">
+    <div class="log-section-label">Subjective Scores (1–10)</div>`;
+
+  const fields = [
+    { key:'energy',    label:'Energy' },
+    { key:'cognition', label:'Cognition' },
+    { key:'mood',      label:'Mood' },
+    { key:'sleep',     label:'Sleep Qual' },
+  ];
+  fields.forEach(f => {
+    h += `<div class="score-row" style="margin-bottom:8px">
+      <span class="score-label">${f.label}</span>
+      <div class="score-btns">`;
+    for (let v = 1; v <= 10; v++) {
+      const active = dlDraft[f.key] === v ? ' active' : '';
+      h += `<button class="score-btn${active}" onclick="dlSetScore('${f.key}',${v})">${v}</button>`;
+    }
+    h += `</div></div>`;
+  });
+  h += `</div>`;
+
+  // HRV
+  h += `<div class="log-section">
+    <div class="log-section-label">HRV Reading</div>
+    <div class="hrv-row">
+      <input class="hrv-input" type="number" min="0" max="300" placeholder="—"
+        value="${dlDraft.hrv || ''}"
+        oninput="dlSetHRV(this.value)"
+        id="log-hrv-input" />
+      <span class="hrv-unit">ms · morning resting</span>
+    </div>
+  </div>`;
+
+  // Compliance checklist
+  h += `<div class="log-section">
+    <div class="log-section-label">Stack Compliance</div>
+    <div class="compliance-grid">`;
+
+  DAILY_STACK.forEach(item => {
+    const state = dlDraft.compliance[item.id] || 'missed';
+    const cls = state === 'taken' ? 'taken' : state === 'partial' ? 'partial' : '';
+    const checkmark = state === 'taken' ? '✓' : state === 'partial' ? '½' : '';
+    h += `<div class="comp-item ${cls}" onclick="dlCycleCompliance('${item.id}')">
+      <div class="comp-box">${checkmark}</div>
+      <span class="comp-name">${item.name}</span>
+    </div>`;
+  });
+  h += `</div>
+    <div style="font-size:9px;color:var(--t3);margin-top:6px">Tap once = taken · twice = partial · three times = missed</div>
+  </div>`;
+
+  // Confounder flags
+  h += `<div class="log-section">
+    <div class="log-section-label">Confounder Flags</div>
+    <div class="confounder-flags">`;
+  CONFOUNDER_FLAGS.forEach(cf => {
+    const active = (dlDraft.confounders || []).includes(cf.id) ? ' active' : '';
+    h += `<div class="conf-chip${active}" onclick="dlToggleConfounder('${cf.id}')">${cf.label}</div>`;
+  });
+  h += `</div></div>`;
+
+  // Notes (optional)
+  h += `<div class="log-section">
+    <div class="log-section-label">Notes (optional)</div>
+    <textarea id="log-notes"
+      style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--line-md);border-radius:8px;padding:10px;color:var(--t1);font-size:12px;font-family:Inter,sans-serif;resize:vertical;min-height:56px;outline:none;line-height:1.5"
+      placeholder="Travel, unusually high stress, medication, etc."
+      oninput="dlDraft.notes=this.value;dlSaveDraft()">${dlDraft.notes || ''}</textarea>
+  </div>`;
+
+  // Save + history nav
+  const saveable = dlDraft.energy && dlDraft.cognition && dlDraft.mood;
+  h += `<button class="log-save-btn" onclick="dlSubmitLog()" ${saveable ? '' : 'disabled'}>
+    ${isSaved ? '↻ UPDATE TODAY\'S LOG' : '✓ SAVE TODAY\'S LOG'}
+  </button>`;
+  h += `<div style="display:flex;gap:8px;margin-top:8px">
+    ${isSaved ? `<button onclick="window.dlViewMode='output';renderDailyLog()" style="flex:1;padding:9px;background:rgba(0,229,204,0.08);border:1px solid rgba(0,229,204,0.25);border-radius:8px;color:#00e5cc;font-size:11px;font-weight:700;font-family:Inter,sans-serif;cursor:pointer">⚡ View Engine Output</button>` : ''}
+    <button onclick="window.dlViewMode='history';renderDailyLog()" style="flex:1;padding:9px;background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:8px;color:var(--t2);font-size:11px;font-weight:700;font-family:Inter,sans-serif;cursor:pointer">📊 Log History</button>
+  </div>`;
+
+  root.innerHTML = h;
+
+  // Badge update
+  updateLogBadge(isSaved ? 0 : (cycleDay !== null ? 1 : 0));
+}
+
+function renderLogOutput(root, log, allLogs, cycleDay) {
+  const { decision, ccs, ccsB, cs, domains, guards, detail } = computeDecision(log, allLogs, cycleDay);
+  const disp = DECISION_DISPLAY[decision] || DECISION_DISPLAY.HOLD;
+  const reason = DECISION_REASON[decision] || '';
+
+  let h = `<div class="log-header">
+    <div class="log-title">Engine Output</div>
+    <div class="log-sub">${formatDate(log.date)} · Day ${cycleDay || 'PRE'} of 90</div>
+  </div>`;
+
+  // CCS card
+  const ccsColor = ccsBandColor(ccsB);
+  const ccsPct   = Math.round(ccs * 100);
+  const barWidth = ccsPct;
+  h += `<div class="log-output-card">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <div><span class="ccs-val">${(ccs*100).toFixed(0)}%</span>
+        <span class="ccs-band-label" style="color:${ccsColor}">${ccsBandLabel(ccsB)}</span>
+      </div>
+      <div style="font-size:9px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:0.1em">CCS · Compliance Score</div>
+    </div>
+    <div class="ccs-bar-wrap"><div class="ccs-bar-fill" style="width:${barWidth}%;background:${ccsColor}"></div></div>
+    <div style="font-size:9px;color:var(--t3)">Recency-weighted · 7d×50% · 14d×30% · 30d×20%</div>
+  </div>`;
+
+  // Decision card
+  h += `<div class="log-output-card">
+    <div style="font-size:9px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Engine Decision</div>
+    <div class="decision-chip" style="background:${disp.bg};color:${disp.color};border:1px solid ${disp.color}44">${disp.label}</div>
+    ${cs !== undefined && cs !== null ? `<div style="font-size:10px;color:var(--t3);margin-top:6px">Convergence Score: <strong style="color:${disp.color}">${cs}/3</strong> domains aligned</div>` : ''}
+    <div class="decision-reason">${detail || reason}</div>
+  </div>`;
+
+  // Domain signals
+  if (domains && domains.length) {
+    h += `<div class="log-output-card">
+      <div style="font-size:9px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Signal Domains</div>`;
+    domains.forEach(d => {
+      const dColor = d.dir > 0.2 ? '#22d47e' : d.dir < -0.2 ? '#ff4d6d' : '#8ba3c9';
+      const dLabel = d.dir > 0.2 ? '▲ Positive' : d.dir < -0.2 ? '▼ Negative' : '— Neutral';
+      h += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)">
+        <span style="font-size:11px;font-weight:600;color:var(--t2)">${d.name}</span>
+        <span style="font-size:10px;font-weight:700;color:${dColor}">${dLabel}</span>
+      </div>`;
+    });
+    h += `</div>`;
+  }
+
+  // Guard status
+  if (guards && guards.length) {
+    h += `<div class="log-output-card">
+      <div style="font-size:9px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Guard Status</div>
+      <div class="guard-row">`;
+    const guardNames = { 0:'Attribution', 1:'Reversibility', 2:'Convergence', 3:'MEC', 4:'CCS' };
+    guards.forEach(g => {
+      const cls = g.passed ? 'guard-pass' : 'guard-block';
+      const sym = g.passed ? '✓' : '✗';
+      h += `<span class="guard-pill ${cls}">${sym} ${guardNames[g.id]||g.name}</span>`;
+    });
+    h += `</div></div>`;
+  }
+
+  // Today's entry summary
+  h += `<div class="log-output-card">
+    <div style="font-size:9px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Today's Entry</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      ${[['Energy',log.energy],['Cognition',log.cognition],['Mood',log.mood],['Sleep',log.sleep]].map(([l,v])=>`
+        <div style="background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:8px;padding:8px 10px;text-align:center">
+          <div style="font-size:18px;font-weight:900;color:${v>=8?'#00e5cc':v>=6?'#22d47e':v>=4?'#f5a623':'#ff4d6d'};font-family:'JetBrains Mono',monospace">${v||'—'}</div>
+          <div style="font-size:9px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-top:2px">${l}</div>
+        </div>`).join('')}
+    </div>
+    ${log.hrv ? `<div style="margin-top:8px;font-size:11px;color:var(--t2)">HRV: <strong style="color:var(--teal);font-family:'JetBrains Mono',monospace">${log.hrv} ms</strong></div>` : ''}
+    ${log.confounders && log.confounders.length ? `<div style="margin-top:6px;font-size:10px;color:var(--amber)">⚠ Confounders: ${log.confounders.join(', ')}</div>` : ''}
+    ${log.compliance ? `<div style="margin-top:6px;font-size:10px;color:var(--t3)">Compliance rate: <strong style="color:${dlComplianceRate(log) >= 0.85 ? '#22d47e':'#f5a623'}">${Math.round(dlComplianceRate(log)*100)}%</strong></div>` : ''}
+  </div>`;
+
+  h += `<div style="display:flex;gap:8px;margin-top:4px">
+    <button onclick="window.dlViewMode='input';renderDailyLog()" style="flex:1;padding:9px;background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:8px;color:var(--t2);font-size:11px;font-weight:700;font-family:Inter,sans-serif;cursor:pointer">← Edit Entry</button>
+    <button onclick="window.dlViewMode='history';renderDailyLog()" style="flex:1;padding:9px;background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:8px;color:var(--t2);font-size:11px;font-weight:700;font-family:Inter,sans-serif;cursor:pointer">📊 History</button>
+  </div>`;
+
+  root.innerHTML = h;
+}
+
+function renderLogHistory(root, allLogs) {
+  let h = `<div class="log-header">
+    <div class="log-title">Log History</div>
+    <div class="log-sub">${allLogs.length} entries · Cycle 1</div>
+  </div>`;
+
+  h += `<button onclick="window.dlViewMode='input';renderDailyLog()" style="margin-bottom:14px;width:100%;padding:9px;background:rgba(0,229,204,0.08);border:1px solid rgba(0,229,204,0.25);border-radius:8px;color:#00e5cc;font-size:11px;font-weight:700;font-family:Inter,sans-serif;cursor:pointer">← Back to Today's Log</button>`;
+
+  if (!allLogs.length) {
+    h += `<div style="text-align:center;padding:40px 0;color:var(--t3);font-size:12px">No logs yet — save your first daily entry to begin.</div>`;
+    root.innerHTML = h;
+    return;
+  }
+
+  const sorted = [...allLogs].sort((a,b) => b.date.localeCompare(a.date));
+  const cycleStart = dlGetCycleStart();
+
+  h += `<div class="log-section">`;
+  sorted.forEach(log => {
+    const cycD = cycleStart ? (() => {
+      const diff = Math.round((new Date(log.date+'T00:00:00') - new Date(cycleStart+'T00:00:00')) / 86400000);
+      return diff + 1;
+    })() : null;
+    const compRate = Math.round(dlComplianceRate(log)*100);
+    const subjAvg  = [log.energy,log.cognition,log.mood,log.sleep].filter(v=>v!=null);
+    const avg = subjAvg.length ? (subjAvg.reduce((a,b)=>a+b,0)/subjAvg.length).toFixed(1) : '—';
+    const ccsAll = allLogs.filter(l => l.date <= log.date);
+    const ccs = computeCCS(ccsAll);
+    const ccsB = ccsBand(ccs);
+    const ccsColor = ccsBandColor(ccsB);
+
+    h += `<div class="log-hist-row">
+      <div>
+        <div class="log-hist-date">${formatDate(log.date)}${cycD !== null ? ` · Day ${cycD}` : ' · PRE'}</div>
+        <div style="display:flex;gap:10px;margin-top:3px">
+          <span style="font-size:10px;color:var(--t3)">Subj avg: <strong style="color:${avg>=7.5?'#00e5cc':avg>=5.5?'#22d47e':'#f5a623'}">${avg}</strong></span>
+          <span style="font-size:10px;color:var(--t3)">Comp: <strong style="color:${compRate>=85?'#22d47e':compRate>=70?'#f5a623':'#ff4d6d'}">${compRate}%</strong></span>
+          ${log.hrv ? `<span style="font-size:10px;color:var(--t3)">HRV: <strong style="color:var(--teal)">${log.hrv}ms</strong></span>` : ''}
+        </div>
+        ${log.confounders && log.confounders.length ? `<div style="font-size:9px;color:var(--amber);margin-top:3px">⚠ ${log.confounders.join(', ')}</div>` : ''}
+      </div>
+      <div style="text-align:right">
+        <div class="log-hist-ccs" style="color:${ccsColor}">${(ccs*100).toFixed(0)}%</div>
+        <div class="log-hist-dec" style="color:var(--t3)">CCS</div>
+      </div>
+    </div>`;
+  });
+  h += `</div>`;
+
+  root.innerHTML = h;
+}
+
+// ── INTERACTION HANDLERS ──────────────────────────────────────────────────────
+function dlSetScore(field, value) {
+  dlDraft[field] = value;
+  dlSaveDraft();
+  renderDailyLog();
+}
+
+function dlSetHRV(val) {
+  const n = parseFloat(val);
+  dlDraft.hrv = isNaN(n) ? null : n;
+  dlSaveDraft();
+}
+
+function dlCycleCompliance(itemId) {
+  const current = dlDraft.compliance[itemId] || 'missed';
+  const next = current === 'missed' ? 'taken' : current === 'taken' ? 'partial' : 'missed';
+  dlDraft.compliance[itemId] = next;
+  dlSaveDraft();
+  renderDailyLog();
+}
+
+function dlToggleConfounder(id) {
+  const arr = dlDraft.confounders || [];
+  const idx = arr.indexOf(id);
+  if (idx >= 0) arr.splice(idx, 1);
+  else arr.push(id);
+  dlDraft.confounders = arr;
+  dlSaveDraft();
+  renderDailyLog();
+}
+
+function dlStartCycle() {
+  if (!confirm('Set today (' + todayISO() + ') as Cycle 1 Day 0?\n\nThis locks your baseline start date. Your first scored day will be Day 1 tomorrow.')) return;
+  // Day 0 = today; Day 1 = tomorrow
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  const day1 = d.toISOString().slice(0,10);
+  dlSetCycleStart(day1);
+  renderDailyLog();
+}
+
+function dlSubmitLog() {
+  const notes = document.getElementById('log-notes')?.value || dlDraft.notes || '';
+  dlDraft.notes = notes;
+  const entry = { ...dlDraft, date: todayISO(), savedAt: new Date().toISOString() };
+  dlSaveLog(entry);
+  localStorage.removeItem(DL_DRAFT_KEY);
+  window.dlViewMode = 'output';
+  renderDailyLog();
+}
+
+function updateLogBadge(count) {
+  const badge = document.getElementById('log-nav-badge');
+  if (!badge) return;
+  if (count > 0) { badge.style.display='block'; badge.textContent=count; }
+  else badge.style.display='none';
+}
+
+function formatDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+// Hook into nav system
+document.querySelectorAll('.nav-btn[data-p="log"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    window.dlViewMode = 'input';
+    dlLoadDraft();
+    renderDailyLog();
+  });
+});
+
+// Check if today is unlogged and badge nav
+(function dlInitBadge() {
+  const logs = dlGetLogs();
+  const todayLogged = logs.some(l => l.date === todayISO());
+  const cycleDay = dlCycleDay();
+  updateLogBadge((!todayLogged && cycleDay !== null) ? 1 : 0);
+})();
+
 </script>
 
 </body>
