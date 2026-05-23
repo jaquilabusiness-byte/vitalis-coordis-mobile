@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vitalis Coordis — Whoop Sync</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0d0d0b;
+      --surface: #141412;
+      --card:    #191917;
+      --line:    rgba(255,255,255,0.07);
+      --line-md: rgba(255,255,255,0.12);
+      --t1:      #e8e6e0;
+      --t2:      #9a9893;
+      --t3:      #5a5957;
+      --teal:    #00e5cc;
+      --amber:   #f5a623;
+      --red:     #ff4d6d;
+      --green:   #22d47e;
+      --blue:    #4d9fff;
+      --whoop:   #00c4b4;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--t1);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 0 0 60px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 480px;
+      padding: 0 16px;
+    }
+
+    /* ── HEADER ── */
+    .hdr {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 0 18px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 24px;
+    }
+    .hdr-logo {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--teal), #0099aa);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .hdr-logo svg { width: 18px; height: 18px; }
+    .hdr-title { font-size: 15px; font-weight: 800; color: var(--t1); }
+    .hdr-sub   { font-size: 10px; font-weight: 600; color: var(--t3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 1px; }
+    .whoop-badge {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(0,196,180,0.1); border: 1px solid rgba(0,196,180,0.3);
+      border-radius: 20px; padding: 4px 10px;
+      font-size: 10px; font-weight: 700; color: var(--whoop);
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .whoop-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--whoop);
+    }
+
+    /* ── SECTION ── */
+    .section { margin-bottom: 20px; }
+    .section-label {
+      font-size: 9px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--t3);
+      display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--line);
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line-md);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    /* ── STATUS CARD ── */
+    .status-card {
+      background: var(--card);
+      border: 1px solid var(--line-md);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px;
+    }
+    .status-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 18px;
+    }
+    .status-title { font-size: 13px; font-weight: 700; color: var(--t1); }
+    .status-sub   { font-size: 11px; color: var(--t3); margin-top: 2px; line-height: 1.4; }
+
+    /* ── INPUTS ── */
+    .field { margin-bottom: 12px; }
+    .field-label { font-size: 10px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+    .field-input {
+      width: 100%; padding: 10px 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line-md);
+      border-radius: 8px;
+      color: var(--t1); font-size: 13px;
+      font-family: 'JetBrains Mono', monospace; font-weight: 500;
+      outline: none; transition: border-color 0.15s;
+    }
+    .field-input:focus { border-color: var(--teal); box-shadow: 0 0 0 2px rgba(0,229,204,0.1); }
+    .field-hint { font-size: 10px; color: var(--t3); margin-top: 4px; line-height: 1.5; }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      width: 100%; padding: 14px;
+      background: var(--teal); color: #000;
+      border: none; border-radius: 10px;
+      font-size: 13px; font-weight: 800;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer; letter-spacing: 0.04em;
+      transition: all 0.15s; margin-top: 4px;
+    }
+    .btn-primary:hover  { opacity: 0.9; }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled { background: rgba(0,229,204,0.25); color: rgba(0,0,0,0.4); cursor: not-allowed; }
+
+    .btn-secondary {
+      width: 100%; padding: 11px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line-md);
+      border-radius: 10px;
+      font-size: 12px; font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      color: var(--t2); cursor: pointer;
+      letter-spacing: 0.03em; transition: all 0.15s; margin-top: 8px;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.07); color: var(--t1); }
+
+    .btn-whoop {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, #00c4b4, #009988);
+      color: #fff; border: none; border-radius: 10px;
+      font-size: 13px; font-weight: 800;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer; letter-spacing: 0.04em;
+      transition: all 0.15s; margin-top: 4px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-whoop:hover  { opacity: 0.9; }
+    .btn-whoop:active { transform: scale(0.98); }
+
+    /* ── DATA GRID ── */
+    .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .data-cell {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      border-radius: 10px; padding: 12px;
+      text-align: center;
+    }
+    .data-val  { font-size: 22px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
+    .data-lbl  { font-size: 9px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 3px; }
+    .data-sub  { font-size: 9px; color: var(--t3); margin-top: 1px; }
+
+    /* ── CURL BOX ── */
+    .curl-box {
+      background: #0a0a08; border: 1px solid rgba(245,166,35,0.3);
+      border-radius: 10px; padding: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--amber);
+      line-height: 1.7; overflow-x: auto;
+      white-space: pre-wrap; word-break: break-all;
+    }
+
+    /* ── ALERT ── */
+    .alert {
+      border-radius: 10px; padding: 12px 14px;
+      font-size: 11px; line-height: 1.55;
+    }
+    .alert-amber { background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.3); color: var(--amber); }
+    .alert-green { background: rgba(34,212,126,0.08); border: 1px solid rgba(34,212,126,0.3); color: var(--green); }
+    .alert-red   { background: rgba(255,77,109,0.08);  border: 1px solid rgba(255,77,109,0.3);  color: var(--red);   }
+    .alert-teal  { background: rgba(0,229,204,0.08);   border: 1px solid rgba(0,229,204,0.3);   color: var(--teal);  }
+
+    /* ── PUSH ROW ── */
+    .push-row { display: flex; gap: 8px; margin-top: 14px; }
+    .push-row .btn-primary { margin-top: 0; }
+
+    /* ── TIMESTAMP ── */
+    .ts { font-size: 10px; color: var(--t3); font-family: 'JetBrains Mono', monospace; }
+
+    /* ── TOKEN INPUT ── */
+    .token-step {
+      background: rgba(245,166,35,0.05);
+      border: 1px solid rgba(245,166,35,0.25);
+      border-radius: 12px; padding: 16px; margin-top: 14px;
+    }
+    .token-step-title { font-size: 11px; font-weight: 800; color: var(--amber); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+
+    /* ── SCREENS ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 32px; padding-top: 16px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-size: 10px; color: var(--t3);
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+      </svg>
+    </div>
+    <div>
+      <div class="hdr-title">Vitalis Coordis</div>
+      <div class="hdr-sub">Whoop Sync Layer</div>
+    </div>
+    <div class="whoop-badge" id="connection-badge">
+      <div class="whoop-dot"></div>
+      <span id="badge-text">NOT CONNECTED</span>
+    </div>
+  </div>
+
+  <!-- SCREEN: SETUP (no credentials stored) -->
+  <div class="screen active" id="screen-setup">
+    <div class="status-card">
+      <div class="status-icon" style="background:rgba(245,166,35,0.1)">🔗</div>
+      <div>
+        <div class="status-title">Connect Your Whoop</div>
+        <div class="status-sub">One-time setup. Credentials stored locally — never transmitted.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Whoop App Credentials</div>
+      <div class="card">
+        <div class="field">
+          <div class="field-label">Client ID</div>
+          <input class="field-input" id="input-client-id" type="text" placeholder="a43a26bd-..." autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="field">
+          <div class="field-label">Client Secret</div>
+          <input class="field-input" id="input-client-secret" type="password" placeholder="••••••••••••••••" autocomplete="off" />
+          <div class="field-hint">Stored in localStorage only. Never sent to any server.</div>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <div class="field-label">Redirect URI</div>
+          <input class="field-input" id="input-redirect-uri" type="text" value="https://jaquilabusiness-byte.github.io/vitalis-coordis-mobile/vitalis-whoop-sync.html" autocomplete="off" spellcheck="false" />
+          <div class="field-hint">Must exactly match the redirect URL set in your Whoop developer dashboard.</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-whoop" id="btn-connect-whoop" onclick="startOAuth()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Connect Whoop
+    </button>
+
+    <div class="alert alert-amber" style="margin-top:14px">
+      <strong>CORS note:</strong> Whoop blocks direct browser token exchange. After authorizing, you'll receive a curl command. Run it in Terminal (takes 30 seconds), paste the access_token back here. This is a one-time step — the refresh token handles renewals automatically.
+    </div>
+  </div>
+
+  <!-- SCREEN: OAUTH CALLBACK — show curl command -->
+  <div class="screen" id="screen-cors">
+    <div class="status-card">
+      <div class="status-icon" style="background:rgba(245,166,35,0.1)">⚡</div>
+      <div>
+        <div class="status-title">One Terminal Step</div>
+        <div class="status-sub">Whoop requires a server-side token exchange. Run the command below in Terminal.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Step 1 — Run in Terminal</div>
+      <div class="curl-box" id="curl-command">Loading...</div>
+      <button class="btn-secondary" onclick="copyCurl()">Copy Command</button>
+    </div>
+
+    <div class="token-step">
+      <div class="token-step-title">Step 2 — Paste access_token here</div>
+      <div class="field">
+        <div class="field-label">access_token from curl response</div>
+        <input class="field-input" id="input-access-token" type="text" placeholder="eyJhb..." autocomplete="off" spellcheck="false" />
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <div class="field-label">refresh_token from curl response</div>
+        <input class="field-input" id="input-refresh-token" type="text" placeholder="eyJhb..." autocomplete="off" spellcheck="false" />
+      </div>
+    </div>
+
+    <button class="btn-primary" style="margin-top:14px" onclick="saveTokens()">Save Tokens &amp; Connect</button>
+    <button class="btn-secondary" onclick="showScreen('screen-setup')">← Back</button>
+  </div>
+
+  <!-- SCREEN: CONNECTED — live data -->
+  <div class="screen" id="screen-connected">
+    <div class="status-card" id="sync-status-card">
+      <div class="status-icon" style="background:rgba(0,229,204,0.1)" id="sync-icon">✓</div>
+      <div>
+        <div class="status-title" id="sync-title">Connected</div>
+        <div class="status-sub" id="sync-sub">Ready to fetch today's recovery data.</div>
+      </div>
+    </div>
+
+    <!-- Data grid — hidden until fetched -->
+    <div id="data-section" style="display:none">
+      <div class="section">
+        <div class="section-label">Today's Whoop Data <span class="ts" id="data-timestamp"></span></div>
+        <div class="data-grid">
+          <div class="data-cell">
+            <div class="data-val" id="d-hrv" style="color:var(--teal)">—</div>
+            <div class="data-lbl">HRV</div>
+            <div class="data-sub">RMSSD · ms</div>
+          </div>
+          <div class="data-cell">
+            <div class="data-val" id="d-rhr" style="color:var(--blue)">—</div>
+            <div class="data-lbl">Resting HR</div>
+            <div class="data-sub">bpm</div>
+          </div>
+          <div class="data-cell">
+            <div class="data-val" id="d-recovery" style="color:var(--green)">—</div>
+            <div class="data-lbl">Recovery</div>
+            <div class="data-sub">score %</div>
+          </div>
+          <div class="data-cell">
+            <div class="data-val" id="d-sleep" style="color:var(--amber)">—</div>
+            <div class="data-lbl">Sleep</div>
+            <div class="data-sub">hours</div>
+          </div>
+          <div class="data-cell">
+            <div class="data-val" id="d-spo2" style="color:#b57bee">—</div>
+            <div class="data-lbl">SpO2</div>
+            <div class="data-sub">%</div>
+          </div>
+          <div class="data-cell">
+            <div class="data-val" id="d-skin-temp" style="color:#f5a623">—</div>
+            <div class="data-lbl">Skin Temp</div>
+            <div class="data-sub">°C delta</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="push-alert" style="margin-bottom:12px"></div>
+
+      <div class="push-row">
+        <button class="btn-primary" onclick="pushToDayLog()">⚡ Push to Day Log</button>
+        <button class="btn-secondary" style="width:auto;padding:11px 16px;margin-top:0" onclick="fetchWhoop()">↻ Refresh</button>
+      </div>
+
+      <div id="push-result" style="margin-top:10px"></div>
+    </div>
+
+    <!-- Fetch button — before first fetch -->
+    <div id="fetch-section">
+      <button class="btn-whoop" onclick="fetchWhoop()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+        Fetch Today's Recovery Data
+      </button>
+    </div>
+
+    <div class="alert alert-amber" id="cors-proxy-note" style="margin-top:14px;display:none">
+      <strong>API fetch blocked by browser CORS.</strong> The Whoop API doesn't allow direct browser calls. Paste your access token below to fetch data manually, or use the curl command to pull data and paste the JSON response.
+    </div>
+
+    <div style="margin-top:20px">
+      <button class="btn-secondary" onclick="disconnectWhoop()">Disconnect Whoop</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">Built and Operated by Aquila BioSystems Inc.</div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// VITALIS COORDIS — WHOOP SYNC MODULE
+// Client ID: a43a26bd-63b0-4ff5-a040-51aed2557f4a
+// Redirect: https://jaquilabusiness-byte.github.io/vitalis-coordis-mobile/vitalis-whoop-sync.html
+// ═══════════════════════════════════════════════════════════
+
+const WHOOP_AUTH_URL    = 'https://api.prod.whoop.com/oauth/oauth2/auth';
+const WHOOP_TOKEN_URL   = 'https://api.prod.whoop.com/oauth/oauth2/token';
+const WHOOP_RECOVERY    = 'https://api.prod.whoop.com/developer/v1/recovery?limit=1';
+const WHOOP_SLEEP       = 'https://api.prod.whoop.com/developer/v1/activity/sleep?limit=1';
+const WHOOP_SCOPES      = 'read:recovery read:sleep read:cycles read:profile';
+
+const LS_CLIENT_ID      = 'vtl_whoop_client_id';
+const LS_CLIENT_SECRET  = 'vtl_whoop_client_secret';
+const LS_REDIRECT_URI   = 'vtl_whoop_redirect_uri';
+const LS_ACCESS_TOKEN   = 'vtl_whoop_access_token';
+const LS_REFRESH_TOKEN  = 'vtl_whoop_refresh_token';
+const LS_OAUTH_STATE    = 'vtl_whoop_oauth_state';
+const LS_WHOOP_DATA     = 'vtl_whoop_last_data';
+const DL_STORE_KEY      = 'vc_daily_logs_v32';
+
+// ── INIT ─────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  // Pre-fill saved client ID if known
+  const savedId = localStorage.getItem(LS_CLIENT_ID) || 'a43a26bd-63b0-4ff5-a040-51aed2557f4a';
+  const savedRedirect = localStorage.getItem(LS_REDIRECT_URI) ||
+    'https://jaquilabusiness-byte.github.io/vitalis-coordis-mobile/vitalis-whoop-sync.html';
+
+  const idEl = document.getElementById('input-client-id');
+  if (idEl && savedId) idEl.value = savedId;
+  const redirectEl = document.getElementById('input-redirect-uri');
+  if (redirectEl) redirectEl.value = savedRedirect;
+
+  // Check for OAuth callback (code in URL)
+  const params = new URLSearchParams(window.location.search);
+  const code  = params.get('code');
+  const state = params.get('state');
+  const error = params.get('error');
+
+  if (error) {
+    showScreen('screen-setup');
+    return;
+  }
+
+  if (code) {
+    handleOAuthCallback(code, state);
+    return;
+  }
+
+  // Check if already connected
+  const token = localStorage.getItem(LS_ACCESS_TOKEN);
+  if (token) {
+    showConnectedScreen();
+    return;
+  }
+
+  showScreen('screen-setup');
+});
+
+// ── SCREEN MANAGER ────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function showConnectedScreen() {
+  showScreen('screen-connected');
+  document.getElementById('badge-text').textContent = 'CONNECTED';
+  document.getElementById('connection-badge').style.background = 'rgba(34,212,126,0.12)';
+  document.getElementById('connection-badge').style.borderColor = 'rgba(34,212,126,0.35)';
+  document.getElementById('connection-badge').style.color = 'var(--green)';
+  document.querySelector('#connection-badge .whoop-dot').style.background = 'var(--green)';
+
+  // Show last cached data if any
+  const cached = localStorage.getItem(LS_WHOOP_DATA);
+  if (cached) {
+    try {
+      const data = JSON.parse(cached);
+      renderData(data);
+    } catch(e) {}
+  }
+}
+
+// ── OAUTH FLOW ────────────────────────────────────────────
+function startOAuth() {
+  const clientId     = document.getElementById('input-client-id').value.trim();
+  const clientSecret = document.getElementById('input-client-secret').value.trim();
+  const redirectUri  = document.getElementById('input-redirect-uri').value.trim();
+
+  if (!clientId || !clientSecret || !redirectUri) {
+    alert('Please fill in Client ID, Client Secret, and Redirect URI.');
+    return;
+  }
+
+  // Save credentials locally
+  localStorage.setItem(LS_CLIENT_ID,     clientId);
+  localStorage.setItem(LS_CLIENT_SECRET, clientSecret);
+  localStorage.setItem(LS_REDIRECT_URI,  redirectUri);
+
+  // Generate state for CSRF protection
+  const state = Math.random().toString(36).substring(2, 18);
+  localStorage.setItem(LS_OAUTH_STATE, state);
+
+  const authUrl = `${WHOOP_AUTH_URL}?response_type=code` +
+    `&client_id=${encodeURIComponent(clientId)}` +
+    `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+    `&scope=${encodeURIComponent(WHOOP_SCOPES)}` +
+    `&state=${state}`;
+
+  window.location.href = authUrl;
+}
+
+// ── OAUTH CALLBACK ────────────────────────────────────────
+function handleOAuthCallback(code, state) {
+  // Validate state
+  const savedState = localStorage.getItem(LS_OAUTH_STATE);
+  if (savedState && state !== savedState) {
+    showScreen('screen-setup');
+    return;
+  }
+
+  const clientId     = localStorage.getItem(LS_CLIENT_ID);
+  const clientSecret = localStorage.getItem(LS_CLIENT_SECRET);
+  const redirectUri  = localStorage.getItem(LS_REDIRECT_URI);
+
+  if (!clientId || !clientSecret) {
+    showScreen('screen-setup');
+    return;
+  }
+
+  // Build curl command for the user to run (CORS workaround)
+  const curlCmd = `curl -X POST "${WHOOP_TOKEN_URL}" \\
+  -H "Content-Type: application/x-www-form-urlencoded" \\
+  -d "grant_type=authorization_code" \\
+  -d "code=${code}" \\
+  -d "client_id=${clientId}" \\
+  -d "client_secret=${clientSecret}" \\
+  -d "redirect_uri=${encodeURIComponent(redirectUri)}"`;
+
+  document.getElementById('curl-command').textContent = curlCmd;
+
+  // Clean URL
+  window.history.replaceState({}, document.title, window.location.pathname);
+
+  showScreen('screen-cors');
+}
+
+function copyCurl() {
+  const text = document.getElementById('curl-command').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('#screen-cors .btn-secondary');
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied';
+    setTimeout(() => btn.textContent = orig, 1500);
+  });
+}
+
+function saveTokens() {
+  const accessToken  = document.getElementById('input-access-token').value.trim();
+  const refreshToken = document.getElementById('input-refresh-token').value.trim();
+
+  if (!accessToken) {
+    alert('Paste the access_token from the curl response.');
+    return;
+  }
+
+  localStorage.setItem(LS_ACCESS_TOKEN,  accessToken);
+  if (refreshToken) localStorage.setItem(LS_REFRESH_TOKEN, refreshToken);
+
+  showConnectedScreen();
+}
+
+// ── FETCH WHOOP DATA ──────────────────────────────────────
+async function fetchWhoop() {
+  const token = localStorage.getItem(LS_ACCESS_TOKEN);
+  if (!token) { showScreen('screen-setup'); return; }
+
+  const syncTitle = document.getElementById('sync-title');
+  const syncSub   = document.getElementById('sync-sub');
+  syncTitle.textContent = 'Fetching...';
+  syncSub.textContent   = 'Pulling recovery data from Whoop API.';
+
+  try {
+    // Fetch recovery data
+    const recRes = await fetch(WHOOP_RECOVERY, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    if (recRes.status === 401) {
+      // Token expired — try refresh
+      const refreshed = await refreshToken();
+      if (!refreshed) {
+        disconnectWhoop();
+        return;
+      }
+      return fetchWhoop();
+    }
+
+    if (!recRes.ok) throw new Error(`Recovery fetch failed: ${recRes.status}`);
+
+    const recData = await recRes.json();
+    const rec = recData.records?.[0];
+
+    // Fetch sleep data
+    let sleepHours = null;
+    try {
+      const sleepRes = await fetch(WHOOP_SLEEP, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (sleepRes.ok) {
+        const sleepData = await sleepRes.json();
+        const sleepRec  = sleepData.records?.[0];
+        if (sleepRec?.score?.stage_summary?.total_in_bed_time_milli) {
+          sleepHours = sleepRec.score.stage_summary.total_in_bed_time_milli / 3600000;
+        }
+      }
+    } catch(e) {}
+
+    const data = {
+      hrv:       rec?.score?.hrv_rmssd_milli    ?? null,
+      rhr:       rec?.score?.resting_heart_rate  ?? null,
+      recovery:  rec?.score?.recovery_score      ?? null,
+      spo2:      rec?.score?.spo2_percentage      ?? null,
+      skin_temp: rec?.score?.skin_temp_celsius    ?? null,
+      sleep_hrs: sleepHours,
+      fetched_at: new Date().toISOString(),
+    };
+
+    localStorage.setItem(LS_WHOOP_DATA, JSON.stringify(data));
+    renderData(data);
+
+    syncTitle.textContent = 'Data Synced';
+    syncSub.textContent   = `Last sync: ${new Date().toLocaleTimeString()}`;
+
+  } catch(err) {
+    // CORS error — show manual paste option
+    document.getElementById('cors-proxy-note').style.display = 'block';
+    syncTitle.textContent = 'Fetch Error';
+    syncSub.textContent   = 'See note below — CORS restriction from Whoop API.';
+    console.error('Whoop fetch error:', err);
+  }
+}
+
+async function refreshToken() {
+  const refreshTok   = localStorage.getItem(LS_REFRESH_TOKEN);
+  const clientId     = localStorage.getItem(LS_CLIENT_ID);
+  const clientSecret = localStorage.getItem(LS_CLIENT_SECRET);
+  if (!refreshTok || !clientId || !clientSecret) return false;
+
+  try {
+    const res = await fetch(WHOOP_TOKEN_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type:    'refresh_token',
+        refresh_token: refreshTok,
+        client_id:     clientId,
+        client_secret: clientSecret,
+      })
+    });
+    if (!res.ok) return false;
+    const data = await res.json();
+    localStorage.setItem(LS_ACCESS_TOKEN,  data.access_token);
+    if (data.refresh_token) localStorage.setItem(LS_REFRESH_TOKEN, data.refresh_token);
+    return true;
+  } catch(e) { return false; }
+}
+
+// ── RENDER DATA ───────────────────────────────────────────
+function renderData(data) {
+  const fmt = (v, dec=0) => v != null ? Number(v).toFixed(dec) : '—';
+
+  document.getElementById('d-hrv').textContent       = fmt(data.hrv, 0);
+  document.getElementById('d-rhr').textContent       = fmt(data.rhr, 0);
+  document.getElementById('d-recovery').textContent  = data.recovery != null ? Math.round(data.recovery) + '%' : '—';
+  document.getElementById('d-sleep').textContent     = data.sleep_hrs != null ? data.sleep_hrs.toFixed(1) : '—';
+  document.getElementById('d-spo2').textContent      = data.spo2 != null ? data.spo2.toFixed(1) + '%' : '—';
+  document.getElementById('d-skin-temp').textContent = data.skin_temp != null ? (data.skin_temp >= 0 ? '+' : '') + data.skin_temp.toFixed(2) : '—';
+
+  if (data.fetched_at) {
+    document.getElementById('data-timestamp').textContent =
+      '· ' + new Date(data.fetched_at).toLocaleTimeString();
+  }
+
+  // Color-code recovery score
+  const recEl = document.getElementById('d-recovery');
+  if (data.recovery != null) {
+    recEl.style.color = data.recovery >= 67 ? 'var(--green)' : data.recovery >= 34 ? 'var(--amber)' : 'var(--red)';
+  }
+
+  // Color-code HRV
+  const hrvEl = document.getElementById('d-hrv');
+  if (data.hrv != null) {
+    hrvEl.style.color = data.hrv >= 50 ? 'var(--teal)' : data.hrv >= 35 ? 'var(--amber)' : 'var(--red)';
+  }
+
+  document.getElementById('data-section').style.display  = 'block';
+  document.getElementById('fetch-section').style.display = 'none';
+}
+
+// ── PUSH TO DAY LOG ───────────────────────────────────────
+function pushToDayLog() {
+  const cached = localStorage.getItem(LS_WHOOP_DATA);
+  if (!cached) return;
+
+  let data;
+  try { data = JSON.parse(cached); } catch(e) { return; }
+
+  const todayISO = new Date().toISOString().slice(0,10);
+
+  // Read existing logs
+  let logs = [];
+  try { logs = JSON.parse(localStorage.getItem(DL_STORE_KEY) || '[]'); } catch(e) {}
+
+  // Find or create today's entry
+  let todayIdx = logs.findIndex(l => l.date === todayISO);
+  if (todayIdx === -1) {
+    logs.push({ date: todayISO, compliance: {}, confounders: [], notes: '' });
+    todayIdx = logs.length - 1;
+  }
+
+  // Inject wearable fields
+  if (data.hrv   != null) logs[todayIdx].hrv       = Math.round(data.hrv);
+  if (data.rhr   != null) logs[todayIdx].rhr        = Math.round(data.rhr);
+  if (data.recovery != null) logs[todayIdx].recovery = Math.round(data.recovery);
+  if (data.spo2  != null) logs[todayIdx].spo2       = parseFloat(data.spo2.toFixed(1));
+  if (data.sleep_hrs != null) {
+    logs[todayIdx].sleep_hrs = parseFloat(data.sleep_hrs.toFixed(2));
+    // Auto-score sleep quality 1–10 based on hours
+    const hrs = data.sleep_hrs;
+    const sleepScore = hrs >= 8.5 ? 10 : hrs >= 8.0 ? 9 : hrs >= 7.5 ? 8 :
+                       hrs >= 7.0 ? 7  : hrs >= 6.5 ? 6 : hrs >= 6.0 ? 5 :
+                       hrs >= 5.5 ? 4  : hrs >= 5.0 ? 3 : hrs >= 4.0 ? 2 : 1;
+    if (!logs[todayIdx].sleep) logs[todayIdx].sleep = sleepScore; // only auto-fill if not already set
+  }
+  logs[todayIdx].whoop_synced_at = new Date().toISOString();
+
+  // Save
+  localStorage.setItem(DL_STORE_KEY, JSON.stringify(logs));
+
+  // Show result
+  const fields = [];
+  if (data.hrv        != null) fields.push(`HRV: ${Math.round(data.hrv)}ms`);
+  if (data.rhr        != null) fields.push(`RHR: ${Math.round(data.rhr)}bpm`);
+  if (data.recovery   != null) fields.push(`Recovery: ${Math.round(data.recovery)}%`);
+  if (data.sleep_hrs  != null) fields.push(`Sleep: ${data.sleep_hrs.toFixed(1)}h`);
+
+  const resultEl = document.getElementById('push-result');
+  resultEl.innerHTML = `<div class="alert alert-green">
+    <strong>✓ Pushed to Day Log</strong><br>
+    ${fields.join(' · ')}<br>
+    <span style="opacity:0.7;font-size:10px">Open the Day Log tab in the main app to complete your entry.</span>
+  </div>`;
+
+  // Link back to main app
+  setTimeout(() => {
+    resultEl.innerHTML += `<a href="./index.html" style="display:block;margin-top:10px;text-align:center;font-size:12px;font-weight:700;color:var(--teal);text-decoration:none">→ Open Vitalis Coordis App</a>`;
+  }, 400);
+}
+
+// ── DISCONNECT ────────────────────────────────────────────
+function disconnectWhoop() {
+  if (!confirm('Disconnect Whoop? This removes your stored tokens. You will need to reconnect.')) return;
+  [LS_ACCESS_TOKEN, LS_REFRESH_TOKEN, LS_OAUTH_STATE, LS_WHOOP_DATA].forEach(k => localStorage.removeItem(k));
+  showScreen('screen-setup');
+  document.getElementById('badge-text').textContent = 'NOT CONNECTED';
+  document.getElementById('connection-badge').style.background = 'rgba(0,196,180,0.1)';
+  document.getElementById('connection-badge').style.borderColor = 'rgba(0,196,180,0.3)';
+  document.getElementById('connection-badge').style.color = 'var(--whoop)';
+  document.querySelector('#connection-badge .whoop-dot').style.background = 'var(--whoop)';
+}
+</script>
+</body>
+</html>
