@@ -280,8 +280,8 @@
       Connect Whoop
     </button>
 
-    <div class="alert alert-amber" style="margin-top:14px">
-      <strong>CORS note:</strong> Whoop blocks direct browser token exchange. After authorizing, you'll receive a curl command. Run it in Terminal (takes 30 seconds), paste the access_token back here. This is a one-time step — the refresh token handles renewals automatically.
+    <div class="alert alert-teal" style="margin-top:14px">
+      <strong>Proxy-enabled:</strong> Token exchange routes through your Cloudflare Worker — no Terminal needed. Enter credentials and hit Connect Whoop. Done in one tap.
     </div>
   </div>
 
@@ -405,7 +405,8 @@
 // ═══════════════════════════════════════════════════════════
 
 const WHOOP_AUTH_URL    = 'https://api.prod.whoop.com/oauth/oauth2/auth';
-const WHOOP_TOKEN_URL   = 'https://api.prod.whoop.com/oauth/oauth2/token';
+const WHOOP_TOKEN_URL   = 'https://cold-fire-0d22vitalis-whoop-proxy.jaquilabusiness.workers.dev/whoop-token';
+const WHOOP_TOKEN_URL_DIRECT = 'https://api.prod.whoop.com/oauth/oauth2/token'; // fallback
 const WHOOP_RECOVERY    = 'https://api.prod.whoop.com/developer/v1/recovery?limit=1';
 const WHOOP_SLEEP       = 'https://api.prod.whoop.com/developer/v1/activity/sleep?limit=1';
 const WHOOP_SCOPES      = 'read:recovery read:sleep read:cycles read:profile';
@@ -528,21 +529,57 @@ function handleOAuthCallback(code, state) {
     return;
   }
 
-  // Build curl command for the user to run (CORS workaround)
-  const curlCmd = `curl -X POST "${WHOOP_TOKEN_URL}" \\
+  // Clean URL immediately
+  window.history.replaceState({}, document.title, window.location.pathname);
+
+  // Try proxy-based token exchange first (no terminal needed)
+  exchangeTokenViaProxy(code, clientId, clientSecret, redirectUri);
+}
+
+async function exchangeTokenViaProxy(code, clientId, clientSecret, redirectUri) {
+  // Show progress
+  showScreen('screen-cors');
+  document.getElementById('curl-command').textContent = 'Exchanging token via proxy...\nConnecting to cold-fire-0d22vitalis-whoop-proxy.jaquilabusiness.workers.dev';
+
+  try {
+    const body = new URLSearchParams({
+      grant_type:    'authorization_code',
+      code:          code,
+      client_id:     clientId,
+      client_secret: clientSecret,
+      redirect_uri:  redirectUri,
+    });
+
+    const res = await fetch(WHOOP_TOKEN_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body:    body.toString(),
+    });
+
+    const data = await res.json();
+
+    if (data.access_token) {
+      localStorage.setItem(LS_ACCESS_TOKEN,  data.access_token);
+      if (data.refresh_token) localStorage.setItem(LS_REFRESH_TOKEN, data.refresh_token);
+      showConnectedScreen();
+      // Auto-fetch data right away
+      setTimeout(fetchWhoop, 600);
+      return;
+    } else {
+      throw new Error(data.error || 'No access_token in response');
+    }
+  } catch(err) {
+    // Proxy failed — fall back to curl instructions
+    console.error('Proxy token exchange failed:', err);
+    const curlCmd = `curl -X POST "${WHOOP_TOKEN_URL_DIRECT}" \\
   -H "Content-Type: application/x-www-form-urlencoded" \\
   -d "grant_type=authorization_code" \\
   -d "code=${code}" \\
   -d "client_id=${clientId}" \\
   -d "client_secret=${clientSecret}" \\
   -d "redirect_uri=${encodeURIComponent(redirectUri)}"`;
-
-  document.getElementById('curl-command').textContent = curlCmd;
-
-  // Clean URL
-  window.history.replaceState({}, document.title, window.location.pathname);
-
-  showScreen('screen-cors');
+    document.getElementById('curl-command').textContent = curlCmd;
+  }
 }
 
 function copyCurl() {
