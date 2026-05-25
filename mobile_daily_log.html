@@ -6768,6 +6768,10 @@ renderGapRecs();
 const DL_STORE_KEY     = 'vc_daily_logs_v32';
 const DL_STARTDATE_KEY = 'vc_cycle1_start';
 const DL_DRAFT_KEY     = 'vc_daily_draft';
+const DL_BACKUP_URL    = 'http://localhost:5000';   // desktop server (P0-1)
+const DL_WHOOP_TOK_KEY = 'vc_whoop_access_token';  // non-volatile (P0-2)
+const DL_WHOOP_REF_KEY = 'vc_whoop_refresh_token'; // non-volatile (P0-2)
+const DL_WHOOP_EXP_KEY = 'vc_whoop_expires_at';    // non-volatile (P0-2)
 
 const CCS_THRESHOLDS = { full:0.85, partial:0.70, compromised:0.55 };
 const EC_LOW = 0.30, EC_MED = 0.60;
@@ -6853,6 +6857,7 @@ let dlDraft = {
   cognition:  null,    // 1–10
   mood:       null,    // 1–10
   sleep:      null,    // 1–10
+  recovery:   null,    // 1–10 (P0: subjective recovery)
   hrv:        null,    // ms
   compliance: {},      // { item_id: 'taken'|'partial'|'missed' }
   confounders:[],      // array of flag ids
@@ -6997,7 +7002,7 @@ function computeConvergenceScore(log, histLogs) {
 
 function dlSubjectiveDirection(log, histLogs) {
   // Average of energy/cognition/mood/sleep vs prior 3-day average
-  const scores = [log.energy, log.cognition, log.mood, log.sleep].filter(v => v != null);
+  const scores = [log.energy, log.cognition, log.mood, log.sleep, log.recovery].filter(v => v != null);
   if (scores.length < 2) return 0; // insufficient
   const avg = scores.reduce((a,b)=>a+b,0) / scores.length;
 
@@ -7006,7 +7011,7 @@ function dlSubjectiveDirection(log, histLogs) {
     // No history — midpoint = 5.5
     return avg >= 7 ? 1 : avg >= 5 ? 0 : -1;
   }
-  const priorScores = prior.flatMap(l => [l.energy,l.cognition,l.mood,l.sleep].filter(v=>v!=null));
+  const priorScores = prior.flatMap(l => [l.energy,l.cognition,l.mood,l.sleep,l.recovery].filter(v=>v!=null));
   if (!priorScores.length) return avg >= 7 ? 1 : 0;
   const priorAvg = priorScores.reduce((a,b)=>a+b,0) / priorScores.length;
   const delta = avg - priorAvg;
@@ -7193,6 +7198,7 @@ function renderDailyLog() {
     { key:'cognition', label:'Cognition' },
     { key:'mood',      label:'Mood' },
     { key:'sleep',     label:'Sleep Qual' },
+    { key:'recovery',  label:'Recovery' },
   ];
   fields.forEach(f => {
     h += `<div class="score-row" style="margin-bottom:8px">
@@ -7357,6 +7363,25 @@ function renderLogOutput(root, log, allLogs, cycleDay) {
   root.innerHTML = h;
 }
 
+function dlGapDays(allLogs) {
+  // Returns ISO date strings for all days since cycle start with no log entry.
+  // Returns empty array if cycle hasn't started yet.
+  const start = dlGetCycleStart ? dlGetCycleStart() : localStorage.getItem(DL_STARTDATE_KEY);
+  if (!start) return [];
+  const startDate = new Date(start + 'T00:00:00');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const loggedDates = new Set(allLogs.map(l => l.date));
+  const gaps = [];
+  const d = new Date(startDate);
+  while (d <= today) {
+    const iso = d.toISOString().slice(0, 10);
+    if (!loggedDates.has(iso)) gaps.push(iso);
+    d.setDate(d.getDate() + 1);
+  }
+  return gaps;
+}
+
 function renderLogHistory(root, allLogs) {
   let h = `<div class="log-header">
     <div class="log-title">Log History</div>
@@ -7372,10 +7397,25 @@ function renderLogHistory(root, allLogs) {
   }
 
   const sorted = [...allLogs].sort((a,b) => b.date.localeCompare(a.date));
-  const cycleStart = dlGetCycleStart();
 
   h += `<div class="log-section">`;
-  sorted.forEach(log => {
+  sorted.forEach(item => {
+    // ── GAP MARKER ──────────────────────────────────────────────
+    if (item.type === 'gap') {
+      const gDate = item.date;
+      const gLabel = new Date(gDate + 'T00:00:00').toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+      h += '<div data-logdate="' + gDate + '" style="display:flex;align-items:center;gap:10px;padding:10px 14px;margin-bottom:6px;border-radius:8px;background:rgba(255,77,109,0.04);border:1px solid rgba(255,77,109,0.12)">' +
+        '<div style="width:32px;height:32px;border-radius:8px;background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.2);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,77,109,0.6)">—</div>' +
+        '<div style="flex:1">' +
+          '<div style="font-size:10px;font-weight:800;color:rgba(255,77,109,0.85);letter-spacing:0.06em;font-family:var(--mono,monospace)">MISSING — ' + gLabel + '</div>' +
+          '<div style="font-size:9px;color:var(--t3);margin-top:2px">No log filed · gap days reduce attribution confidence</div>' +
+        '</div>' +
+        '<div style="font-size:9px;color:rgba(255,77,109,0.4);font-family:var(--mono,monospace)">GAP</div>' +
+      '</div>';
+      return;
+    }
+    // ── REAL LOG ENTRY ──────────────────────────────────────────
+    const log = item.entry;
     const cycD = cycleStart ? (() => {
       const diff = Math.round((new Date(log.date+'T00:00:00') - new Date(cycleStart+'T00:00:00')) / 86400000);
       return diff + 1;
@@ -8403,155 +8443,5 @@ function vcrBuildReport() {
 <script>
 // ══════════════════════════════════════════════════════════════════
 // VITALIS COORDIS — P0 MITIGATIONS RUNTIME
-// Backup card toggle · Integrity check · Retroactive display
-// ══════════════════════════════════════════════════════════════════
-
-function toggleBackupCard() {
-  const body    = document.getElementById('backup-card-body');
-  const chevron = document.getElementById('backup-card-chevron');
-  if (!body) return;
-  const open = body.style.display === 'none';
-  body.style.display    = open ? 'block' : 'none';
-  if (chevron) chevron.style.transform = open ? 'rotate(180deg)' : '';
-  if (open) {
-    const logs  = dlGetLogs();
-    const label = document.getElementById('backup-card-status');
-    if (label) label.textContent = logs.length + ' log' + (logs.length !== 1 ? 's' : '') + ' in local store · tap to manage';
-  }
-}
-
-async function dlRunIntegrityCheck() {
-  const row = document.getElementById('backup-integrity-row');
-  if (row) { row.textContent = 'Checking…'; row.style.color = 'var(--t3)'; }
-  const result = await dlCheckBackupIntegrity();
-  if (!row) return;
-  if (result.status === 'IN_SYNC') {
-    row.style.color = '#00e5cc';
-    row.textContent = '✓ IN SYNC — ' + result.local + ' logs local — ' + result.server + ' on desktop SQLite';
-  } else if (result.status === 'LOCAL_AHEAD') {
-    row.style.color = '#ffb400';
-    row.textContent = '⚠ LOCAL AHEAD — ' + result.local + ' local / ' + result.server + ' desktop. Tap SYNC TO DESKTOP.';
-  } else if (result.status === 'SERVER_AHEAD') {
-    row.style.color = '#4da6ff';
-    row.textContent = 'ℹ DESKTOP AHEAD — ' + result.local + ' local / ' + result.server + ' desktop. Restore from JSON if local data was cleared.';
-  } else {
-    row.style.color = 'var(--t3)';
-    row.textContent = 'Desktop offline — ' + result.local + ' logs local. Export JSON now for offline backup.';
-  }
-}
-
-// P0-4: Retroactive indicator in log history list
-// Add a small RECONSTRUCTED badge to any log entry with retroactive:true
-(function patchHistoryRetroactiveBadge() {
-  const _origRenderDailyLog = window.renderDailyLog;
-  if (!_origRenderDailyLog) return;
-  // This runs after the render; we use MutationObserver to inject badges
-  // without touching the render function directly.
-  const obs = new MutationObserver(function(mutations) {
-    for (const mut of mutations) {
-      for (const node of mut.addedNodes) {
-        if (node.nodeType !== 1) continue;
-        // Look for log history entries (elements with data-logdate)
-        const items = node.querySelectorAll ? node.querySelectorAll('[data-logdate]') : [];
-        items.forEach(item => {
-          const date = item.getAttribute('data-logdate');
-          if (!date) return;
-          const logs = dlGetLogs();
-          const entry = logs.find(l => l.date === date);
-          if (entry && entry.retroactive) {
-            // Inject badge if not already present
-            if (!item.querySelector('.retro-badge')) {
-              const badge = document.createElement('span');
-              badge.className = 'retro-badge';
-              badge.textContent = 'RECONSTRUCTED';
-              badge.style.cssText = 'font-size:8px;font-weight:800;letter-spacing:0.08em;color:#ffb400;background:rgba(255,180,0,0.1);border:1px solid rgba(255,180,0,0.3);border-radius:4px;padding:2px 5px;margin-left:6px;font-family:var(--mono,monospace)';
-              item.appendChild(badge);
-            }
-          }
-        });
-      }
-    }
-  });
-  obs.observe(document.body, { childList: true, subtree: true });
-})();
-
-// P0-4: Also expose sick-day status in the log output so the engine note is visible
-// If today's log has illness confounder, show a banner in the output view
-(function patchSickDayBanner() {
-  const _origRenderLogOutput = window.renderLogOutput;
-  // renderLogOutput is defined in the main script block — we wrap it at runtime
-  if (typeof renderLogOutput !== 'function') return;
-  window.renderLogOutput = function(root, log, allLogs, cycleDay) {
-    renderLogOutput(root, log, allLogs, cycleDay);
-    const illnessFlag = (log.confounders || []).includes('illness');
-    if (!illnessFlag) return;
-    // Prepend sick-day banner to the output card
-    const banner = document.createElement('div');
-    banner.style.cssText = 'margin-bottom:10px;padding:10px 12px;border-radius:8px;background:rgba(255,180,0,0.08);border:1px solid rgba(255,180,0,0.3);font-size:10px;color:#ffb400;line-height:1.5';
-    banner.innerHTML = '<strong>SICK-DAY PROTOCOL ACTIVE</strong><br>HRV excluded from behavioral domain. Illness confounder days are not attributed to protocol. Data quality: ILLNESS_CONFOUNDER.';
-    if (root.firstChild) root.insertBefore(banner, root.firstChild);
-    else root.appendChild(banner);
-  };
-})();
-
-// P0-2: Sync card toggle (defined here so it exists when the card is clicked)
-function toggleSyncCard() {
-  const body    = document.getElementById('sync-card-body');
-  const chevron = document.getElementById('sync-card-chevron');
-  if (!body) return;
-  const open = body.style.display === 'none';
-  body.style.display    = open ? 'block' : 'none';
-  if (chevron) chevron.style.transform = open ? 'rotate(180deg)' : '';
-}
-
-function saveSyncSettings() {
-  const urlInput = document.getElementById('sync-url-input');
-  const tokInput = document.getElementById('sync-token-input');
-  const url = urlInput ? urlInput.value.trim() : '';
-  const tok = tokInput ? tokInput.value.trim() : '';
-  if (!url || !tok) { alert('Both Relay URL and Sync Token are required.'); return; }
-  localStorage.setItem('vitalis_sync_url', url);
-  localStorage.setItem('vitalis_sync_token', tok);
-  const label = document.getElementById('sync-card-status-label');
-  if (label) label.textContent = 'Connected';
-  const dot = document.getElementById('sync-live-dot');
-  const lbl = document.getElementById('sync-live-label');
-  if (dot) dot.style.background = 'var(--emerald, #00d68f)';
-  if (lbl) lbl.textContent = 'Connected · ' + url;
-}
-
-function clearSyncSettings() {
-  localStorage.removeItem('vitalis_sync_url');
-  localStorage.removeItem('vitalis_sync_token');
-  const urlInput = document.getElementById('sync-url-input');
-  const tokInput = document.getElementById('sync-token-input');
-  if (urlInput) urlInput.value = '';
-  if (tokInput) tokInput.value = '';
-  const label = document.getElementById('sync-card-status-label');
-  if (label) label.textContent = 'Cleared';
-}
-
-function quickFillSync() {
-  const RELAY_URL = 'wss://vitalis-sync.jaquilabusiness.workers.dev/ws';
-  const urlInput = document.getElementById('sync-url-input');
-  if (urlInput) urlInput.value = RELAY_URL;
-}
-
-// On load: restore saved sync URL/token into input fields
-(function restoreSyncInputs() {
-  const url = localStorage.getItem('vitalis_sync_url');
-  const tok = localStorage.getItem('vitalis_sync_token');
-  if (url || tok) {
-    const urlInput = document.getElementById('sync-url-input');
-    const tokInput = document.getElementById('sync-token-input');
-    if (urlInput && url) urlInput.value = url;
-    if (tokInput && tok) tokInput.value = tok;
-    const label = document.getElementById('sync-card-status-label');
-    if (label && url) label.textContent = 'Configured';
-  }
-})();
-
-</script>
-
-</body>
-</html>
+// Backup card toggle · Integrity check · Retroac  const cycleStart = dlGetCycleStart();
+t
