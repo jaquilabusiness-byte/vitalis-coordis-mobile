@@ -6768,7 +6768,21 @@ renderGapRecs();
 const DL_STORE_KEY     = 'vc_daily_logs_v32';
 const DL_STARTDATE_KEY = 'vc_cycle1_start';
 const DL_DRAFT_KEY     = 'vc_daily_draft';
-const DL_BACKUP_URL    = 'http://localhost:5000';   // desktop server (P0-1)
+
+// P0-1: Desktop server backup endpoint.
+// Set to the local Express server when running desktop dashboard (default :5000).
+// Override at runtime: localStorage.setItem('vc_backup_url_override', 'http://YOUR_IP:5000')
+const DL_BACKUP_URL = (function() {
+  try { return localStorage.getItem('vc_backup_url_override') || 'http://localhost:5000'; } catch(e) { return 'http://localhost:5000'; }
+})();
+
+// P0-2: Whoop OAuth credentials (client-side constants — never sent to any server except Whoop proxy)
+const DL_WHOOP_CLIENT_ID      = 'a43a26bd-63b0-4ff5-a040-51aed2557f4a';  // Vitalis Coordis Whoop app
+// DL_WHOOP_CLIENT_SECRET is user-held — stored in localStorage under key below, never hardcoded in source
+const DL_WHOOP_CLIENT_SECRET_KEY = 'vtl_whoop_client_secret';             // localStorage key for secret
+const DL_WHOOP_REDIRECT_URI   = 'https://jaquilabusiness-byte.github.io/vitalis-coordis-mobile/vitalis-whoop-sync.html';
+
+// P0-2: Whoop token persistence keys (localStorage)
 const DL_WHOOP_TOK_KEY = 'vc_whoop_access_token';  // non-volatile (P0-2)
 const DL_WHOOP_REF_KEY = 'vc_whoop_refresh_token'; // non-volatile (P0-2)
 const DL_WHOOP_EXP_KEY = 'vc_whoop_expires_at';    // non-volatile (P0-2)
@@ -6850,18 +6864,44 @@ const CONFOUNDER_FLAGS = [
   { id:'medication',   label:'OTC Medication' },
 ];
 
+// ── STATE CONTEXT ENUM (VC-SPEC-001) ─────────────────────────────────────────
+// Auto-computed from confounders + HRV delta. Can be manually overridden.
+const STATE_CONTEXT = {
+  BASELINE:  'BASELINE',  // Normal operating state — no active confounders, HRV within ±1 SD
+  TRANSIENT: 'TRANSIENT', // Known temporary disruption (travel, illness, stress, poor sleep)
+  ANOMALY:   'ANOMALY',   // Unexpected deviation requiring investigation (HRV delta > 25ms, unexplained symptom)
+};
+
+// VC-SPEC-001: Derive stateContext from logged confounders + HRV
+// α = 0.85 if HRV delta > LARGE_DELTA_THRESHOLD (25ms), else 0.70
+function deriveStateContext(confounders, hrv) {
+  const TRANSIENT_FLAGS = ['poor_sleep', 'travel', 'illness', 'high_stress', 'alcohol', 'medication'];
+  const hasTransient = (confounders || []).some(f => TRANSIENT_FLAGS.includes(f));
+  if (hasTransient) return STATE_CONTEXT.TRANSIENT;
+  // Check HRV vs baseline for ANOMALY
+  try {
+    const baseline = JSON.parse(localStorage.getItem('vc_hrv_baseline') || 'null');
+    if (baseline && hrv && baseline.meanMs) {
+      const delta = Math.abs(hrv - baseline.meanMs);
+      if (delta > 25) return STATE_CONTEXT.ANOMALY;
+    }
+  } catch(e) {}
+  return STATE_CONTEXT.BASELINE;
+}
+
 // ── DRAFT STATE ──────────────────────────────────────────────────────────────
 let dlDraft = {
-  date:       todayISO(),
-  energy:     null,    // 1–10
-  cognition:  null,    // 1–10
-  mood:       null,    // 1–10
-  sleep:      null,    // 1–10
-  recovery:   null,    // 1–10 (P0: subjective recovery)
-  hrv:        null,    // ms
-  compliance: {},      // { item_id: 'taken'|'partial'|'missed' }
-  confounders:[],      // array of flag ids
-  notes:      '',
+  date:         todayISO(),
+  energy:       null,       // 1–10
+  cognition:    null,       // 1–10
+  mood:         null,       // 1–10
+  sleep:        null,       // 1–10
+  recovery:     null,       // 1–10 (P0: subjective recovery)
+  hrv:          null,       // ms (morning resting, from Whoop or manual)
+  stateContext: STATE_CONTEXT.BASELINE,  // VC-SPEC-001: BASELINE | TRANSIENT | ANOMALY
+  compliance:   {},         // { item_id: 'taken'|'partial'|'missed' }
+  confounders:  [],         // array of flag ids
+  notes:        '',
 };
 
 window.dlViewMode = window.dlViewMode || 'input'; // 'input' | 'output' | 'history'
@@ -6885,6 +6925,8 @@ function dlLoadDraft() {
 }
 
 function dlSaveDraft() {
+  // Auto-recompute stateContext on every save (VC-SPEC-001)
+  dlDraft.stateContext = deriveStateContext(dlDraft.confounders, dlDraft.hrv);
   try { localStorage.setItem(DL_DRAFT_KEY, JSON.stringify(dlDraft)); } catch(e) {}
 }
 
@@ -7344,13 +7386,18 @@ function renderLogOutput(root, log, allLogs, cycleDay) {
   h += `<div class="log-output-card">
     <div style="font-size:9px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Today's Entry</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-      ${[['Energy',log.energy],['Cognition',log.cognition],['Mood',log.mood],['Sleep',log.sleep]].map(([l,v])=>`
+      ${[['Energy',log.energy],['Cognition',log.cognition],['Mood',log.mood],['Sleep',log.sleep],['Recovery',log.recovery]].map(([l,v])=>`
         <div style="background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:8px;padding:8px 10px;text-align:center">
           <div style="font-size:18px;font-weight:900;color:${v>=8?'#00e5cc':v>=6?'#22d47e':v>=4?'#f5a623':'#ff4d6d'};font-family:'JetBrains Mono',monospace">${v||'—'}</div>
           <div style="font-size:9px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-top:2px">${l}</div>
         </div>`).join('')}
     </div>
     ${log.hrv ? `<div style="margin-top:8px;font-size:11px;color:var(--t2)">HRV: <strong style="color:var(--teal);font-family:'JetBrains Mono',monospace">${log.hrv} ms</strong></div>` : ''}
+    ${(function(){
+      const sc = log.stateContext || 'BASELINE';
+      const scColor = sc === 'BASELINE' ? '#22d47e' : sc === 'TRANSIENT' ? '#f5a623' : '#ff4d6d';
+      return `<div style="margin-top:6px;font-size:10px;color:var(--t3)">State Context: <strong style="color:${scColor};font-family:'JetBrains Mono',monospace">${sc}</strong></div>`;
+    })()}
     ${log.confounders && log.confounders.length ? `<div style="margin-top:6px;font-size:10px;color:var(--amber)">⚠ Confounders: ${log.confounders.join(', ')}</div>` : ''}
     ${log.compliance ? `<div style="margin-top:6px;font-size:10px;color:var(--t3)">Compliance rate: <strong style="color:${dlComplianceRate(log) >= 0.85 ? '#22d47e':'#f5a623'}">${Math.round(dlComplianceRate(log)*100)}%</strong></div>` : ''}
   </div>`;
