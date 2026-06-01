@@ -6770,10 +6770,19 @@ const DL_STARTDATE_KEY = 'vc_cycle1_start';
 const DL_DRAFT_KEY     = 'vc_daily_draft';
 
 // P0-1: Desktop server backup endpoint.
-// Set to the local Express server when running desktop dashboard (default :5000).
-// Override at runtime: localStorage.setItem('vc_backup_url_override', 'http://YOUR_IP:5000')
+// Set to the local Express server when running desktop dashboard (default :5050).
+// Override at runtime: localStorage.setItem('vc_backup_url_override', 'http://YOUR_SERVER_IP:5050')
+// P0-FIX-1: Corrected default port from 5000 → 5050 (dashboard runs on 5050)
 const DL_BACKUP_URL = (function() {
-  try { return localStorage.getItem('vc_backup_url_override') || 'http://localhost:5000'; } catch(e) { return 'http://localhost:5000'; }
+  try { return localStorage.getItem('vc_backup_url_override') || 'http://localhost:5050'; } catch(e) { return 'http://localhost:5050'; }
+})();
+
+// P0-FIX-3: Mobile API key for remote backup authentication.
+// Default matches server dev default. Set your own key:
+//   localStorage.setItem('vc_mobile_api_key', 'your-key-here')
+// Server env: MOBILE_API_KEY=your-key-here
+const DL_MOBILE_API_KEY = (function() {
+  try { return localStorage.getItem('vc_mobile_api_key') || 'vc-mobile-dev-key-change-in-prod'; } catch(e) { return 'vc-mobile-dev-key-change-in-prod'; }
 })();
 
 // P0-2: Whoop OAuth credentials (client-side constants — never sent to any server except Whoop proxy)
@@ -7594,13 +7603,36 @@ function dlBackupToServer(logs) {
   try {
     fetch(DL_BACKUP_URL + '/api/cycle1/logs/sync', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-API-Key': DL_MOBILE_API_KEY },
       body: JSON.stringify({ logs }),
       signal: AbortSignal.timeout(5000), // 5s timeout — never hangs
     }).then(r => {
       if (r.ok) console.log('[VC Backup] ' + logs.length + ' log(s) synced to desktop');
+      else console.warn('[VC Backup] logs sync returned', r.status);
     }).catch(() => {
       // Server not running — expected when mobile-only. Silent.
+    });
+  } catch(e) { /* offline or server down — silent */ }
+}
+
+// P0-FIX-2: BIOMARKER BACKUP ENGINE
+// CRITICAL: Lab values (vc_biomarkers) were previously NOT backed up.
+// This function syncs all biomarker values to the desktop server after every lab entry.
+// Called on biomarker save AND on dlExportJSON.
+function backupBiomarkers() {
+  const bm = vclGetBM();
+  if (!bm || !Object.keys(bm).length) return;
+  try {
+    fetch(DL_BACKUP_URL + '/api/cycle1/biomarkers/sync', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-API-Key': DL_MOBILE_API_KEY },
+      body: JSON.stringify({ biomarkers: bm, exportedAt: new Date().toISOString() }),
+      signal: AbortSignal.timeout(5000),
+    }).then(r => {
+      if (r.ok) console.log('[VC Biomarker Backup] ' + Object.keys(bm).length + ' marker(s) synced to desktop');
+      else console.warn('[VC Biomarker Backup] sync returned', r.status);
+    }).catch(() => {
+      // Server not running — silent.
     });
   } catch(e) { /* offline or server down — silent */ }
 }
@@ -7649,6 +7681,8 @@ function dlExportJSON() {
 
   // Also attempt server sync while we're at it
   dlBackupToServer(logs);
+  // P0-FIX-2: Also backup biomarkers on every export
+  backupBiomarkers();
 }
 
 // Import from a previously exported JSON file.
@@ -8148,6 +8182,8 @@ function vclSaveBiomarkers() {
   vclSaveBM(bm);
   vclRenderForms();
   vclRenderWBCAlert();
+  // P0-FIX-2: Backup biomarkers to desktop server after every save
+  backupBiomarkers();
 }
 
 // ── RENDER EVIDENCE REPORT ────────────────────────────────────────
