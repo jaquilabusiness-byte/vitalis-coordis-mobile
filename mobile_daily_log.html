@@ -6912,19 +6912,56 @@ function deriveStateContext(confounders, hrv) {
   return STATE_CONTEXT.BASELINE;
 }
 
+// ── CONFOUNDER LOAD SCORE (0–100) ────────────────────────────────────────────
+// Composite numeric noise-tax score. Auto-computed from confounder flags + sleep.
+// illness 0–40 | high_stress 0–30 | sleep_delta 0–20 | travel 0–10
+// Used by Gap Day Analytics engine (analyze_confounder_matrix) as continuous var.
+function computeConfounderLoad(confounders, sleepScore, baselineSleep) {
+  const flags = confounders || [];
+  let score = 0;
+
+  // Illness component (0–40): mild illness 20, moderate 30, severe 40
+  if (flags.includes('illness'))    score += 30;
+  if (flags.includes('medication')) score += 10; // often illness-adjacent
+
+  // Stress component (0–30)
+  if (flags.includes('high_stress')) score += 25;
+  if (flags.includes('alcohol'))     score += 10;
+
+  // Sleep delta component (0–20): compare logged sleep score to 8 (neutral baseline)
+  // sleep 1–10: each point below 5 adds 4pts, floor at 0
+  if (sleepScore !== null && sleepScore !== undefined) {
+    const delta = Math.max(0, 5 - sleepScore); // 0 if sleep ≥ 5, up to 4 if sleep=1
+    score += Math.min(20, delta * 5);
+  }
+
+  // Travel component (0–10)
+  if (flags.includes('travel'))       score += 10;
+  if (flags.includes('skipped_meal')) score += 5;
+  if (flags.includes('workout'))      score += 5; // hard workout = recovery cost
+
+  return Math.min(100, score);
+}
+
 // ── DRAFT STATE ──────────────────────────────────────────────────────────────
 let dlDraft = {
-  date:         todayISO(),
-  energy:       null,       // 1–10
-  cognition:    null,       // 1–10
-  mood:         null,       // 1–10
-  sleep:        null,       // 1–10
-  recovery:     null,       // 1–10 (P0: subjective recovery)
-  hrv:          null,       // ms (morning resting, from Whoop or manual)
-  stateContext: STATE_CONTEXT.BASELINE,  // VC-SPEC-001: BASELINE | TRANSIENT | ANOMALY
-  compliance:   {},         // { item_id: 'taken'|'partial'|'missed' }
-  confounders:  [],         // array of flag ids
-  notes:        '',
+  date:                todayISO(),
+  energy:              null,   // 1–10
+  cognition:           null,   // 1–10
+  mood:                null,   // 1–10
+  sleep:               null,   // 1–10
+  recovery:            null,   // 1–10 (P0: subjective recovery)
+  hrv:                 null,   // ms (morning resting, from Whoop or manual)
+  stateContext:        STATE_CONTEXT.BASELINE, // VC-SPEC-001
+  compliance:          {},     // { item_id: 'taken'|'partial'|'missed' }
+  confounders:         [],     // array of flag ids
+  notes:               '',
+  rotation_day:        null,   // INT 1–5 (ON) | 0 (OFF) | null (not rotational)
+                               // Enables receptor sensitivity window analysis
+  confounder_load_score: null, // INT 0–100 composite:
+                               //   illness 0–40 + high_stress 0–30
+                               //   + sleep_delta 0–20 + travel 0–10
+                               // Auto-computed from confounders; can be overridden
 };
 
 window.dlViewMode = window.dlViewMode || 'input'; // 'input' | 'output' | 'history'
@@ -6950,6 +6987,8 @@ function dlLoadDraft() {
 function dlSaveDraft() {
   // Auto-recompute stateContext on every save (VC-SPEC-001)
   dlDraft.stateContext = deriveStateContext(dlDraft.confounders, dlDraft.hrv);
+  // Auto-compute confounder_load_score from current flags + sleep
+  dlDraft.confounder_load_score = computeConfounderLoad(dlDraft.confounders, dlDraft.sleep);
   try { localStorage.setItem(DL_DRAFT_KEY, JSON.stringify(dlDraft)); } catch(e) {}
 }
 
@@ -7317,8 +7356,65 @@ function renderDailyLog() {
   });
   h += `</div></div>`;
 
-  // Notes (optional)
+  // Rotation Day field (enables receptor sensitivity window analysis)
   h += `<div class="log-section">
+    <div class="log-section-label" style="display:flex;align-items:center;gap:8px">
+      Rotation Day
+      <span style="font-size:9px;color:var(--t3);font-weight:400">tracks receptor sensitivity windows</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      ${[
+        { val: null, label: '—', tip: 'Not applicable' },
+        { val: 0,    label: 'OFF', tip: 'Rest day (rotational OFF)' },
+        { val: 1,    label: 'D1',  tip: 'Day 1 of ON cycle — post-rest response' },
+        { val: 2,    label: 'D2',  tip: 'Day 2' },
+        { val: 3,    label: 'D3',  tip: 'Day 3' },
+        { val: 4,    label: 'D4',  tip: 'Day 4' },
+        { val: 5,    label: 'D5',  tip: 'Day 5 — pre-rest baseline' },
+      ].map(opt => {
+        const active = dlDraft.rotation_day === opt.val;
+        const isOff  = opt.val === 0;
+        const isD1   = opt.val === 1;
+        const color  = isOff ? 'rgba(248,81,73,0.7)' : isD1 ? 'rgba(0,229,204,0.9)' : 'rgba(255,255,255,0.6)';
+        const bg     = active
+          ? (isOff ? 'rgba(248,81,73,0.15)' : isD1 ? 'rgba(0,229,204,0.12)' : 'rgba(255,255,255,0.1)')
+          : 'rgba(255,255,255,0.03)';
+        const border = active
+          ? (isOff ? 'rgba(248,81,73,0.5)' : isD1 ? 'rgba(0,229,204,0.4)' : 'rgba(255,255,255,0.25)')
+          : 'rgba(255,255,255,0.08)';
+        return \`<button
+          title="\${opt.tip}"
+          onclick="dlDraft.rotation_day=${JSON.stringify(opt.val)};dlSaveDraft();renderDailyLog()"
+          style="padding:6px 12px;background:\${bg};border:1px solid \${border};border-radius:6px;color:\${color};font-size:11px;font-weight:700;font-family:Inter,sans-serif;cursor:pointer;min-width:40px">
+          \${opt.label}
+        </button>\`;
+      }).join('')}
+    </div>
+    <div style="font-size:9px;color:var(--t3);margin-top:5px">
+      D1 = first day after OFF break · D5 = last day before OFF · OFF = rest day
+    </div>
+  </div>`;
+
+  // Confounder Load Score display (auto-computed — shown if score > 0)
+  const cls_score = dlDraft.confounder_load_score || 0;
+  if (cls_score > 0) {
+    const cls_color = cls_score >= 60 ? '#F85149' : cls_score >= 30 ? '#D29922' : '#8B949E';
+    const cls_label = cls_score >= 60 ? 'HIGH NOISE' : cls_score >= 30 ? 'MODERATE NOISE' : 'LOW NOISE';
+    h += \`<div class="log-section" style="border-left:2px solid \${cls_color};padding-left:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:9px;font-weight:700;color:var(--t3);letter-spacing:0.08em">CONFOUNDER LOAD SCORE</div>
+        <div style="font-size:9px;font-weight:700;color:\${cls_color}">\${cls_label}</div>
+      </div>
+      <div style="font-size:22px;font-weight:800;color:\${cls_color};margin:2px 0">\${cls_score}<span style="font-size:11px;font-weight:400;color:var(--t3)">/100</span></div>
+      <div style="font-size:9px;color:var(--t3);line-height:1.4">
+        Effect sizes from today's data will be discounted by this noise load in Day 90 analytics.
+        Scores ≥ 60 flag this day as a confounded observation.
+      </div>
+    </div>\`;
+  }
+
+  // Notes (optional)
+  h += \`<div class="log-section">
     <div class="log-section-label">Notes (optional)</div>
     <textarea id="log-notes"
       style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--line-md);border-radius:8px;padding:10px;color:var(--t1);font-size:12px;font-family:Inter,sans-serif;resize:vertical;min-height:56px;outline:none;line-height:1.5"
