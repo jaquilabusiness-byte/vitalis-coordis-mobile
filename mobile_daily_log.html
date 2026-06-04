@@ -2338,7 +2338,7 @@ const COMPOUND_CELLS = {
   'Quicksilver Ergo-Thione+':    [{si:12,fi:3},{si:13,fi:3},{si:6,fi:3},{si:8,fi:3},{si:16,fi:3},{si:2,fi:3},{si:12,fi:0}],
   'BROQ Sulforaphane':           [{si:6,fi:3},{si:13,fi:4},{si:12,fi:3},{si:8,fi:3},{si:16,fi:3},{si:1,fi:3}],
   'Orgono Living Silica':        [{si:4,fi:0},{si:8,fi:0},{si:4,fi:3},{si:8,fi:3},{si:0,fi:3},{si:9,fi:3}],
-  'Tongkat Ali LJ100':           [{si:10,fi:0},{si:10,fi:1},{si:10,fi:2},{si:5,fi:0},{si:5,fi:2},{si:7,fi:3},{si:4,fi:2},{si:1,fi:2}],
+  'Qualia Mind':                 [{si:10,fi:0},{si:10,fi:1},{si:10,fi:2},{si:10,fi:3},{si:5,fi:0},{si:5,fi:2},{si:7,fi:3},{si:4,fi:2},{si:1,fi:2},{si:13,fi:2}],
   'Citicoline CDP-Choline':      [{si:1,fi:0},{si:1,fi:1},{si:1,fi:2},{si:7,fi:0},{si:7,fi:2},{si:12,fi:0},{si:7,fi:3}],
   'Catalyzed Mineral Complex':   [{si:12,fi:0},{si:12,fi:2},{si:16,fi:0},{si:5,fi:2},{si:4,fi:0},{si:5,fi:0},{si:6,fi:0},{si:14,fi:0},{si:13,fi:0},{si:9,fi:0}],
   'NADH + Methylene Blue':       [{si:12,fi:0},{si:12,fi:1},{si:12,fi:2},{si:1,fi:0},{si:1,fi:2},{si:7,fi:2},{si:5,fi:0},{si:16,fi:0}],
@@ -2368,7 +2368,7 @@ const COMPOUND_CTRL = {
   'Quicksilver Ergo-Thione+':     'mitochondria',
   'BROQ Sulforaphane':            'immune',
   'Orgono Living Silica':         'vascular',
-  'Tongkat Ali LJ100':            'brain',
+  'Qualia Mind':                  'brain',
   'Citicoline CDP-Choline':       'brain',
   'Catalyzed Mineral Complex':    'mitochondria',
   'NADH + Methylene Blue':        'mitochondria',
@@ -2594,7 +2594,9 @@ function getCircadianState() {
 const STACK_ITEMS = {
   am:[
     // ── Item 01 ──
-    {n:'Momentum Foundation',                 d:'1 serving · Full-spectrum daily base · D3 4,000IU + multi-nutrient blend',       t:'07:00', w:90, core:true},
+    {n:'Momentum Complete',                    d:'1 packet (62g) · Colostrum 2g + SunFiber 8g + DigeZyme 350mg + L-Glutamine 5g + LM 750mg (fruiting body) + Whey 20g + Collagen 10g + NAD+ 1g + TMG 1g + Mg Taurate 125mg + D3 4,000IU + K2 + Zn 10mg + Se 60mcg',  t:'07:00', w:90, core:true},
+    // ── TMRW Total Longevity ──
+    {n:'TMRW Total Longevity',               d:'1 scoop · NMN 500mg + CaAKG 1g + ALCAR 750mg + Spermidine 5mg + GSH 300mg + ALA 100mg + CoQ10 + Urolithin A + D3 1,000IU + K2 MK-7 + B12 + PQQ + Rhodiola + Bacopa + L-Theanine + Ginseng · full longevity base', t:'07:05', w:90, core:true},
     // ── Item 03 ──
     {n:'Quicksilver Membrane Mend',           d:'1 serving liposomal · Astaxanthin 7mg + phospholipid membrane complex',        t:'07:15', w:90, core:true},
     // ── Item 04 ──
@@ -2606,9 +2608,11 @@ const STACK_ITEMS = {
     // ── Item 11 ──
     {n:'Orgono Living Silica',                d:'1 Tbsp (4.9mL) · Monomethylsilanetriol 22.5mg · connective tissue + joint support', t:'07:30', w:90, core:true},
     // ── Item 13 ──
-    {n:'Tongkat Ali LJ100',                   d:'200mg · LJ100 extract · free-T optimization + cortisol modulation',             t:'07:45', w:90, core:true},
+    {n:'Qualia Mind',                        d:'6 caps · Alpha-GPC 115mg + Citicoline 50mg + PS 100mg + Rhodiola 370mg + ALCAR 500mg + PQQ 10mg + LM 8:1 125mg + Theanine 200mg + Caffeine 100mg + Saffron 30mg · AM cognitive primer',   t:'07:45', w:90, core:true},
     // ── Item 14 ──
     {n:'Citicoline CDP-Choline',              d:'300mg · ACh precursor · cognitive performance + membrane integrity',            t:'07:45', w:90, core:true},
+    // ── Creatine Hydro Pak ──
+    {n:'Creatine Hydro Pak',                  d:'1 tsp · Creatine 5g + Mg 50mg + Na 250mg + K 100mg + ConcenTrace trace minerals · PCr replenishment + electrolyte matrix', t:'07:50', w:90, core:true},
     // ── Item 15 ──
     {n:'Catalyzed Mineral Complex',           d:'4 capsules · Shilajit 625mg (40% fulvic) + Zn 30mg + Se 200mcg + Fe 5mg + Mg 120mg + full mineral panel', t:'08:00', w:90, core:true},
     // ── Item 17 ──
@@ -2617,8 +2621,6 @@ const STACK_ITEMS = {
     {n:'Omega-3 + Black Cumin',               d:'2g EPA+DHA + 500mg–1g Black Cumin Seed · vascular + NF-κB + immune modulation', t:'08:00', w:90, core:true},
     // ── Item 19 ──
     {n:'Liquid 40,000 Volts',                 d:'1 tsp (4.9mL) · Mg 190mg + Chloride 600mg + Na 105mg + K 150mg + trace minerals', t:'08:00', w:90, core:true},
-    // ── Item 20 ──
-    {n:"Auri Lion's Mane Elixir",            d:"2mL · 1,000mg 10:1 (=10,000mg herb eq.) · NGF + BDNF neurogenesis",             t:'08:30', w:90, core:true},
     // ── Item 21 ──
     {n:'Auri Pre+Probiotic',                  d:'1 serving · Prebiotic + probiotic + mushroom blend (rotational: swap Qualia Probiotic+)', t:'08:30', w:90, core:true},
     // ── Infrastructure ──
@@ -2626,9 +2628,8 @@ const STACK_ITEMS = {
   ],
   mid:[
     // ── Item 06 ──
-    {n:'Berberine',                           d:'400–500mg · AMPK activation + glucose metabolism + microbiome optimization',      t:'12:00', w:90, core:true},
+    {n:'QS GLP-1 Amplifier',                 d:'1 tsp sublingual · DIM + Quercetin + Milk Thistle 80% Silymarin + Resveratrol + Berberine HCl + Cinnamon (415mg total) · AMPK + hepatic clearance + metabolic recalibration', t:'12:00', w:90, core:true},
     // ── Item 07 ──
-    {n:'TMRW Pouch',                          d:'1 serving DAILY · NMN 500mg + CaAKG 950mg + ALCAR 750mg + Taurine 1,200mg + GSH 300mg + ALA 100mg + Choline 220mg + CoQ10 + Resveratrol + Milk Thistle', t:'12:00', w:90, core:true},
     // ── Item 08 ──
     {n:'STRONGER+',                           d:'1 serving · Citrulline 8g + Creatine 5g + Beta-Alanine 3.2g + Glycine 3g + Betaine 2.5g + Taurine 2g + MSM 1.5g + PeakATP 400mg + L-Theanine 200mg + Rhodiola 300mg', t:'12:30', w:90, core:true},
     // ── Item 09 ──
@@ -2723,7 +2724,7 @@ const INTAKE_Qs = [
 // STACK_MAP — Vitalis 24 controller affinity mapping
 const STACK_MAP = {
   mitochondria: ['Quicksilver NAD+ Platinum','Quicksilver Ergo-Thione+','NADH + Methylene Blue','TMRW Pouch','STRONGER+','Catalyzed Mineral Complex','Hydrogen Water 8.25ppm'],
-  brain:        ["Auri Lion's Mane Elixir",'Citicoline CDP-Choline','Tongkat Ali LJ100','Kayseari Tocotrienols','Ashwagandha KSM-66','Quicksilver NAD+ Platinum','TMRW Pouch'],
+  brain:        ["Auri Lion's Mane Elixir",'Citicoline CDP-Choline','Qualia Mind','Kayseari Tocotrienols','Ashwagandha KSM-66','Quicksilver NAD+ Platinum','TMRW Pouch'],
   cardio:       ['Omega-3 + Black Cumin','Liquid 40,000 Volts','STRONGER+','Berberine','VisionBody EMS Suit','Hydrogen Water 8.25ppm'],
   immune:       ['BROQ Sulforaphane','Reishi Elixir','Quicksilver Ergo-Thione+','Omega-3 + Black Cumin','Auri Pre+Probiotic','Catalyzed Mineral Complex'],
   gut:          ['Berberine','Auri Pre+Probiotic','LONGER+','Orgono Living Silica','Liquid 40,000 Volts','Qualia Magnesium'],
