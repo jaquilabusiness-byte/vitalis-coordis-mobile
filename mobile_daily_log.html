@@ -2065,7 +2065,7 @@ body {
       <!-- Core 15 Toggle -->
       <div class="c15-toggle-wrap fu fu1">
         <div class="c15-toggle" id="c15-toggle">
-          <button class="c15-btn" id="c15-btn-full" onclick="setCore15Mode(false)">Full Stack · 24</button>
+          <button class="c15-btn" id="c15-btn-full" onclick="setCore15Mode(false)">Full Stack · 15</button>
           <button class="c15-btn" id="c15-btn-core" onclick="setCore15Mode(true)">Core 15</button>
         </div>
       </div>
@@ -3097,7 +3097,7 @@ function buildHome() {
   const taken   = getTaken();
   const allItems19 = STACK_ITEMS.am.length + STACK_ITEMS.mid.length + STACK_ITEMS.pm.length;
   const allItems15  = [...STACK_ITEMS.am,...STACK_ITEMS.mid,...STACK_ITEMS.pm].filter(i=>i.core).length;
-  const totalItems  = isCore15() ? allItems15 : allItems19;
+  const totalItems  = isCore15() ? allItems15 : allItems19; // v3.9: all daily items are core — both counts = 13
   const takenToday  = taken.length;
   const timeStr = now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
 
@@ -4973,8 +4973,8 @@ function applyCore15UI() {
   const count = core15 ? 15 : (STACK_ITEMS.am.length + STACK_ITEMS.mid.length + STACK_ITEMS.pm.length);
   const lbl   = core15 ? 'Core' : 'Full Stack';
   const sub   = core15
-    ? '15 core compounds · Circadian-timed · Habit-first'
-    : '24 items · 22 supps + 2 infra · Full controller coverage';
+    ? '15 daily compounds · Circadian-timed · Habit-first'
+    : '15 items · 13 daily + 2 rotational + 2 infra · Full controller coverage';
   const cntEl = document.getElementById('stack-stat-count');
   const lblEl = document.getElementById('stack-stat-lbl');
   const subEl = document.getElementById('stack-hero-sub');
@@ -6447,19 +6447,19 @@ renderGapRecs();
     <div class="ob-top">
       <div class="ob-progress" id="ob-progress4"></div>
       <div class="ob-eyebrow">Step 3 of 4 · Your Protocol</div>
-      <div class="ob-title">24 items.<br><span>One system.</span></div>
-      <div class="ob-body">22 supplements + 2 infrastructure devices, circadian-timed across 3 windows. Every compound maps to the cells it covers in your 85-Grid.</div>
+      <div class="ob-title">15 items.<br><span>One system.</span></div>
+      <div class="ob-body">13 daily + 2 rotational + 2 infrastructure devices, circadian-timed across 3 windows. Every compound maps to the cells it covers in your 85-Grid.</div>
       <div style="display:flex;gap:8px;margin-bottom:16px">
         <div style="flex:1;background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.2);border-radius:10px;padding:12px;text-align:center">
-          <div style="font-size:16px;font-weight:900;color:#f5a623">15</div>
+          <div style="font-size:16px;font-weight:900;color:#f5a623">8</div>
           <div style="font-size:9px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">AM</div>
         </div>
         <div style="flex:1;background:rgba(0,229,204,0.08);border:1px solid rgba(0,229,204,0.2);border-radius:10px;padding:12px;text-align:center">
-          <div style="font-size:16px;font-weight:900;color:#00e5cc">6</div>
+          <div style="font-size:16px;font-weight:900;color:#00e5cc">3</div>
           <div style="font-size:9px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">Midday</div>
         </div>
         <div style="flex:1;background:rgba(181,123,238,0.08);border:1px solid rgba(181,123,238,0.2);border-radius:10px;padding:12px;text-align:center">
-          <div style="font-size:16px;font-weight:900;color:#b57bee">3</div>
+          <div style="font-size:16px;font-weight:900;color:#b57bee">2</div>
           <div style="font-size:9px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em">PM</div>
         </div>
       </div>
