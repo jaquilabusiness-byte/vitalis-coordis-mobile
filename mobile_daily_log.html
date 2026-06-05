@@ -2592,60 +2592,48 @@ function getCircadianState() {
 // VITALIS 24 — Canonical Stack (22 supplements + 2 infrastructure)
 // V2.5 Attribution Protocol — Cycle 1 — Last updated: May 10, 2026
 const STACK_ITEMS = {
+  // v3.9-LOCKED · June 3, 2026 · 15 Daily Items + 2 Infrastructure + 2 Rotational
   am:[
-    // ── Item 01 ──
-    {n:'Momentum Complete',                    d:'1 packet (62g) · Colostrum 2g + SunFiber 8g + DigeZyme 350mg + L-Glutamine 5g + LM 750mg (fruiting body) + Whey 20g + Collagen 10g + NAD+ 1g + TMG 1g + Mg Taurate 125mg + D3 4,000IU + K2 + Zn 10mg + Se 60mcg',  t:'07:00', w:90, core:true},
-    // ── TMRW Total Longevity ──
-    {n:'TMRW Total Longevity',               d:'1 scoop · NMN 500mg + CaAKG 1g + ALCAR 750mg + Spermidine 5mg + GSH 300mg + ALA 100mg + CoQ10 + Urolithin A + D3 1,000IU + K2 MK-7 + B12 + PQQ + Rhodiola + Bacopa + L-Theanine + Ginseng · full longevity base', t:'07:05', w:90, core:true},
-    // ── Item 03 ──
-    {n:'Quicksilver Membrane Mend',           d:'1 serving liposomal · Astaxanthin 7mg + phospholipid membrane complex',        t:'07:15', w:90, core:true},
-    // ── Item 04 ──
-    {n:'Quicksilver NAD+ Platinum',           d:'2.5mL · NMN 50mg liposomal + longevity blend',                                 t:'07:15', w:90, core:true},
-    // ── Item 05 ──
-    {n:'Quicksilver Ergo-Thione+',            d:'5mL · L-Ergo 20mg + GSH 200mg + Vit C 600mg + Se 150mcg + PC 260mg',           t:'07:15', w:90, core:true},
-    // ── Item 10 ──
-    {n:'BROQ Sulforaphane',                   d:'1 capsule · 25mg · NRF2 pathway activation',                                   t:'07:30', w:90, core:true},
-    // ── Item 11 ──
-    {n:'Orgono Living Silica',                d:'1 Tbsp (4.9mL) · Monomethylsilanetriol 22.5mg · connective tissue + joint support', t:'07:30', w:90, core:true},
-    // ── Item 13 ──
-    {n:'Qualia Mind',                        d:'6 caps · Alpha-GPC 115mg + Citicoline 50mg + PS 100mg + Rhodiola 370mg + ALCAR 500mg + PQQ 10mg + LM 8:1 125mg + Theanine 200mg + Caffeine 100mg + Saffron 30mg · AM cognitive primer',   t:'07:45', w:90, core:true},
-    // ── Item 14 ──
-    {n:'Citicoline CDP-Choline',              d:'300mg · ACh precursor · cognitive performance + membrane integrity',            t:'07:45', w:90, core:true},
-    // ── Creatine Hydro Pak ──
-    {n:'Creatine Hydro Pak',                  d:'1 tsp · Creatine 5g + Mg 50mg + Na 250mg + K 100mg + ConcenTrace trace minerals · PCr replenishment + electrolyte matrix', t:'07:50', w:90, core:true},
-    // ── Item 15 ──
-    {n:'Catalyzed Mineral Complex',           d:'4 capsules · Shilajit 625mg (40% fulvic) + Zn 30mg + Se 200mcg + Fe 5mg + Mg 120mg + full mineral panel', t:'08:00', w:90, core:true},
-    // ── Item 17 ──
-    {n:'NADH + Methylene Blue',               d:'10 drops in water with food · mitochondrial electron chain + cognitive clarity', t:'08:00', w:90, core:true},
-    // ── Item 18 ──
-    {n:'Omega-3 + Black Cumin',               d:'2g EPA+DHA + 500mg–1g Black Cumin Seed · vascular + NF-κB + immune modulation', t:'08:00', w:90, core:true},
-    // ── Item 19 ──
-    {n:'Liquid 40,000 Volts',                 d:'1 tsp (4.9mL) · Mg 190mg + Chloride 600mg + Na 105mg + K 150mg + trace minerals', t:'08:00', w:90, core:true},
-    // ── Item 21 ──
-    {n:'Auri Pre+Probiotic',                  d:'1 serving · Prebiotic + probiotic + mushroom blend (rotational: swap Qualia Probiotic+)', t:'08:30', w:90, core:true},
-    // ── Infrastructure ──
-    {n:'Hydrogen Water 8.25ppm',              d:'Infrastructure · All day · 8.25ppm molecular hydrogen · systemic antioxidant + delivery', t:'07:00', w:180, core:true},
+    // ── 1 ──
+    {n:'TMRW Total Longevity',             d:'1 scoop · NMN 500mg + CaAKG 1g + ALCAR 750mg + Spermidine 5mg + GSH 300mg + ALA 100mg + CoQ10 + Urolithin A + D3 1,000IU + K2 100mcg + B12 100mcg · full longevity base',                                    t:'07:00', w:90, core:true},
+    // ── 2 ──
+    {n:'Momentum Complete',                d:"1 packet · Colostrum 2g + SunFiber 8g + DigeZyme 350mg + Glutamine 5g + Lion's Mane 750mg (fruiting body) + Whey 20g + Mg Taurate 125mg + D3 4,000IU + K2 200mcg",                                           t:'07:05', w:90, core:true},
+    // ── 3 ──
+    {n:"Omega-3 Fish Oil (Wiley's Finest)", d:'1 tsp · EPA 1,400mg + DHA 900mg · 4,500mg concentrated wild Alaskan · vascular + anti-inflammatory + DHA structural',                                                                                        t:'07:10', w:90, core:true},
+    // ── 4 ──
+    {n:'Creatine (Trace Hydro Pak)',        d:'5g creatine + Mg 50mg + Na 375mg + Cl 250mg + K 100mg + ConcenTrace 100mg · PCr replenishment + full electrolyte matrix',                                                                                     t:'07:15', w:90, core:true},
+    // ── 5 ──
+    {n:'Astaxanthin 12mg',                  d:'12mg trans-astaxanthin · trans-membrane antioxidant · Nrf2 activator · BBB-permeable · Quicksilver Membrane Mend delivery',                                                                                   t:'07:20', w:90, core:true},
+    // ── 6 ──
+    {n:'Shilajit 500mg',                   d:'500mg · fulvic acid · DHEA/androstenedione T axis · CoQ10 amplifier · SHBG-independent · RCT +23.5% total testosterone',                                                                                      t:'07:25', w:90, core:true},
+    // ── 7 ──
+    {n:'Qualia Mind',                      d:'6 caps · Alpha-GPC 115mg + Citicoline 50mg + PS 100mg + Rhodiola 370mg + Ginkgo 120mg + PQQ 10mg + LM 8:1 125mg + NALT 250mg + Theanine 200mg + Caffeine 100mg + ALCAR 500mg · AM cognitive primer',         t:'07:45', w:90, core:true},
+    // ── 8 ──
+    {n:'BROQ Sulforaphane 25mg',            d:'25mg guaranteed sulforaphane · Keap1/Nrf2 direct activator · Phase II GST/NQO1 induction · PGC-1α via AMPK · BBB-permeable',                                                                                 t:'07:50', w:90, core:true},
   ],
   mid:[
-    // ── Item 06 ──
-    {n:'QS GLP-1 Amplifier',                 d:'1 tsp sublingual · DIM + Quercetin + Milk Thistle 80% Silymarin + Resveratrol + Berberine HCl + Cinnamon (415mg total) · AMPK + hepatic clearance + metabolic recalibration', t:'12:00', w:90, core:true},
-    // ── Item 07 ──
-    // ── Item 08 ──
-    {n:'STRONGER+',                           d:'1 serving · Citrulline 8g + Creatine 5g + Beta-Alanine 3.2g + Glycine 3g + Betaine 2.5g + Taurine 2g + MSM 1.5g + PeakATP 400mg + L-Theanine 200mg + Rhodiola 300mg', t:'12:30', w:90, core:true},
-    // ── Item 09 ──
-    {n:'LONGER+',                             d:'1 serving · Longevity complex · NAC 600mg + bioactive blend · cellular protection + clearance', t:'12:30', w:90, core:true},
-    // ── Item 22 ──
-    {n:'Reishi Elixir',                       d:'1,000mg · Auri Super Mushroom Reishi · adaptogenic · immune modulation + CNS support', t:'13:00', w:90, core:true},
-    // ── Infrastructure ──
-    {n:'VisionBody EMS Suit',                 d:'Infrastructure · 30 min session · neuromuscular activation + lymphatic + metabolic demand', t:'12:00', w:120, core:false},
+    // ── 9 ──
+    {n:'QS GLP-1 Amplifier',               d:'1 tsp sublingual · 415mg: DIM + Quercetin + Milk Thistle 80% Silymarin + Resveratrol + Berberine HCl + Cinnamon · AMPK + hepatic clearance + metabolic recalibration',                                       t:'12:00', w:90, core:true},
+    // ── 10 ──
+    {n:'QS Ergo-Thione+',                  d:'5mL · EGT 20mg + Glutathione 200mg + Vit C 600mg + Se 150mcg + Phosphatidylcholine 260mg · cellular longevity + antioxidant axis',                                                                            t:'12:05', w:90, core:true},
+    // ── 11 ──
+    {n:'Saffron (Hawaii Pharm)',            d:'15–20 drops · Dry stigmas 1,156mg/mL equiv · 578–770mg · mood + cognition + cortisol modulation',                                                                                                             t:'12:10', w:90, core:true},
   ],
   pm:[
-    // ── Item 02 ──
-    {n:'Kayseari Tocotrienols',               d:'1,000mg · Tocotrienol complex · BBB-crossing neuroprotection + vascular cardioprotection', t:'20:00', w:90, core:true},
-    // ── Item 12 ──
-    {n:'Qualia Magnesium',                    d:'350mg / 10 forms · DAILY · GABA + sleep architecture + multi-system magnesium replenishment', t:'21:00', w:90, core:true},
-    // ── Item 16 ──
-    {n:'Ashwagandha KSM-66',                  d:'600mg · HPA axis modulation + cortisol lowering + recovery support',               t:'21:00', w:90, core:true},
+    // ── 12 ──
+    {n:'Qualia Magnesium+',                d:'350mg elemental Mg (10 forms incl. Mg-Acetyl Taurate, Bisglycinate, Creatine Chelate) + Boron 1mg · NMNAT cofactor + parasympathetic recovery',                                                               t:'20:00', w:90, core:true},
+    // ── 13 ──
+    {n:'Ashwagandha KSM-66',               d:'600mg full-spectrum root extract (KSM-66) · Cortisol ↓ 15–27% · T ↑ 15% · NK cell ↑ · PM HPA axis reset',                                                                                                   t:'20:30', w:90, core:true},
+  ],
+  rot:[
+    // ── 14 (5/2 Rotational) ──
+    {n:'Black Cumin Seed Oil (Hawaii Pharm)', d:'20–25 drops · 808–965mg equiv. TQ · NF-κB suppression + Th1/Th2 balance + immune-mast cell modulation · 5-on/2-off',                                                                                      t:'12:15', w:90, core:false},
+    // ── 15 (5/2 Rotational) ──
+    {n:'N1o1 Nitric Oxide Lozenge',        d:'1 lozenge sublingual · Sodium nitrite + acidic reductant → 20–40 ppm NO · eNOS-independent vasodilation · 5-on/2-off',                                                                                        t:'10:00', w:90, core:false},
+  ],
+  infra:[
+    {n:'Visionbody EMS Suit',              d:'12-ch WB-EMS · 24 electrodes · 20 min/session · 2–3×/wk · Bypasses Henneman recruitment — infrastructure device NOT a supplement', t:'varies', w:0, core:false},
+    {n:'8.25 PPM Hydrogen Water',          d:'Molecular H₂ · ~5× atmospheric saturation · Selective •OH scavenger + Nrf2 activator · consume fresh — infrastructure device NOT a supplement', t:'AM/MID', w:0, core:false},
   ]
 };
 
