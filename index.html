@@ -1829,7 +1829,7 @@ body {
       <div class="stat-row fu fu1">
         <div class="stat-tile">
           <div class="stat-tile" style="position:absolute;inset:0;border-radius:14px;background:linear-gradient(135deg,rgba(0,229,204,0.06),transparent)"></div>
-          <div class="stat-val" style="color:var(--teal)" id="home-stat-count">34</div>
+          <div class="stat-val" style="color:var(--teal)" id="home-stat-count">25</div>
           <div class="stat-lbl" id="home-stat-lbl">Daily Stack</div>
         </div>
         <div class="stat-tile">
@@ -2003,7 +2003,7 @@ body {
     <div class="page" id="page-stack">
       <div class="stack-hero fu" id="stack-hero-block">
         <div class="stack-hero-title">Daily Protocol</div>
-        <div class="stack-hero-sub" id="stack-hero-sub">24 compounds · Circadian-timed · Full controller coverage</div>
+        <div class="stack-hero-sub" id="stack-hero-sub">Cycle 1 · 12 Core + 13 Extended · Circadian-timed</div>
         <div class="stack-stats">
           <div class="stack-stat">
             <div class="stack-stat-val" id="stack-stat-count" style="color:var(--teal)">24</div>
@@ -2022,7 +2022,7 @@ body {
       <!-- Core 15 Toggle -->
       <div class="c15-toggle-wrap fu fu1">
         <div class="c15-toggle" id="c15-toggle">
-          <button class="c15-btn" id="c15-btn-full" onclick="setCore15Mode(false)">Full Stack · 24</button>
+          <button class="c15-btn" id="c15-btn-full" onclick="setCore15Mode(false)">Full Stack · 25</button>
           <button class="c15-btn" id="c15-btn-core" onclick="setCore15Mode(true)">Core 15</button>
         </div>
       </div>
@@ -2288,404 +2288,72 @@ const PATHS = [
 // SYSTEMS idx: CV=0,BC=1,RS=2,DG=3,MS=4,EN=5,IM=6,NV=7,SK=8,UR=9,RP=10,LY=11,MT=12,DT=13,MB=14,SL=15,LG=16
 // FLOWS:  0=SUP, 1=DEL, 2=DMD, 3=PRO, 4=CLR
 const COMPOUND_CELLS = {
-  // ── AM items ──
-  'Momentum Foundation':         [{si:7,fi:0},{si:1,fi:0},{si:12,fi:0},{si:5,fi:0},{si:3,fi:2},{si:6,fi:0},{si:8,fi:0},{si:16,fi:0}],
-  'Quicksilver Membrane Mend':   [{si:12,fi:3},{si:1,fi:3},{si:0,fi:3},{si:8,fi:0},{si:8,fi:3},{si:6,fi:3},{si:0,fi:1}],
-  'Quicksilver NAD+ Platinum':   [{si:12,fi:0},{si:12,fi:1},{si:12,fi:2},{si:16,fi:0},{si:16,fi:3},{si:1,fi:0},{si:5,fi:0}],
-  'Quicksilver Ergo-Thione+':    [{si:12,fi:3},{si:13,fi:3},{si:6,fi:3},{si:8,fi:3},{si:16,fi:3},{si:2,fi:3},{si:12,fi:0}],
-  'BROQ Sulforaphane':           [{si:6,fi:3},{si:13,fi:4},{si:12,fi:3},{si:8,fi:3},{si:16,fi:3},{si:1,fi:3}],
-  'Orgono Living Silica':        [{si:4,fi:0},{si:8,fi:0},{si:4,fi:3},{si:8,fi:3},{si:0,fi:3},{si:9,fi:3}],
-  'Tongkat Ali LJ100':           [{si:10,fi:0},{si:10,fi:1},{si:10,fi:2},{si:5,fi:0},{si:5,fi:2},{si:7,fi:3},{si:4,fi:2},{si:1,fi:2}],
-  'Citicoline CDP-Choline':      [{si:1,fi:0},{si:1,fi:1},{si:1,fi:2},{si:7,fi:0},{si:7,fi:2},{si:12,fi:0},{si:7,fi:3}],
-  'Catalyzed Mineral Complex':   [{si:12,fi:0},{si:12,fi:2},{si:16,fi:0},{si:5,fi:2},{si:4,fi:0},{si:5,fi:0},{si:6,fi:0},{si:14,fi:0},{si:13,fi:0},{si:9,fi:0}],
-  'NADH + Methylene Blue':       [{si:12,fi:0},{si:12,fi:1},{si:12,fi:2},{si:1,fi:0},{si:1,fi:2},{si:7,fi:2},{si:5,fi:0},{si:16,fi:0}],
-  'Omega-3 + Black Cumin':       [{si:0,fi:0},{si:1,fi:0},{si:12,fi:0},{si:6,fi:0},{si:0,fi:1},{si:4,fi:1},{si:1,fi:1},{si:0,fi:3},{si:6,fi:3},{si:1,fi:3},{si:7,fi:3},{si:12,fi:3},{si:16,fi:3},{si:0,fi:4},{si:6,fi:4},{si:13,fi:4},{si:0,fi:2},{si:6,fi:1},{si:6,fi:2},{si:8,fi:1},{si:14,fi:3}],
-  'Liquid 40,000 Volts':         [{si:0,fi:2},{si:4,fi:2},{si:7,fi:2},{si:9,fi:2},{si:9,fi:4},{si:9,fi:0},{si:4,fi:0},{si:0,fi:0}],
-  "Auri Lion's Mane Elixir":     [{si:1,fi:0},{si:7,fi:0},{si:16,fi:0},{si:1,fi:2},{si:7,fi:2},{si:1,fi:3},{si:7,fi:3}],
-  'Auri Pre+Probiotic':          [{si:3,fi:0},{si:14,fi:0},{si:6,fi:0},{si:11,fi:1},{si:14,fi:2},{si:6,fi:2},{si:3,fi:3},{si:6,fi:3},{si:14,fi:1},{si:3,fi:4}],
-  'Hydrogen Water 8.25ppm':      [{si:13,fi:4},{si:12,fi:3},{si:0,fi:3},{si:6,fi:3},{si:3,fi:1},{si:8,fi:3},{si:16,fi:3},{si:12,fi:1}],
-  // ── MID items ──
-  'Berberine':                   [{si:14,fi:2},{si:14,fi:4},{si:14,fi:1},{si:14,fi:3},{si:3,fi:1},{si:6,fi:1},{si:5,fi:4},{si:16,fi:2}],
-  'TMRW Pouch':                  [{si:12,fi:0},{si:12,fi:1},{si:12,fi:2},{si:16,fi:0},{si:16,fi:3},{si:13,fi:3},{si:13,fi:4},{si:1,fi:0},{si:7,fi:2},{si:5,fi:0},{si:6,fi:3},{si:0,fi:1},{si:4,fi:1},{si:3,fi:4}],
-  'STRONGER+':                   [{si:4,fi:2},{si:4,fi:0},{si:0,fi:2},{si:12,fi:2},{si:5,fi:2},{si:0,fi:1},{si:1,fi:2},{si:7,fi:2},{si:4,fi:3},{si:4,fi:1},{si:9,fi:0},{si:9,fi:2},{si:8,fi:0}],
-  'LONGER+':                     [{si:13,fi:4},{si:2,fi:4},{si:6,fi:3},{si:16,fi:3},{si:12,fi:3},{si:9,fi:3},{si:13,fi:0},{si:13,fi:3},{si:2,fi:0},{si:2,fi:2}],
-  'Reishi Elixir':               [{si:6,fi:0},{si:1,fi:0},{si:14,fi:0},{si:6,fi:1},{si:11,fi:1},{si:6,fi:2},{si:7,fi:2},{si:15,fi:2},{si:6,fi:3},{si:1,fi:3},{si:16,fi:3},{si:3,fi:3},{si:0,fi:3},{si:13,fi:4},{si:6,fi:4},{si:15,fi:4},{si:14,fi:4},{si:14,fi:1}],
-  'VisionBody EMS Suit':         [{si:4,fi:2},{si:4,fi:1},{si:4,fi:0},{si:0,fi:2},{si:0,fi:1},{si:11,fi:2},{si:11,fi:4},{si:12,fi:2},{si:5,fi:2},{si:8,fi:1},{si:7,fi:2}],
-  // ── PM items ──
-  'Kayseari Tocotrienols':       [{si:1,fi:3},{si:7,fi:3},{si:0,fi:3},{si:12,fi:3},{si:0,fi:0},{si:0,fi:4},{si:8,fi:3},{si:16,fi:3}],
-  'Qualia Magnesium':            [{si:15,fi:2},{si:7,fi:3},{si:4,fi:3},{si:4,fi:2},{si:0,fi:2},{si:7,fi:2},{si:9,fi:2},{si:9,fi:0},{si:1,fi:3},{si:15,fi:0}],
-  'Ashwagandha KSM-66':          [{si:15,fi:2},{si:5,fi:2},{si:7,fi:3},{si:1,fi:3},{si:15,fi:3},{si:5,fi:3},{si:16,fi:2},{si:6,fi:3}],
+  'Serrapeptase (FibroClear)':   [{si:11,fi:1},{si:11,fi:0},{si:14,fi:0},{si:14,fi:1},{si:16,fi:1},{si:16,fi:4}],
+  'Nattokinase':                 [{si:1,fi:0},{si:11,fi:0},{si:11,fi:1},{si:1,fi:3},{si:14,fi:0},{si:14,fi:1}],
+  'ChromaShield-21 R-Cu (AM)':   [{si:0,fi:0},{si:0,fi:1},{si:12,fi:0},{si:12,fi:1},{si:15,fi:0},{si:15,fi:1},{si:4,fi:3},{si:6,fi:0},{si:6,fi:1}],
+  'NAC 650mg (AM)':              [{si:10,fi:1},{si:10,fi:3},{si:0,fi:1},{si:6,fi:1},{si:7,fi:1},{si:15,fi:1}],
+  'H₂ Water':               [{si:10,fi:3},{si:0,fi:3},{si:4,fi:3},{si:2,fi:3}],
+  'Omega-3 EPA/DHA':             [{si:1,fi:0},{si:1,fi:3},{si:0,fi:4},{si:3,fi:0},{si:4,fi:1},{si:4,fi:3},{si:8,fi:3},{si:16,fi:4}],
+  'L Max (Climatic)':            [{si:2,fi:0},{si:2,fi:1},{si:2,fi:2},{si:2,fi:3},{si:0,fi:0},{si:0,fi:1},{si:10,fi:0},{si:10,fi:1},{si:4,fi:3},{si:15,fi:1},{si:6,fi:0},{si:6,fi:1}],
+  'Momentum (TMRW)':             [{si:0,fi:0},{si:0,fi:1},{si:12,fi:0},{si:12,fi:1},{si:15,fi:0},{si:15,fi:1},{si:3,fi:0},{si:3,fi:1},{si:12,fi:2}],
+  'Green Blend':                 [{si:5,fi:2},{si:4,fi:0},{si:4,fi:3},{si:2,fi:3},{si:2,fi:0},{si:9,fi:0},{si:16,fi:4},{si:7,fi:0}],
+  'Yerba Mate Extract':          [{si:0,fi:0},{si:3,fi:0},{si:5,fi:2},{si:1,fi:3},{si:2,fi:4}],
+  'Recovery Powder':             [{si:8,fi:0},{si:8,fi:3},{si:16,fi:4},{si:16,fi:2},{si:9,fi:0},{si:6,fi:0},{si:0,fi:0}],
+  'Fermented Okinawan Turmeric': [{si:4,fi:3},{si:4,fi:0},{si:10,fi:3},{si:0,fi:0},{si:5,fi:2},{si:9,fi:0}],
+  'ARK Drops Lemon Ice':         [{si:3,fi:0},{si:3,fi:2},{si:3,fi:3},{si:8,fi:0},{si:8,fi:3},{si:8,fi:4},{si:2,fi:3},{si:13,fi:0},{si:13,fi:2}],
+  'Ketone-IQ Shot':              [{si:0,fi:0},{si:3,fi:0},{si:4,fi:3},{si:12,fi:1},{si:0,fi:3}],
+  'ChromaShield-21 R-Cu (PM)':   [{si:0,fi:0},{si:0,fi:1},{si:12,fi:0},{si:12,fi:1},{si:15,fi:0},{si:4,fi:3},{si:6,fi:0}],
+  'EMS Session (VisionBody)':    [{si:8,fi:0},{si:8,fi:2},{si:0,fi:0},{si:0,fi:2},{si:14,fi:2},{si:15,fi:0}],
+  'DeltaGold Tocotrienols':      [{si:10,fi:1},{si:10,fi:3},{si:0,fi:1},{si:15,fi:1},{si:3,fi:3}],
+  'TQ-Advanced Oil 5%':          [{si:4,fi:3},{si:4,fi:0},{si:10,fi:3},{si:5,fi:2},{si:0,fi:3},{si:12,fi:1}],
+  'DoD C60 Miracle Molecule':    [{si:0,fi:0},{si:0,fi:3},{si:10,fi:3},{si:15,fi:1},{si:9,fi:0}],
+  'Nori Hemp Oil':               [{si:3,fi:3},{si:3,fi:0},{si:4,fi:3},{si:13,fi:0},{si:5,fi:2},{si:13,fi:2}],
+  'Pumpkin Seed Oil':            [{si:5,fi:2},{si:5,fi:0},{si:7,fi:0},{si:16,fi:4}],
+  'High-Phenolic EVOO':          [{si:4,fi:3},{si:15,fi:4},{si:1,fi:3},{si:10,fi:3}],
+  "Wiley's Peak Omega-3":        [{si:0,fi:4},{si:3,fi:0},{si:1,fi:0},{si:16,fi:4},{si:13,fi:0}],
+  'NAC 650mg (PM)':              [{si:10,fi:1},{si:10,fi:3},{si:6,fi:1},{si:15,fi:1}],
+  'Melatonin 2mg':               [{si:13,fi:0},{si:13,fi:2},{si:15,fi:1},{si:5,fi:2},{si:3,fi:3}],
+}
 };
 
-// Compound → primary controller (Vitalis 24 — updated May 10, 2026)
+// Compound → primary controller (Cycle 1 · v3.0)
 const COMPOUND_CTRL = {
-  'Momentum Foundation':          'brain',
-  'Quicksilver Membrane Mend':    'mitochondria',
-  'Quicksilver NAD+ Platinum':    'mitochondria',
-  'Quicksilver Ergo-Thione+':     'mitochondria',
-  'BROQ Sulforaphane':            'immune',
-  'Orgono Living Silica':         'vascular',
-  'Tongkat Ali LJ100':            'brain',
-  'Citicoline CDP-Choline':       'brain',
-  'Catalyzed Mineral Complex':    'mitochondria',
-  'NADH + Methylene Blue':        'mitochondria',
-  'Omega-3 + Black Cumin':        'cardio',
-  'Liquid 40,000 Volts':          'vascular',
-  "Auri Lion's Mane Elixir":      'brain',
-  'Auri Pre+Probiotic':           'gut',
-  'Hydrogen Water 8.25ppm':       'mitochondria',
-  'Berberine':                    'gut',
-  'TMRW Pouch':                   'mitochondria',
-  'STRONGER+':                    'cardio',
-  'LONGER+':                      'immune',
-  'Reishi Elixir':                'immune',
-  'VisionBody EMS Suit':          'vascular',
-  'Kayseari Tocotrienols':        'brain',
-  'Qualia Magnesium':             'brain',
-  'Ashwagandha KSM-66':           'brain',
+  'Serrapeptase (FibroClear)':    'vascular',
+  'Nattokinase':                  'vascular',
+  'ChromaShield-21 R-Cu (AM)':    'mitochondria',
+  'NAC 650mg (AM)':               'mitochondria',
+  'H₂ Water':                'mitochondria',
+  'Omega-3 EPA/DHA':              'cardio',
+  'L Max (Climatic)':             'immune',
+  'Momentum (TMRW)':              'mitochondria',
+  'Green Blend':                  'immune',
+  'Yerba Mate Extract':           'brain',
+  'Recovery Powder':              'gut',
+  'Fermented Okinawan Turmeric':  'immune',
+  'ARK Drops Lemon Ice':          'brain',
+  'Ketone-IQ Shot':               'mitochondria',
+  'ChromaShield-21 R-Cu (PM)':    'mitochondria',
+  'EMS Session (VisionBody)':     'cardio',
+  'DeltaGold Tocotrienols':       'mitochondria',
+  'TQ-Advanced Oil 5%':           'immune',
+  'DoD C60 Miracle Molecule':     'mitochondria',
+  'Nori Hemp Oil':                'brain',
+  'Pumpkin Seed Oil':             'vascular',
+  'High-Phenolic EVOO':           'immune',
+  "Wiley's Peak Omega-3":         'cardio',
+  'NAC 650mg (PM)':               'mitochondria',
+  'Melatonin 2mg':                'brain',
 };
 
-// ═══════════════════════════════════════════
-// EXTENDED-ONLY CELL KEYS
-// Cells covered by the 4 non-core compounds that are NOT also covered
-// by any core compound — these get dimmed in Core 15 mode on the 85-Grid
-// ═══════════════════════════════════════════
-function getExtendedCells() {
-  const allItems = [...STACK_ITEMS.am,...STACK_ITEMS.mid,...STACK_ITEMS.pm];
-  const coreItems    = allItems.filter(i => i.core);
-  const extItems     = allItems.filter(i => !i.core);
-  const coreCellKeys = new Set();
-  coreItems.forEach(item => {
-    (COMPOUND_CELLS[item.n] || []).forEach(({si,fi}) => coreCellKeys.add(`${si}-${fi}`));
-  });
-  const extOnlyKeys = new Set();
-  extItems.forEach(item => {
-    (COMPOUND_CELLS[item.n] || []).forEach(({si,fi}) => {
-      const k = `${si}-${fi}`;
-      if (!coreCellKeys.has(k)) extOnlyKeys.add(k);
-    });
-  });
-  return extOnlyKeys;
-}
-
-// ═══════════════════════════════════════════
-// COMPLIANCE LOG STORAGE
-// Key: vtl_log_YYYY-MM-DD → {compoundName: 'HH:MM', ...}
-// ═══════════════════════════════════════════
-function logKey(date) {
-  const d = date || new Date();
-  return `vtl_log_${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-function getLog(date) {
-  try { return JSON.parse(localStorage.getItem(logKey(date)) || '{}'); } catch(e) { return {}; }
-}
-function logCompound(name) {
-  const log = getLog();
-  if (!log[name]) {
-    const now = new Date();
-    log[name] = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-    try { localStorage.setItem(logKey(), JSON.stringify(log)); } catch(e) {}
-  }
-}
-function unlogCompound(name) {
-  const log = getLog();
-  delete log[name];
-  try { localStorage.setItem(logKey(), JSON.stringify(log)); } catch(e) {}
-}
-// Returns last 7 days as Date objects, newest last
-function last7Days() {
-  const days = [];
-  for (let i=6; i>=0; i--) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
-    days.push(d);
-  }
-  return days;
-}
-
-// Antioxidant compounds that trigger pathology risk flags when missed
-// Also include user-named compounds (C60, Curcumin) as aliases for future stack entries
-const ANTIOXIDANT_COMPOUNDS = [
-  'BROQ Sulforaphane', 'LONGER+', 'Berberine', 'Quicksilver Ergo-Thione+', // Vitalis 24 active
-  'C60','Curcumin','Quercetin','Resveratrol',  // future entries
-];
-
-// Pathology → which {sysIdx, flowIdx} cells are risk-elevated when triggered
-const PATH_RISK_CELLS = {
-  'Inflammation':    [{si:6,fi:2},{si:6,fi:3},{si:12,fi:3},{si:8,fi:3},{si:0,fi:3},{si:16,fi:3}],
-  'Mito Failure':    [{si:12,fi:0},{si:12,fi:2},{si:12,fi:3},{si:16,fi:0},{si:5,fi:2}],
-  'Neuro-Inflammation':[{si:1,fi:3},{si:7,fi:3},{si:6,fi:3}],
-  'HPA Burnout':     [{si:5,fi:2},{si:15,fi:2},{si:7,fi:3}]
-};
-
-// Pathology → which antioxidants protect against it (if ALL missed → risk)
-const PATH_TRIGGERS = {
-  'Inflammation':   ['BROQ Sulforaphane','Quicksilver Ergo-Thione+','LONGER+','Berberine','Omega-3 + Black Cumin'],
-  'Mito Failure':   ['BROQ Sulforaphane','Quicksilver NAD+ Platinum','NADH + Methylene Blue','TMRW Pouch'],
-  'Neuro-Inflammation':['Kayseari Tocotrienols','Momentum Foundation','Citicoline CDP-Choline'],
-  'HPA Burnout':    ['Ashwagandha KSM-66','Qualia Magnesium']
-};
-
-// ═══════════════════════════════════════════
-// CIRCADIAN STATE COMPUTER
-// Returns real-time risk assessment from missed doses
-// ═══════════════════════════════════════════
-function getCircadianState() {
-  const taken    = getTaken();
-  const now      = new Date();
-  const hh       = now.getHours();
-  const nowMins  = hh * 60 + now.getMinutes();
-  const phase    = hh < 11 ? 'am' : hh < 16 ? 'mid' : 'pm';
-
-  // Collect all missed compounds from past phases
-  const missedCompounds = [];
-  ['am','mid','pm'].forEach(ph => {
-    const cutoff = {am:11*60, mid:16*60, pm:99999};
-    if (nowMins >= cutoff[ph]) {
-      STACK_ITEMS[ph].forEach(item => {
-        if (!taken.includes(item.n)) missedCompounds.push(item.n);
-      });
-    }
-  });
-  // Also include current phase items whose window has elapsed
-  STACK_ITEMS[phase].forEach(item => {
-    const [th,tm] = item.t.split(':').map(Number);
-    const windowEnd = th*60 + tm + item.w;
-    if (nowMins > windowEnd && !taken.includes(item.n) && !missedCompounds.includes(item.n)) {
-      missedCompounds.push(item.n);
-    }
-  });
-
-  // Under-fueled cells: any cell whose protecting compound was missed
-  const underfueledCells = new Set(); // 'si-fi'
-  missedCompounds.forEach(name => {
-    (COMPOUND_CELLS[name] || []).forEach(({si,fi}) => underfueledCells.add(`${si}-${fi}`));
-  });
-
-  // Degraded controllers: count missed compounds per controller
-  const degradedControllers = {}; // id → {missCount, totalCompounds}
-  CTRL.forEach(c => { degradedControllers[c.id] = {missCount:0, total:0}; });
-  const allItems = [...STACK_ITEMS.am,...STACK_ITEMS.mid,...STACK_ITEMS.pm];
-  allItems.forEach(item => {
-    const ctrl = COMPOUND_CTRL[item.n];
-    if (ctrl && degradedControllers[ctrl]) {
-      degradedControllers[ctrl].total++;
-      if (missedCompounds.includes(item.n)) degradedControllers[ctrl].missCount++;
-    }
-  });
-
-  // Pathology risks: fire if ANY key trigger compound missed
-  const activePathRisks = [];
-  const riskCells = new Set(); // 'si-fi' — from path_risk_cells
-  Object.entries(PATH_TRIGGERS).forEach(([path, triggers]) => {
-    const anyMissed = triggers.some(t => missedCompounds.includes(t));
-    if (anyMissed) {
-      activePathRisks.push(path);
-      (PATH_RISK_CELLS[path] || []).forEach(({si,fi}) => riskCells.add(`${si}-${fi}`));
-    }
-  });
-
-  // Biometric pathology mode — auto-activate pathologies from biometric conditions
-  const activeBioConds = getActiveBioConditions();
-  const bioTriggeredPaths = new Set();
-  Object.entries(BIO_PATH_TRIGGERS).forEach(([path, conds]) => {
-    const anyActive = conds.some(c => activeBioConds.has(c));
-    if (anyActive) {
-      bioTriggeredPaths.add(path);
-      if (!activePathRisks.includes(path)) {
-        activePathRisks.push(path);
-      }
-      // Use BIO_PATH_RISK_CELLS if defined, fall back to PATH_RISK_CELLS
-      const cells = BIO_PATH_RISK_CELLS[path] || PATH_RISK_CELLS[path] || [];
-      cells.forEach(({si,fi}) => riskCells.add(`${si}-${fi}`));
-    }
-  });
-
-  // Biometric modifiers — layer HRV/Recovery/Sleep risk cells on top of compound state
-  const { bioRiskCells, bioUnderfueledCells, bioFlags } = getBiometricModifiers();
-  // bioRiskCells escalate to risk (red); bioUnderfueledCells add to underfueled (amber) if not already risk
-  bioRiskCells.forEach(k => {
-    riskCells.add(k);
-    underfueledCells.delete(k); // promote from underfueled → risk
-  });
-  bioUnderfueledCells.forEach(k => {
-    if (!riskCells.has(k)) underfueledCells.add(k);
-  });
-
-  // Under-fueled cell count for the 30 controller cells specifically
-  let underfueledControllerCells = 0;
-  CTRL.forEach(c => {
-    (CTRL_CELLS[c.id]||[]).forEach(cell => {
-      // map CTRL_CELLS sys name to sysIdx
-      const si = SYSTEMS.findIndex(s => cell.sys.toLowerCase().startsWith(s.l.toLowerCase().substring(0,4)));
-      if (si >= 0) {
-        const flowMap = {Supply:0,Delivery:1,Demand:2,Protection:3,Clearance:4};
-        const fi = flowMap[cell.flow];
-        if (fi !== undefined && underfueledCells.has(`${si}-${fi}`)) underfueledControllerCells++;
-      }
-    });
-  });
-
-  return {
-    missedCompounds,
-    underfueledCells,
-    underfueledControllerCells,
-    degradedControllers,
-    activePathRisks,
-    riskCells,
-    phase,
-    totalMissed: missedCompounds.length,
-    bioFlags,
-    bioTriggeredPaths
-  };
-}
-
-// ═══════════════════════════════════════════
-// TIMING SYSTEM
-// t = ideal dose time (HH:MM), w = window (±minutes before/after t still 'on-time')
-// Phase windows: AM = 06:00–10:59, MID = 11:00–15:59, PM = 16:00–23:59
-// ═══════════════════════════════════════════
-// core:true = Core 15 essential · core:false = extended (collapses in Core 15 mode)
-// VITALIS 24 — Canonical Stack (22 supplements + 2 infrastructure)
-// V2.5 Attribution Protocol — Cycle 1 — Last updated: May 10, 2026
-const STACK_ITEMS = {
-  am:[
-    // ── Item 01 ──
-    {n:'Momentum Foundation',                 d:'1 serving · Full-spectrum daily base · D3 4,000IU + multi-nutrient blend',       t:'07:00', w:90, core:true},
-    // ── Item 03 ──
-    {n:'Quicksilver Membrane Mend',           d:'1 serving liposomal · Astaxanthin 7mg + phospholipid membrane complex',        t:'07:15', w:90, core:true},
-    // ── Item 04 ──
-    {n:'Quicksilver NAD+ Platinum',           d:'2.5mL · NMN 50mg liposomal + longevity blend',                                 t:'07:15', w:90, core:true},
-    // ── Item 05 ──
-    {n:'Quicksilver Ergo-Thione+',            d:'5mL · L-Ergo 20mg + GSH 200mg + Vit C 600mg + Se 150mcg + PC 260mg',           t:'07:15', w:90, core:true},
-    // ── Item 10 ──
-    {n:'BROQ Sulforaphane',                   d:'1 capsule · 25mg · NRF2 pathway activation',                                   t:'07:30', w:90, core:true},
-    // ── Item 11 ──
-    {n:'Orgono Living Silica',                d:'1 Tbsp (4.9mL) · Monomethylsilanetriol 22.5mg · connective tissue + joint support', t:'07:30', w:90, core:true},
-    // ── Item 13 ──
-    {n:'Tongkat Ali LJ100',                   d:'200mg · LJ100 extract · free-T optimization + cortisol modulation',             t:'07:45', w:90, core:true},
-    // ── Item 14 ──
-    {n:'Citicoline CDP-Choline',              d:'300mg · ACh precursor · cognitive performance + membrane integrity',            t:'07:45', w:90, core:true},
-    // ── Item 15 ──
-    {n:'Catalyzed Mineral Complex',           d:'4 capsules · Shilajit 625mg (40% fulvic) + Zn 30mg + Se 200mcg + Fe 5mg + Mg 120mg + full mineral panel', t:'08:00', w:90, core:true},
-    // ── Item 17 ──
-    {n:'NADH + Methylene Blue',               d:'10 drops in water with food · mitochondrial electron chain + cognitive clarity', t:'08:00', w:90, core:true},
-    // ── Item 18 ──
-    {n:'Omega-3 + Black Cumin',               d:'2g EPA+DHA + 500mg–1g Black Cumin Seed · vascular + NF-κB + immune modulation', t:'08:00', w:90, core:true},
-    // ── Item 19 ──
-    {n:'Liquid 40,000 Volts',                 d:'1 tsp (4.9mL) · Mg 190mg + Chloride 600mg + Na 105mg + K 150mg + trace minerals', t:'08:00', w:90, core:true},
-    // ── Item 20 ──
-    {n:"Auri Lion's Mane Elixir",            d:"2mL · 1,000mg 10:1 (=10,000mg herb eq.) · NGF + BDNF neurogenesis",             t:'08:30', w:90, core:true},
-    // ── Item 21 ──
-    {n:'Auri Pre+Probiotic',                  d:'1 serving · Prebiotic + probiotic + mushroom blend (rotational: swap Qualia Probiotic+)', t:'08:30', w:90, core:true},
-    // ── Infrastructure ──
-    {n:'Hydrogen Water 8.25ppm',              d:'Infrastructure · All day · 8.25ppm molecular hydrogen · systemic antioxidant + delivery', t:'07:00', w:180, core:true},
-  ],
-  mid:[
-    // ── Item 06 ──
-    {n:'Berberine',                           d:'400–500mg · AMPK activation + glucose metabolism + microbiome optimization',      t:'12:00', w:90, core:true},
-    // ── Item 07 ──
-    {n:'TMRW Pouch',                          d:'1 serving DAILY · NMN 500mg + CaAKG 950mg + ALCAR 750mg + Taurine 1,200mg + GSH 300mg + ALA 100mg + Choline 220mg + CoQ10 + Resveratrol + Milk Thistle', t:'12:00', w:90, core:true},
-    // ── Item 08 ──
-    {n:'STRONGER+',                           d:'1 serving · Citrulline 8g + Creatine 5g + Beta-Alanine 3.2g + Glycine 3g + Betaine 2.5g + Taurine 2g + MSM 1.5g + PeakATP 400mg + L-Theanine 200mg + Rhodiola 300mg', t:'12:30', w:90, core:true},
-    // ── Item 09 ──
-    {n:'LONGER+',                             d:'1 serving · Longevity complex · NAC 600mg + bioactive blend · cellular protection + clearance', t:'12:30', w:90, core:true},
-    // ── Item 22 ──
-    {n:'Reishi Elixir',                       d:'1,000mg · Auri Super Mushroom Reishi · adaptogenic · immune modulation + CNS support', t:'13:00', w:90, core:true},
-    // ── Infrastructure ──
-    {n:'VisionBody EMS Suit',                 d:'Infrastructure · 30 min session · neuromuscular activation + lymphatic + metabolic demand', t:'12:00', w:120, core:false},
-  ],
-  pm:[
-    // ── Item 02 ──
-    {n:'Kayseari Tocotrienols',               d:'1,000mg · Tocotrienol complex · BBB-crossing neuroprotection + vascular cardioprotection', t:'20:00', w:90, core:true},
-    // ── Item 12 ──
-    {n:'Qualia Magnesium',                    d:'350mg / 10 forms · DAILY · GABA + sleep architecture + multi-system magnesium replenishment', t:'21:00', w:90, core:true},
-    // ── Item 16 ──
-    {n:'Ashwagandha KSM-66',                  d:'600mg · HPA axis modulation + cortisol lowering + recovery support',               t:'21:00', w:90, core:true},
-  ]
-};
-
-// ═══════════════════════════════════════════
-// DOSE TRACKING (localStorage)
-// Key: vtl_taken_YYYY-MM-DD  → JSON array of compound names taken today
-// ═══════════════════════════════════════════
-function todayKey() {
-  const d = new Date();
-  return `vtl_taken_${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-function getTaken() {
-  try { return JSON.parse(localStorage.getItem(todayKey()) || '[]'); } catch(e) { return []; }
-}
-function markTaken(name) {
-  const taken = getTaken();
-  if (!taken.includes(name)) { taken.push(name); localStorage.setItem(todayKey(), JSON.stringify(taken)); }
-  buildHome();
-  broadcastIntakeSync();
-}
-function unmarkTaken(name) {
-  const taken = getTaken().filter(n => n !== name);
-  localStorage.setItem(todayKey(), JSON.stringify(taken));
-  buildHome();
-  broadcastIntakeSync();
-}
-
-// ═══════════════════════════════════════════
-// DOSE STATUS LOGIC
-// Returns: 'taken' | 'missed' | 'due' | 'upcoming'
-// Phase cutoffs: AM ends 11:00, MID ends 16:00, PM ends midnight
-// ═══════════════════════════════════════════
-function doseStatus(item, phase, nowMins, taken) {
-  if (taken.includes(item.n)) return 'taken';
-  // Parse ideal time
-  const [th, tm] = item.t.split(':').map(Number);
-  const targetMins = th * 60 + tm;
-  const windowEnd  = targetMins + item.w;
-  // Phase hard cutoffs in minutes from midnight
-  const phaseCutoff = { am: 11*60, mid: 16*60, pm: 24*60 };
-  const cutoff = phaseCutoff[phase];
-  // If current time is past the phase cutoff, entire phase is missed
-  if (nowMins >= cutoff) return 'missed';
-  // Within phase: past the ideal window = missed; before or in window = due
-  if (nowMins > windowEnd) return 'missed';
-  return 'due';
-}
-function phaseStatus(phase, nowMins, taken) {
-  // Returns summary for a phase that is NOT the current one
-  const cutoffs = { am: 11*60, mid: 16*60 }; // pm never retrospectively missed from future
-  if (phase === 'pm') return 'upcoming'; // pm is never "past" until after midnight
-  if (nowMins < cutoffs[phase]) return 'upcoming';
-  // Past cutoff — check if all taken
-  const items = STACK_ITEMS[phase];
-  const t = taken;
-  const missedCount = items.filter(i => !t.includes(i.n)).length;
-  if (missedCount === 0) return 'done';
-  return 'missed'; // some or all missed
-}
-
-const INTAKE_Qs = [
-  {ctrl:'mitochondria',q1:'How is your daily energy level?',   q1l:['Chronically fatigued','High sustained energy'],
-                       q2:'How is your exercise recovery?',    q2l:['Days to recover','Full next day']},
-  {ctrl:'brain',       q1:'How is your mental clarity & focus?',q1l:['Foggy, distracted','Sharp, sustained'],
-                       q2:'How is your stress resilience?',    q2l:['Overwhelmed easily','Highly resilient']},
-  {ctrl:'cardio',      q1:'How is your cardiovascular endurance?',q1l:['Poor stamina','Elite endurance'],
-                       q2:'How often do you train?',           q2l:['Rarely','Daily']},
-  {ctrl:'immune',      q1:'How often do you get sick?',        q1l:['Monthly','Rarely/Never'],
-                       q2:'Do you experience chronic inflammation?',q2l:['Constant','None detected']},
-  {ctrl:'gut',         q1:'How is your digestive function?',   q1l:['Bloating / IBS','Perfect digestion'],
-                       q2:'How is your nutrient absorption?',  q2l:['Malabsorption signs','Optimal uptake']},
-  {ctrl:'vascular',    q1:'How is your circulation?',          q1l:['Cold extremities','Strong warm flow'],
-                       q2:'How is your blood pressure?',       q2l:['Hypertensive','Optimal range']}
-];
-
-// STACK_MAP — Vitalis 24 controller affinity mapping
 const STACK_MAP = {
-  mitochondria: ['Quicksilver NAD+ Platinum','Quicksilver Ergo-Thione+','NADH + Methylene Blue','TMRW Pouch','STRONGER+','Catalyzed Mineral Complex','Hydrogen Water 8.25ppm'],
-  brain:        ["Auri Lion's Mane Elixir",'Citicoline CDP-Choline','Tongkat Ali LJ100','Kayseari Tocotrienols','Ashwagandha KSM-66','Quicksilver NAD+ Platinum','TMRW Pouch'],
-  cardio:       ['Omega-3 + Black Cumin','Liquid 40,000 Volts','STRONGER+','Berberine','VisionBody EMS Suit','Hydrogen Water 8.25ppm'],
-  immune:       ['BROQ Sulforaphane','Reishi Elixir','Quicksilver Ergo-Thione+','Omega-3 + Black Cumin','Auri Pre+Probiotic','Catalyzed Mineral Complex'],
-  gut:          ['Berberine','Auri Pre+Probiotic','LONGER+','Orgono Living Silica','Liquid 40,000 Volts','Qualia Magnesium'],
-  vascular:     ['Omega-3 + Black Cumin','Liquid 40,000 Volts','Kayseari Tocotrienols','Quicksilver Membrane Mend','VisionBody EMS Suit','STRONGER+']
+  mitochondria: ['ChromaShield-21 R-Cu (AM)','ChromaShield-21 R-Cu (PM)','Momentum (TMRW)','NAC 650mg (AM)','NAC 650mg (PM)','L Max (Climatic)','H₂ Water','DoD C60 Miracle Molecule','DeltaGold Tocotrienols','Ketone-IQ Shot'],
+  brain:        ['ARK Drops Lemon Ice','Nori Hemp Oil','Melatonin 2mg','Yerba Mate Extract',"Wiley's Peak Omega-3"],
+  cardio:       ['Omega-3 EPA/DHA','Nattokinase','Serrapeptase (FibroClear)',"Wiley's Peak Omega-3",'EMS Session (VisionBody)'],
+  immune:       ['L Max (Climatic)','Green Blend','Fermented Okinawan Turmeric','TQ-Advanced Oil 5%','High-Phenolic EVOO'],
+  gut:          ['Recovery Powder','Green Blend','Yerba Mate Extract','Melatonin 2mg'],
+  vascular:     ['Nattokinase','Serrapeptase (FibroClear)','Pumpkin Seed Oil','EMS Session (VisionBody)','Omega-3 EPA/DHA']
 };
+
 
 // ═══════════════════════════════════════════
 // GLOBAL NAV HELPERS
@@ -4942,7 +4610,7 @@ function applyCore15UI() {
   const lbl   = core15 ? 'Core' : 'Full Stack';
   const sub   = core15
     ? '15 core compounds · Circadian-timed · Habit-first'
-    : '24 items · 22 supps + 2 infra · Full controller coverage';
+    : '12 core + 13 extended · 85-Grid coverage · Circadian-timed';  // v3.0 Cycle 1
   const cntEl = document.getElementById('stack-stat-count');
   const lblEl = document.getElementById('stack-stat-lbl');
   const subEl = document.getElementById('stack-hero-sub');
@@ -6292,8 +5960,8 @@ renderGapRecs();
         <div class="ob-card-body">Mitochondria · Brain · Cardio · Immune · Gut · Vascular. These run your system. Vitalis tracks all six simultaneously.</div>
       </div>
       <div class="ob-card">
-        <div class="ob-card-title">🔬 Vitalis 24 Protocol</div>
-        <div class="ob-card-body">22 supplements + 2 infrastructure devices, circadian-timed across AM · Midday · PM. Every compound maps to the cells it covers. Nothing is arbitrary.</div>
+        <div class="ob-card-title">🔬 Cycle 1 Protocol</div>
+        <div class="ob-card-body">12 core + 13 extended compounds, circadian-timed across 3 windows: Window 0 (5am), Window 1 (7am pro-oxidant), Window 2 (3pm pre-EMS). Every compound maps to the cells it covers in your 85-Grid. Nothing is arbitrary.</div>
       </div>
     </div>
     <div class="ob-bottom">
@@ -6402,8 +6070,8 @@ renderGapRecs();
     <div class="ob-top">
       <div class="ob-progress" id="ob-progress4"></div>
       <div class="ob-eyebrow">Step 3 of 4 · Your Protocol</div>
-      <div class="ob-title">24 items.<br><span>One system.</span></div>
-      <div class="ob-body">22 supplements + 2 infrastructure devices, circadian-timed across 3 windows. Every compound maps to the cells it covers in your 85-Grid.</div>
+      <div class="ob-title">Cycle 1.<br><span>25 compounds.</span></div>
+      <div class="ob-body">Cycle 1 — 12 core + 13 extended, across 3 windows: Window 0 (5am), Window 1 (7am pro-oxidant), Window 2 (3pm pre-EMS). Every compound maps to the cells it covers in your 85-Grid.</div>
       <div style="display:flex;gap:8px;margin-bottom:16px">
         <div style="flex:1;background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.2);border-radius:10px;padding:12px;text-align:center">
           <div style="font-size:16px;font-weight:900;color:#f5a623">15</div>
@@ -6768,7 +6436,7 @@ const DECISION_REASON = {
   PRE_CYCLE:            'Cycle 1 has not started. Log daily readiness data during pre-cycle to establish baseline. No protocol decisions are made in pre-cycle.',
 };
 
-// 20 Daily stack items (Cycle 1 V2.5)
+// 25 Daily stack items (Cycle 1 v3.0)
 const DAILY_STACK = [
   { id:'momentum_am',   name:'Momentum AM',         time:'AM', locked:true },
   { id:'catmin_shilajit',name:'Catalyzed Min Complex',time:'AM', locked:true },
