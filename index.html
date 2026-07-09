@@ -1846,6 +1846,9 @@ body {
         </div>
       </div>
 
+      <!-- Cycle 1 Status Card -->
+      <div id="home-cycle-card" class="fu fu1" style="margin-bottom:12px"></div>
+
       <!-- Gap Recommendations -->
       <div id="gap-rec-wrap" class="gap-rec-wrap fu fu2"></div>
 
@@ -6437,28 +6440,78 @@ const DECISION_REASON = {
 };
 
 // 25 Daily stack items (Cycle 1 v3.0)
+// ── CYCLE 1 v2 DAILY STACK (21 items + oils + EMS) — LOCKED Jul 2026 ────────
 const DAILY_STACK = [
-  { id:'momentum_am',   name:'Momentum AM',         time:'AM', locked:true },
-  { id:'catmin_shilajit',name:'Catalyzed Min Complex',time:'AM', locked:true },
-  { id:'nadh',          name:'NADH (10 drops)',      time:'AM', locked:true },
-  { id:'d3k2',          name:'D3 + K2',              time:'AM', locked:false },
-  { id:'omega3_bc',     name:'Omega-3 + Black Cumin',time:'AM', locked:false },
-  { id:'berberine',     name:'Berberine 500mg',      time:'AM', locked:false },
-  { id:'bergamot',      name:'Bergamot',             time:'AM', locked:false },
-  { id:'lcitrulline',   name:'L-Citrulline',         time:'AM', locked:false },
-  { id:'silica',        name:'Orgono Silica',         time:'AM', locked:false },
-  { id:'synbiotics',    name:'Synbiotics (3-part)',   time:'AM', locked:false },
-  { id:'qualia_mag',    name:'Qualia Magnesium',      time:'PM', locked:false },
-  { id:'tmrw',          name:'TMRW (daily)',          time:'PM', locked:true },
-  { id:'nac',           name:'NAC',                   time:'PM', locked:false },
-  { id:'tocotrienols',  name:'Tocotrienols 1000mg',  time:'PM', locked:false },
-  { id:'coq10',         name:'CoQ10',                 time:'PM', locked:false },
-  { id:'creatine',      name:'Creatine',              time:'PM', locked:false },
-  { id:'liv_silica',    name:'Living Silica (topical)',time:'PM', locked:false },
-  { id:'liq_minerals',  name:'Liquid 40k Volts',      time:'PM', locked:false },
-  { id:'spermidine_wk', name:'Spermidine (Sat/Sun)',  time:'ROTATIONAL', locked:false },
-  { id:'ultra_vit',     name:'Ultra Vitamin (rot.)',  time:'ROTATIONAL', locked:false },
+  // WINDOW 0 · 5:00–6:45 AM — FASTED CLEARANCE
+  { id:'serrapeptase',   name:'Serrapeptase 260k SPU',   time:'W0',  window:'Window 0 · Fasted Clearance (5–6:45am)', locked:true },
+  { id:'nattokinase',    name:'Nattokinase 10,000 FU',   time:'W0',  window:'Window 0 · Fasted Clearance (5–6:45am)', locked:true },
+  // WINDOW 1 · 6:45–8:15 AM — PRO-OXIDANT
+  { id:'chromashield_am',name:'ChromaShield-21 R-Cu · Dose 1', time:'W1', window:'Window 1 · Pro-Oxidant (6:45–8:15am)', locked:true },
+  { id:'resveratrol_am', name:'Resveratrol 56mg · Dose 1',     time:'W1', window:'Window 1 · Pro-Oxidant (6:45–8:15am)', locked:true },
+  // POST-WINDOW 1 · 8:20 AM
+  { id:'nac_am',         name:'NAC 650mg · AM',           time:'PW1', window:'Post-Window 1 (8:20am)', locked:true },
+  { id:'ark_drops',      name:'ARK Drops 0.25ml · sublingual', time:'PW1', window:'Post-Window 1 (8:20am)', locked:false },
+  // AM EXTENDED · 8:30 AM — WITH BREAKFAST
+  { id:'broq',           name:'BROQ Sulforaphane 2 caps', time:'AM',  window:'AM Extended · With Breakfast (8:30am)', locked:true },
+  { id:'momentum',       name:'Momentum (TMRW) 1 scoop',  time:'AM',  window:'AM Extended · With Breakfast (8:30am)', locked:false },
+  { id:'hydration_drink',name:'Vitalis Hydration Drink 2.5L', time:'AM', window:'AM Extended · Sip All Day', locked:true },
+  { id:'synbiotics',     name:'Synbiotics 200B 2 caps',   time:'AM',  window:'AM Extended · With Breakfast (8:30am)', locked:true },
+  { id:'ergothioneine',  name:'L-Ergothioneine MitoPrime 30mg', time:'AM', window:'AM Extended · With Breakfast (8:30am)', locked:true },
+  { id:'lemon_balm',     name:'Life Extension Lemon Balm', time:'AM', window:'AM Extended · With Breakfast (8:30am)', locked:false },
+  { id:'curcumin_cay',   name:'Curcumin-Cayenne 750mg',   time:'AM',  window:'AM Extended · With Breakfast (8:30am)', locked:true },
+  // PRE-EMS · 12:00–1:00 PM
+  { id:'zhi_zi',         name:'Zhi Zi Gardenoside 1g',    time:'PE',  window:'Pre-EMS (12:00–1:00pm)', locked:false },
+  { id:'goorello_cocoa', name:'Goorello Cocoa Flavanols 8g', time:'PE', window:'Pre-EMS (12:00–1:00pm)', locked:true },
+  { id:'glp_core',       name:'GLP-Core 2000 4 caps · 30min pre-meal', time:'PE', window:'Pre-EMS (12:00–1:00pm) · 30min BEFORE meal', locked:true },
+  // WINDOW 2 · 3:00–5:00 PM — PRO-OXIDANT
+  { id:'chromashield_pm',name:'ChromaShield-21 R-Cu · Dose 2', time:'W2', window:'Window 2 · Pro-Oxidant (3–5pm)', locked:true },
+  { id:'resveratrol_pm', name:'Resveratrol 56mg · Dose 2',     time:'W2', window:'Window 2 · Pro-Oxidant (3–5pm)', locked:true },
+  // NIGHTLY · 7:30 PM+
+  { id:'nac_pm',         name:'NAC 650mg · PM',           time:'PM',  window:'Nightly (7:30pm+)', locked:true },
+  { id:'sleep_builder',  name:'Sleep Builder (Mag/Glut/Theanine/Inositol/Glycine)', time:'PM', window:'Nightly (7:30pm+)', locked:true },
+  { id:'apigenin',       name:'Apigenin 50mg',             time:'PM',  window:'Nightly (7:30pm+)', locked:true },
+  { id:'melatonin',      name:'Melatonin 2mg',             time:'PM',  window:'Nightly (7:30pm+)', locked:true },
+  // OIL PROTOCOL · Nightly (ALWAYS IN ORDER)
+  { id:'oil_tocotrienol',name:'DeltaGold Tocotrienols ~8ml', time:'OIL', window:'Oil Protocol · Nightly (exact order)', locked:true },
+  { id:'oil_tq',         name:'TQ Oil 5% · 2ml',          time:'OIL',  window:'Oil Protocol · Nightly (exact order)', locked:true },
+  { id:'oil_hemp',       name:'Nori Hemp Oil · 0.75ml',   time:'OIL',  window:'Oil Protocol · Nightly (exact order)', locked:true },
+  { id:'oil_pumpkin',    name:'Pumpkin Seed Oil · 5ml',   time:'OIL',  window:'Oil Protocol · Nightly (exact order)', locked:true },
+  { id:'oil_evoo',       name:'Extra Virgin Olive Oil · 5ml', time:'OIL', window:'Oil Protocol · Nightly (exact order)', locked:true },
+  { id:'oil_c60',        name:'DoD C60 · 5ml · fresh',    time:'OIL',  window:'Oil Protocol · Nightly (exact order)', locked:true },
+  { id:'oil_omega3',     name:'Wiley Peak Omega-3 · 5ml · LAST', time:'OIL', window:'Oil Protocol · Nightly — ALWAYS LAST', locked:true },
+  // EMS · 3×/week
+  { id:'ems_session',    name:'EMS Session 20 min · 3×/wk', time:'EMS', window:'Window 2 · EMS Days Only (3–5pm)', locked:false },
 ];
+
+// ── SENOLYTIC PULSE DAY PAIRS (Days 3–4, 17–18, 33–34, 47–48, 63–64, 77–78) ──
+const PULSE_DAY_PAIRS = [[3,4],[17,18],[33,34],[47,48],[63,64],[77,78]];
+const PULSE_PAUSE_ITEMS = ['serrapeptase','nattokinase','chromashield_am','chromashield_pm','resveratrol_am','resveratrol_pm','goorello_cocoa','oil_c60','apigenin'];
+const PULSE_PAUSE_LABELS = ['Fibrinolytics (Serrapeptase + Nattokinase)','R-Cu / Resveratrol (both doses)','Goorello Cocoa / Rutin','Extra Apigenin','C60'];
+
+// ── CHECKPOINT DAYS ──────────────────────────────────────────────────────────
+const CHECKPOINTS = [
+  { day:42, label:'Day 42 Safety Draw', detail:'Liver enzymes (ALT/AST/GGT), platelet count, ANA titer, antiphospholipid panel. No senolytic ±3 days.', color:'#ff9f43' },
+  { day:84, label:'Day 84–90 End-Cycle Draw', detail:'Full panel: same markers as Day 0 baseline. NAD+ whole blood, Omega-3 Index, TruAge Complete, VO₂max estimate.', color:'#00e5cc' },
+];
+
+// ── HELPERS: pulse + checkpoint ──────────────────────────────────────────────
+function dlIsPulseDay(cycleDay) {
+  if (!cycleDay) return false;
+  return PULSE_DAY_PAIRS.some(([a,b]) => cycleDay === a || cycleDay === b);
+}
+function dlGetPulsePair(cycleDay) {
+  if (!cycleDay) return null;
+  return PULSE_DAY_PAIRS.find(([a,b]) => cycleDay === a || cycleDay === b) || null;
+}
+function dlNextCheckpoint(cycleDay) {
+  if (!cycleDay) return null;
+  return CHECKPOINTS.find(c => c.day >= cycleDay) || null;
+}
+function dlNextPulse(cycleDay) {
+  if (!cycleDay) return null;
+  for (const [a] of PULSE_DAY_PAIRS) { if (a > cycleDay) return a; }
+  return null;
+}
 
 const CONFOUNDER_FLAGS = [
   { id:'poor_sleep',   label:'Poor Sleep' },
@@ -6482,6 +6535,11 @@ let dlDraft = {
   compliance: {},      // { item_id: 'taken'|'partial'|'missed' }
   confounders:[],      // array of flag ids
   notes:      '',
+  // — User 002 (Dita) fields —
+  bp_sys:     null,    // mmHg systolic
+  bp_dia:     null,    // mmHg diastolic
+  weight:     null,    // lbs (weekly optional)
+  user_mode:  'james', // 'james' | 'dita'
 };
 
 window.dlViewMode = window.dlViewMode || 'input'; // 'input' | 'output' | 'history'
@@ -6770,10 +6828,17 @@ function renderDailyLog() {
   // ── INPUT FORM ──
   let h = '';
 
+  // User mode toggle (James / Dita)
+  const userMode = dlDraft.user_mode || 'james';
+  h += `<div style="display:flex;gap:6px;margin-bottom:12px">
+    <button onclick="dlSetUserMode('james')" style="flex:1;padding:8px;border-radius:8px;font-size:11px;font-weight:800;font-family:Inter,sans-serif;cursor:pointer;letter-spacing:0.05em;border:1px solid ${userMode==='james'?'rgba(0,229,204,0.5)':'var(--line)'};background:${userMode==='james'?'rgba(0,229,204,0.1)':'rgba(255,255,255,0.04)'};color:${userMode==='james'?'#00e5cc':'var(--t2)'}">◎ JAMES</button>
+    <button onclick="dlSetUserMode('dita')" style="flex:1;padding:8px;border-radius:8px;font-size:11px;font-weight:800;font-family:Inter,sans-serif;cursor:pointer;letter-spacing:0.05em;border:1px solid ${userMode==='dita'?'rgba(255,159,67,0.5)':'var(--line)'};background:${userMode==='dita'?'rgba(255,159,67,0.1)':'rgba(255,255,255,0.04)'};color:${userMode==='dita'?'#ff9f43':'var(--t2)'}">◎ DITA (User 002)</button>
+  </div>`;
+
   // Header
   h += `<div class="log-header">
     <div class="log-title">Daily Log</div>
-    <div class="log-sub">V3.2 Input Layer · ${formatDate(todayISO())}</div>`;
+    <div class="log-sub">V3.3 Cycle 1 · ${formatDate(todayISO())}</div>`;
 
   if (cycleDay === null) {
     h += `<div style="margin-top:10px">
@@ -6784,17 +6849,55 @@ function renderDailyLog() {
           When you're ready to begin, tap <strong style="color:#f5a623">Start Cycle</strong> below.
         </div>
       </div>`;
-    h += `<button onclick="dlStartCycle()" style="background:rgba(245,166,35,0.12);border:1px solid rgba(245,166,35,0.4);border-radius:8px;padding:9px 16px;color:#f5a623;font-size:11px;font-weight:800;font-family:Inter,sans-serif;cursor:pointer;letter-spacing:0.05em;width:100%">START CYCLE 1 — SET TODAY AS DAY 0</button>
+    h += `<button onclick="dlStartCycle()" style="background:rgba(245,166,35,0.12);border:1px solid rgba(245,166,35,0.4);border-radius:8px;padding:9px 16px;color:#f5a623;font-size:11px;font-weight:800;font-family:Inter,sans-serif;cursor:pointer;letter-spacing:0.05em;width:100%">START CYCLE 1 — SET TODAY AS DAY 1</button>
     </div>`;
   } else {
+    // Cycle day counter
     h += `<div style="margin-top:8px">
       <div class="log-day-counter">
         <span class="log-day-num">Day ${cycleDay}</span>
         <span class="log-day-lbl">of 90</span>
       </div>
     </div>`;
+    // Checkpoint countdown
+    const nextCp = dlNextCheckpoint(cycleDay);
+    if (nextCp) {
+      const daysAway = nextCp.day - cycleDay;
+      const urgentStyle = daysAway <= 7 ? `border-color:${nextCp.color};background:rgba(255,159,67,0.08)` : 'border-color:var(--line);background:rgba(255,255,255,0.03)';
+      h += `<div style="margin-top:8px;padding:10px 12px;border-radius:10px;border:1px solid;${urgentStyle}">
+        <div style="font-size:10px;font-weight:800;color:${nextCp.color};letter-spacing:0.06em">⏳ CHECKPOINT — ${daysAway === 0 ? 'TODAY' : daysAway + ' DAYS AWAY'}</div>
+        <div style="font-size:11px;font-weight:700;color:var(--t1);margin-top:3px">${nextCp.label}</div>
+        <div style="font-size:10px;color:var(--t2);margin-top:2px">${nextCp.detail}</div>
+      </div>`;
+    }
+    // Next pulse countdown
+    const nextPulse = dlNextPulse(cycleDay);
+    if (nextPulse && !dlIsPulseDay(cycleDay)) {
+      const pulseDays = nextPulse - cycleDay;
+      if (pulseDays <= 5) {
+        h += `<div style="margin-top:6px;padding:8px 12px;border-radius:10px;border:1px solid rgba(181,123,238,0.35);background:rgba(181,123,238,0.06)">
+          <div style="font-size:10px;font-weight:800;color:#b57bee;letter-spacing:0.06em">◦ SENOLYTIC PULSE — ${pulseDays === 1 ? 'TOMORROW' : 'IN ' + pulseDays + ' DAYS'}</div>
+          <div style="font-size:10px;color:var(--t2);margin-top:2px">Day ${nextPulse}–${nextPulse+1} · Toniiq Senolytic+ 10 caps × 2 days. Reduce GLP-Core to 2 caps.</div>
+        </div>`;
+      }
+    }
   }
   h += `</div>`;
+
+  // PULSE DAY ALERT
+  if (dlIsPulseDay(cycleDay)) {
+    const pair = dlGetPulsePair(cycleDay);
+    const dayInPair = cycleDay === pair[0] ? 1 : 2;
+    h += `<div style="margin-bottom:12px;padding:12px 14px;border-radius:12px;border:1px solid rgba(181,123,238,0.5);background:rgba(181,123,238,0.1)">
+      <div style="font-size:11px;font-weight:900;color:#b57bee;letter-spacing:0.07em;margin-bottom:6px">🟣 SENOLYTIC PULSE DAY ${dayInPair} OF 2</div>
+      <div style="font-size:11px;font-weight:700;color:var(--t1);margin-bottom:4px">Toniiq Senolytic+ · 10 caps today</div>
+      <div style="font-size:10px;font-weight:800;color:#ff4757;margin-bottom:3px">⏐ PAUSE TODAY:</div>
+      <ul style="margin:0;padding-left:16px;font-size:10px;color:var(--t2);line-height:1.6">`;
+    PULSE_PAUSE_LABELS.forEach(l => { h += `<li>${l}</li>`; });
+    h += `</ul>
+      <div style="font-size:10px;color:#ff9f43;margin-top:5px">GLP-Core → 2 caps only (Quercetin overlap). Avoid ±3 days of Day 42 liver draw.</div>
+    </div>`;
+  }
 
   // Subjective Scores
   h += `<div class="log-section">
@@ -6830,22 +6933,76 @@ function renderDailyLog() {
     </div>
   </div>`;
 
-  // Compliance checklist
-  h += `<div class="log-section">
-    <div class="log-section-label">Stack Compliance</div>
-    <div class="compliance-grid">`;
-
-  DAILY_STACK.forEach(item => {
-    const state = dlDraft.compliance[item.id] || 'missed';
-    const cls = state === 'taken' ? 'taken' : state === 'partial' ? 'partial' : '';
-    const checkmark = state === 'taken' ? '✓' : state === 'partial' ? '½' : '';
-    h += `<div class="comp-item ${cls}" onclick="dlCycleCompliance('${item.id}')">
-      <div class="comp-box">${checkmark}</div>
-      <span class="comp-name">${item.name}</span>
+  // DITA-SPECIFIC: BP + Weight fields
+  if (userMode === 'dita') {
+    h += `<div class="log-section">
+      <div class="log-section-label" style="color:#ff9f43">Dita · Cardiovascular (Critical)</div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+        <div style="flex:1">
+          <div style="font-size:9px;color:var(--t3);margin-bottom:4px;font-weight:700">SYSTOLIC (mmHg)</div>
+          <input type="number" min="80" max="250" placeholder="SYS"
+            value="${dlDraft.bp_sys || ''}"
+            oninput="dlDraft.bp_sys=+this.value||null;dlSaveDraft()"
+            id="log-bp-sys"
+            style="width:100%;background:rgba(255,159,67,0.06);border:1px solid rgba(255,159,67,0.35);border-radius:8px;padding:10px;color:var(--t1);font-size:16px;font-weight:700;font-family:Inter,sans-serif;outline:none;text-align:center" />
+        </div>
+        <div style="color:var(--t3);font-size:18px;font-weight:300;padding-top:14px">/</div>
+        <div style="flex:1">
+          <div style="font-size:9px;color:var(--t3);margin-bottom:4px;font-weight:700">DIASTOLIC (mmHg)</div>
+          <input type="number" min="40" max="150" placeholder="DIA"
+            value="${dlDraft.bp_dia || ''}"
+            oninput="dlDraft.bp_dia=+this.value||null;dlSaveDraft()"
+            id="log-bp-dia"
+            style="width:100%;background:rgba(255,159,67,0.06);border:1px solid rgba(255,159,67,0.35);border-radius:8px;padding:10px;color:var(--t1);font-size:16px;font-weight:700;font-family:Inter,sans-serif;outline:none;text-align:center" />
+        </div>
+      </div>
+      ${(dlDraft.bp_sys && dlDraft.bp_dia) ? `<div style="font-size:10px;padding:6px 10px;border-radius:6px;background:${dlDraft.bp_sys >= 140 || dlDraft.bp_dia >= 90 ? 'rgba(255,71,87,0.1)' : dlDraft.bp_sys >= 130 || dlDraft.bp_dia >= 80 ? 'rgba(255,159,67,0.1)' : 'rgba(34,212,126,0.08)'};color:${dlDraft.bp_sys >= 140 || dlDraft.bp_dia >= 90 ? '#ff4757' : dlDraft.bp_sys >= 130 || dlDraft.bp_dia >= 80 ? '#ff9f43' : '#22d47e'};font-weight:700">${dlDraft.bp_sys}/${dlDraft.bp_dia} — ${dlDraft.bp_sys >= 140 || dlDraft.bp_dia >= 90 ? '⚠️ Stage 2 Hypertension' : dlDraft.bp_sys >= 130 || dlDraft.bp_dia >= 80 ? '⚠ Stage 1 Hypertension' : dlDraft.bp_sys >= 120 ? '△ Elevated' : '✓ Normal Range'}</div>` : ''}
+      <div style="margin-top:10px">
+        <div style="font-size:9px;color:var(--t3);margin-bottom:4px;font-weight:700">WEIGHT (lbs) — Weekly Optional</div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="number" min="100" max="400" placeholder="lbs"
+            value="${dlDraft.weight || ''}"
+            oninput="dlDraft.weight=+this.value||null;dlSaveDraft()"
+            id="log-weight"
+            style="width:100px;background:rgba(255,255,255,0.04);border:1px solid var(--line-md);border-radius:8px;padding:10px;color:var(--t1);font-size:16px;font-weight:700;font-family:Inter,sans-serif;outline:none;text-align:center" />
+          <span style="font-size:10px;color:var(--t2)">Baseline: 215 lbs · Target: ≤195–200 lbs</span>
+        </div>
+      </div>
     </div>`;
+  }
+
+  // Compliance checklist — window-grouped
+  h += `<div class="log-section">
+    <div class="log-section-label">Stack Compliance — ${DAILY_STACK.length} Items</div>`;
+
+  // Group by window
+  const windowGroups = {};
+  DAILY_STACK.forEach(item => {
+    const grp = item.window || item.time;
+    if (!windowGroups[grp]) windowGroups[grp] = [];
+    windowGroups[grp].push(item);
   });
-  h += `</div>
-    <div style="font-size:9px;color:var(--t3);margin-top:6px">Tap once = taken · twice = partial · three times = missed</div>
+
+  Object.entries(windowGroups).forEach(([grpLabel, items]) => {
+    // On pulse days, flag paused items
+    const isPulse = dlIsPulseDay(cycleDay);
+    h += `<div style="font-size:9px;font-weight:800;color:var(--t3);letter-spacing:0.06em;margin:8px 0 4px;text-transform:uppercase">${grpLabel}</div>`;
+    h += `<div class="compliance-grid">`;
+    items.forEach(item => {
+      const isPaused = isPulse && PULSE_PAUSE_ITEMS.includes(item.id);
+      const state = dlDraft.compliance[item.id] || 'missed';
+      const cls = isPaused ? 'paused' : (state === 'taken' ? 'taken' : state === 'partial' ? 'partial' : '');
+      const checkmark = isPaused ? '⏐' : (state === 'taken' ? '✓' : state === 'partial' ? '½' : '');
+      const titleAttr = isPaused ? 'title="PAUSED on pulse day"' : '';
+      h += `<div class="comp-item ${cls}" onclick="${isPaused ? '' : `dlCycleCompliance('${item.id}')`}" ${titleAttr} style="${isPaused ? 'opacity:0.4;cursor:not-allowed;border-color:rgba(181,123,238,0.3)' : ''}">
+        <div class="comp-box">${checkmark}</div>
+        <span class="comp-name">${item.name}${isPaused ? ' ✗' : ''}</span>
+      </div>`;
+    });
+    h += `</div>`;
+  });
+
+  h += `<div style="font-size:9px;color:var(--t3);margin-top:6px">Tap once = taken · twice = partial · three times = missed</div>
   </div>`;
 
   // Confounder flags
@@ -7033,6 +7190,12 @@ function dlSetHRV(val) {
   dlSaveDraft();
 }
 
+function dlSetUserMode(mode) {
+  dlDraft.user_mode = mode;
+  dlSaveDraft();
+  renderDailyLog();
+}
+
 function dlCycleCompliance(itemId) {
   const current = dlDraft.compliance[itemId] || 'missed';
   const next = current === 'missed' ? 'taken' : current === 'taken' ? 'partial' : 'missed';
@@ -7052,18 +7215,24 @@ function dlToggleConfounder(id) {
 }
 
 function dlStartCycle() {
-  if (!confirm('Set today (' + todayISO() + ') as Cycle 1 Day 0?\n\nThis locks your baseline start date. Your first scored day will be Day 1 tomorrow.')) return;
-  // Day 0 = today; Day 1 = tomorrow
-  const d = new Date();
-  d.setDate(d.getDate() + 1);
-  const day1 = d.toISOString().slice(0,10);
-  dlSetCycleStart(day1);
+  if (!confirm('Set today (' + todayISO() + ') as Cycle 1 Day 1?\n\nThis locks your cycle start date. Day 1 begins today.')) return;
+  // Day 1 = today
+  dlSetCycleStart(todayISO());
   renderDailyLog();
+  // Also update home screen cycle card
+  dlUpdateHomeCycleCard();
 }
 
 function dlSubmitLog() {
   const notes = document.getElementById('log-notes')?.value || dlDraft.notes || '';
   dlDraft.notes = notes;
+  // Capture BP inputs if present
+  const bpSysEl = document.getElementById('log-bp-sys');
+  const bpDiaEl = document.getElementById('log-bp-dia');
+  const weightEl = document.getElementById('log-weight');
+  if (bpSysEl && bpSysEl.value) dlDraft.bp_sys = +bpSysEl.value || null;
+  if (bpDiaEl && bpDiaEl.value) dlDraft.bp_dia = +bpDiaEl.value || null;
+  if (weightEl && weightEl.value) dlDraft.weight = +weightEl.value || null;
   const entry = { ...dlDraft, date: todayISO(), savedAt: new Date().toISOString() };
   dlSaveLog(entry);
   localStorage.removeItem(DL_DRAFT_KEY);
@@ -7101,6 +7270,50 @@ document.querySelectorAll('.nav-btn[data-p="log"]').forEach(btn => {
   const cycleDay = dlCycleDay();
   updateLogBadge((!todayLogged && cycleDay !== null) ? 1 : 0);
 })();
+
+// ── HOME SCREEN — CYCLE 1 STATUS CARD ────────────────────────────────────────
+function dlUpdateHomeCycleCard() {
+  const el = document.getElementById('home-cycle-card');
+  if (!el) return;
+  const cycleDay = dlCycleDay();
+  let h = '';
+  if (cycleDay === null) {
+    h = `<div style="padding:12px 16px;border-radius:14px;border:1px solid rgba(245,166,35,0.3);background:rgba(245,166,35,0.06);cursor:pointer" onclick="activatePage('log');window.dlViewMode='input';renderDailyLog()">
+      <div style="font-size:9px;font-weight:800;color:#f5a623;letter-spacing:0.08em">⚡ CYCLE 1 — PRE-CYCLE MODE</div>
+      <div style="font-size:11px;color:var(--t2);margin-top:3px">Tap to start Cycle 1 · Day 1 begins when you confirm</div>
+    </div>`;
+  } else {
+    const isPulse = dlIsPulseDay(cycleDay);
+    const nextCp = dlNextCheckpoint(cycleDay);
+    const pct = Math.min(100, Math.round((cycleDay / 90) * 100));
+    const nextPulse = dlNextPulse(cycleDay);
+    const barColor = isPulse ? '#b57bee' : '#00e5cc';
+    h = `<div style="padding:12px 16px;border-radius:14px;border:1px solid ${isPulse ? 'rgba(181,123,238,0.4)' : 'rgba(0,229,204,0.2)'};background:${isPulse ? 'rgba(181,123,238,0.06)' : 'rgba(0,229,204,0.04)'};cursor:pointer" onclick="activatePage('log');window.dlViewMode='input';renderDailyLog()">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div>
+          <div style="font-size:9px;font-weight:800;color:${barColor};letter-spacing:0.08em">${isPulse ? '🟣 SENOLYTIC PULSE DAY' : '─ CYCLE 1 ACTIVE'}</div>
+          <div style="font-size:22px;font-weight:900;color:var(--t1);line-height:1">Day ${cycleDay} <span style="font-size:12px;font-weight:400;color:var(--t2)">/ 90</span></div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:9px;color:var(--t3)">Progress</div>
+          <div style="font-size:18px;font-weight:800;color:${barColor}">${pct}%</div>
+        </div>
+      </div>
+      <div style="height:4px;border-radius:2px;background:rgba(255,255,255,0.08);overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:${barColor};border-radius:2px;transition:width 0.4s ease"></div>
+      </div>
+      ${nextCp ? `<div style="margin-top:6px;font-size:10px;color:var(--t2)">⏳ ${nextCp.label} — ${nextCp.day - cycleDay === 0 ? 'TODAY' : 'in ' + (nextCp.day - cycleDay) + ' days'}</div>` : ''}
+      ${isPulse ? `<div style="margin-top:4px;font-size:10px;color:#ff4757;font-weight:700">PAUSED: Fibrinolytics · R-Cu/Resv · Cocoa · C60 · Apigenin</div>` : (nextPulse && (nextPulse - cycleDay) <= 3 ? `<div style="margin-top:4px;font-size:10px;color:#b57bee">Pulse opens Day ${nextPulse} (in ${nextPulse - cycleDay} days)</div>` : '')}
+    </div>`;
+  }
+  el.innerHTML = h;
+}
+
+// Initialize home cycle card on load + on page-home activation
+dlUpdateHomeCycleCard();
+document.querySelectorAll('.nav-btn[data-p="home"]').forEach(btn => {
+  btn.addEventListener('click', () => setTimeout(dlUpdateHomeCycleCard, 50));
+});
 
 </script>
 
